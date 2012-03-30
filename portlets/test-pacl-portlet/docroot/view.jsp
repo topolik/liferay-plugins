@@ -62,9 +62,66 @@
 
 </p>
 
+
 <p>
-	<h3>Execute</h3>
+<h3>Execute</h3>
 </p>
+
+<p>
+
+    <%
+		if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0){
+
+			new FileSecurityExceptionTest(out, themeDisplay, false) {
+
+				protected void test() throws Exception {
+					testExecute("/cygdrive/c/WINDOWS/system32/notepad.exe");
+				}
+
+			};
+			new FileSecurityExceptionTest(out, themeDisplay, true) {
+
+				protected void test() throws Exception {
+					testExecute("notepad.exe");
+				}
+
+			};
+			new FileSecurityExceptionTest(out, themeDisplay, true) {
+
+				protected void test() throws Exception {
+					testExecute("/cygdrive/c/WINDOWS/system32/calc.exe");
+				}
+
+			};
+
+		} else {
+			new FileSecurityExceptionTest(out, themeDisplay, false) {
+
+				protected void test() throws Exception {
+					testExecute("/bin/bash");
+				}
+
+			};
+			new FileSecurityExceptionTest(out, themeDisplay, true) {
+
+				protected void test() throws Exception {
+					testExecute("bash");
+				}
+
+			};
+
+			new FileSecurityExceptionTest(out, themeDisplay, true) {
+
+				protected void test() throws Exception {
+					testExecute("/bin/cat");
+				}
+
+			};
+		}
+	%>
+
+</p>
+
 
 <p>
 	<h3>Read</h3>
@@ -895,6 +952,10 @@ private class FileSecurityExceptionTest extends SecurityExceptionTest {
 		byte[] bytes = FileUtil.getBytes(file);
 
 		FileUtil.write(file, bytes);
+	}
+
+	protected void testExecute(String cmd) throws Exception {
+		Runtime.getRuntime().exec(cmd);
 	}
 
 }
