@@ -60,6 +60,71 @@
     <h3>JDBC</h3>
 </p>
 <p>
+    <% long start = System.currentTimeMillis();
+        for (int i = 0; i < 10000; i++) {
+            try {
+                InitialContext ctx = new InitialContext();
+                javax.sql.DataSource ds = (javax.sql.DataSource) ctx.lookup("java_liferay:jdbc/LiferayPool");
+                java.sql.Connection conn = ds.getConnection();
+                try {
+                    conn.nativeSQL("SELECT * FROM Company, Group_ g INNER JOIN Layout l ON l.groupId = g.groupId LEFT JOIN LayoutSet ls ON ls.groupId = g.groupId");
+                } finally {
+                    conn.close();
+                }
+            } catch(Throwable e){}
+        }
+    %>
+    TIME SELECT: <%= System.currentTimeMillis() - start %><br />
+
+    <% start = System.currentTimeMillis();
+        for (int i = 0; i < 10000; i++) {
+            try {
+                InitialContext ctx = new InitialContext();
+                javax.sql.DataSource ds = (javax.sql.DataSource) ctx.lookup("java_liferay:jdbc/LiferayPool");
+                java.sql.Connection conn = ds.getConnection();
+                try {
+                    conn.nativeSQL("INSERT INTO Company (companyId) VALUES (12345)");
+                } finally {
+                    conn.close();
+                }
+            } catch(Throwable e){}
+        }
+    %>
+    TIME INSERT: <%= System.currentTimeMillis() - start %><br />
+
+    <% start = System.currentTimeMillis();
+        for (int i = 0; i < 10000; i++) {
+            try {
+                InitialContext ctx = new InitialContext();
+                javax.sql.DataSource ds = (javax.sql.DataSource) ctx.lookup("java_liferay:jdbc/LiferayPool");
+                java.sql.Connection conn = ds.getConnection();
+                try {
+                    conn.nativeSQL("UPDATE Company SET companyId = companyId");
+                } finally {
+                    conn.close();
+                }
+            } catch(Throwable e){}
+        }
+    %>
+    TIME UPDATE: <%= System.currentTimeMillis() - start %><br />
+
+    <% start = System.currentTimeMillis();
+        for (int i = 0; i < 10000; i++) {
+            try {
+                InitialContext ctx = new InitialContext();
+                javax.sql.DataSource ds = (javax.sql.DataSource) ctx.lookup("java_liferay:jdbc/LiferayPool");
+                java.sql.Connection conn = ds.getConnection();
+                try {
+                    conn.nativeSQL("DELETE FROM Company WHERE companyId=12345");
+                } finally {
+                    conn.close();
+                }
+            } catch(Throwable e){}
+        }
+    %>
+    TIME DELETE: <%= System.currentTimeMillis() - start %><br />
+
+
     FooLocalServiceUtil.getFoosCount()=
 
         <%
@@ -72,67 +137,92 @@
 		};
 		%>
 
-    Native SQL: SELECT * FROM Company=
+    Native SQL: SELECT =
     <%
         new SecurityExceptionTest(out, themeDisplay, false) {
 
             protected void test() throws Exception {
                 InitialContext ctx = new InitialContext();
                 javax.sql.DataSource ds = (javax.sql.DataSource) ctx.lookup("java_liferay:jdbc/LiferayPool");
-                ds.getConnection().nativeSQL("SELECT * FROM Company");
+                java.sql.Connection conn = ds.getConnection();
+                try {
+                    conn.nativeSQL("SELECT * FROM Company, Group_ g INNER JOIN Layout l ON l.groupId = g.groupId LEFT JOIN LayoutSet ls ON ls.groupId = g.groupId");
+                } finally {
+                    conn.close();
+                }
             }
 
         };
     %>
 
-    Native SQL: INSERT INTO Company (companyId) VALUES (12345) =
+    Native SQL: INSERT =
     <%
         new SecurityExceptionTest(out, themeDisplay, false) {
 
             protected void test() throws Exception {
                 InitialContext ctx = new InitialContext();
                 javax.sql.DataSource ds = (javax.sql.DataSource) ctx.lookup("java_liferay:jdbc/LiferayPool");
-                System.out.println(ds.getConnection().nativeSQL("INSERT INTO Company (companyId) VALUES (12345)"));
+                java.sql.Connection conn = ds.getConnection();
+                try {
+                    conn.nativeSQL("INSERT INTO Company (companyId) VALUES (12345)");
+                } finally {
+                    conn.close();
+                }
             }
 
         };
     %>
 
-    Native SQL: UPDATE Company SET companyId = companyId =
+    Native SQL: UPDATE =
     <%
         new SecurityExceptionTest(out, themeDisplay, true) {
 
             protected void test() throws Exception {
                 InitialContext ctx = new InitialContext();
                 javax.sql.DataSource ds = (javax.sql.DataSource) ctx.lookup("java_liferay:jdbc/LiferayPool");
-                System.out.println(ds.getConnection().nativeSQL("UPDATE Company SET companyId = companyId"));
+                java.sql.Connection conn = ds.getConnection();
+                try {
+                    conn.nativeSQL("UPDATE Company SET companyId = companyId");
+                } finally {
+                    conn.close();
+                }
             }
 
         };
     %>
 
-    Native SQL: DELETE FROM Company WHERE companyId=12345 =
+    Native SQL: DELETE  =
     <%
         new SecurityExceptionTest(out, themeDisplay, false) {
 
             protected void test() throws Exception {
                 InitialContext ctx = new InitialContext();
                 javax.sql.DataSource ds = (javax.sql.DataSource) ctx.lookup("java_liferay:jdbc/LiferayPool");
-                System.out.println(ds.getConnection().nativeSQL("DELETE FROM Company WHERE companyId=12345"));
+                java.sql.Connection conn = ds.getConnection();
+                try {
+                    conn.nativeSQL("DELETE FROM Company WHERE companyId=12345");
+                } finally {
+                    conn.close();
+                }
             }
 
         };
     %>
 
 
-    Native SQL: SELECT User_.userId AS userId, User_.screenName AS screenName, User_.firstName AS firstName, User_.middleName AS middleName, User_.lastName AS lastName, User_.portraitId AS portraitId, Chat_Status.awake AS awake FROM Chat_Status INNER JOIN User_ ON (User_.userId = Chat_Status.userId) WHERE (User_.companyId = ?) AND (User_.userId != ?) AND (Chat_Status.modifiedDate > ?) AND (Chat_Status.online_ = true) ORDER BY Chat_Status.awake ASC, User_.firstName ASC, User_.middleName ASC, User_.lastName ASC limit ?
+    Native SQL: complex SELECT =
     <%
         new SecurityExceptionTest(out, themeDisplay, true) {
 
             protected void test() throws Exception {
                 InitialContext ctx = new InitialContext();
                 javax.sql.DataSource ds = (javax.sql.DataSource) ctx.lookup("java_liferay:jdbc/LiferayPool");
-                System.out.println(ds.getConnection().nativeSQL("SELECT User_.userId AS userId, User_.screenName AS screenName, User_.firstName AS firstName, User_.middleName AS middleName, User_.lastName AS lastName, User_.portraitId AS portraitId, Chat_Status.awake AS awake FROM Chat_Status INNER JOIN User_ ON (User_.userId = Chat_Status.userId) WHERE (User_.companyId = ?) AND (User_.userId != ?) AND (Chat_Status.modifiedDate > ?) AND (Chat_Status.online_ = true) ORDER BY Chat_Status.awake ASC, User_.firstName ASC, User_.middleName ASC, User_.lastName ASC limit ?"));
+                java.sql.Connection conn = ds.getConnection();
+                try {
+                    System.out.println(conn.nativeSQL("SELECT User_.userId AS userId, User_.screenName AS screenName, User_.firstName AS firstName, User_.middleName AS middleName, User_.lastName AS lastName, User_.portraitId AS portraitId, Chat_Status.awake AS awake FROM Chat_Status INNER JOIN User_ ON (User_.userId = Chat_Status.userId) WHERE (User_.companyId = ?) AND (User_.userId != ?) AND (Chat_Status.modifiedDate > ?) AND (Chat_Status.online_ = true) ORDER BY Chat_Status.awake ASC, User_.firstName ASC, User_.middleName ASC, User_.lastName ASC limit ?"));
+                } finally {
+                    conn.close();
+                }
             }
 
         };
@@ -288,7 +378,7 @@
 		new FileSecurityExceptionTest(out, themeDisplay, false) {
 
 			protected void test() throws Exception {
-				testExecute("/bin/bash");
+				testExecute("/bin/bash -c echo 1");
 			}
 
 		};
@@ -490,8 +580,20 @@
 </p>
 
 <p>
+
 	TestBlogsEntryLocalServiceImpl#getBlogsEntriesCount=<%= _assertTrue(BlogsEntryLocalServiceUtil.getBlogsEntriesCount() < 0) %><br />
-	TestBlogsStatsUserLocalServiceImpl#getBlogsStatsUsersCount=<%= _assertTrue(BlogsStatsUserLocalServiceUtil.getBlogsStatsUsersCount() >= 0) %>
+
+	TestBlogsStatsUserLocalServiceImpl#getBlogsStatsUsersCount=
+
+    <%
+        new SecurityExceptionTest(out, themeDisplay, true) {
+
+            protected void test() throws Exception {
+                System.out.println(BlogsStatsUserLocalServiceUtil.getBlogsStatsUsersCount());
+            }
+
+        };
+    %>
 </p>
 
 <liferay-ui:header
@@ -1264,24 +1366,30 @@ private class SecurityExceptionTest {
 
 			test();
 
-			if (expectSecurityException) {
+            if (expectSecurityException) {
 				writer.write("FAILED");
 			}
 			else {
 				writer.write("PASSED");
-			}
-		}
-		catch (SecurityException se) {
-			if (expectSecurityException) {
-				writer.write("PASSED");
-			}
-			else {
-				writer.write("FAILED");
 			}
 		}
 		catch (Exception e) {
-			writer.write("FAILED with " + e.getMessage());
-		}
+            Throwable cause = e;
+            while(cause.getCause() != null){
+                cause = cause.getCause();
+            }
+            if(cause instanceof SecurityException){
+                if (expectSecurityException) {
+                    writer.write("PASSED");
+                }
+                else {
+                    writer.write("FAILED");
+                }
+            } else {
+                writer.write("FAILED with " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
 
 		writer.write("<br />");
 	}
