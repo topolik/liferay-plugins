@@ -14,7 +14,10 @@
 
 package com.liferay.portal.oauth.service.impl;
 
+import java.util.List;
+
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.oauth.model.OAuthApplications_Users;
 import com.liferay.portal.oauth.model.impl.OAuthApplications_UsersImpl;
 import com.liferay.portal.oauth.service.base.OAuthApplications_UsersLocalServiceBaseImpl;
@@ -40,6 +43,43 @@ public class OAuthApplications_UsersLocalServiceImpl
 	 *
 	 * Never reference this interface directly. Always use {@link com.liferay.portal.oauth.service.OAuthApplications_UsersLocalServiceUtil} to access the o auth applications_ users local service.
 	 */
+	public int countByUser(long userId) throws SystemException {
+		return oAuthApplications_UsersPersistence.countByUserId(userId);
+	}
+	
+	public int countByOwner(long ownerId, boolean authorized)
+		throws SystemException {
+		return oAuthApplications_UsersFinder.countByO_A(ownerId, authorized);
+	}
+	
+	public List<OAuthApplications_Users> findByUser(long userId)
+		throws SystemException {
+		return oAuthApplications_UsersPersistence.findByUserId(userId);
+	}
+	
+	public List<OAuthApplications_Users> findByUser(
+			long userId, int start, int end)
+		throws SystemException {
+		return oAuthApplications_UsersPersistence
+				.findByUserId(userId, start,end);
+	}
+	
+	public List<OAuthApplications_Users> findByUser(
+			long userId, int start, int end,
+			OrderByComparator orderByComparator)
+		throws SystemException {
+		return oAuthApplications_UsersPersistence
+				.findByUserId(userId, start,end,orderByComparator);
+	}
+	
+	public List<OAuthApplications_Users> findByOwner(
+			long ownerId, boolean authorized, int start, int end,
+			OrderByComparator orderByComparator)
+		throws SystemException {
+		return oAuthApplications_UsersFinder
+				.findByO_A(
+						ownerId, authorized, start, end, orderByComparator);
+	}
 
 	public OAuthApplications_Users updateOAuthApplications_Users(
 			long oAuthApplicationId, long userId, boolean authorized)

@@ -3,7 +3,6 @@ package com.liferay.portal.oauth.service.persistence;
 import java.util.Iterator;
 import java.util.List;
 
-import com.liferay.portal.kernel.dao.orm.QueryDefinition;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
@@ -12,26 +11,24 @@ import com.liferay.portal.kernel.dao.orm.Type;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
-import com.liferay.portal.oauth.model.OAuthApplication;
 import com.liferay.portal.oauth.model.OAuthApplications_Users;
-import com.liferay.portal.oauth.model.impl.OAuthApplicationImpl;
 import com.liferay.portal.oauth.model.impl.OAuthApplications_UsersImpl;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.util.dao.orm.CustomSQLUtil;
 
 public class OAuthApplications_UsersFinderImpl
-	extends BasePersistenceImpl<OAuthApplications_Users>{
+	extends BasePersistenceImpl<OAuthApplications_Users> implements OAuthApplications_UsersFinder {
 	public static final String COUNT_ALL =
-			OAuthApplicationFinder.class.getName() + ".countAll";
+			OAuthApplications_UsersFinder.class.getName() + ".countAll";
 	
 	public static final String COUNT_BY_OWNER_AUTHORIZED =
-			OAuthApplicationFinder.class.getName() + ".countByO_A";
+			OAuthApplications_UsersFinder.class.getName() + ".countByO_A";
 	
 	public static final String FIND_ALL =
-			OAuthApplicationFinder.class.getName() + ".findAll";
+			OAuthApplications_UsersFinder.class.getName() + ".findAll";
 	
 	public static final String FIND_BY_OWNER_AUTHORIZED =
-			OAuthApplicationFinder.class.getName() + ".findByO_A";
+			OAuthApplications_UsersFinder.class.getName() + ".findByO_A";
 	
 	public int countAll()
 			throws SystemException {
