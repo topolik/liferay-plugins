@@ -277,6 +277,45 @@ public class OAuthApplications_UsersLocalServiceWrapper
 	*
 	* Never reference this interface directly. Always use {@link com.liferay.portal.oauth.service.OAuthApplications_UsersLocalServiceUtil} to access the o auth applications_ users local service.
 	*/
+	public int countByUser(long userId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _oAuthApplications_UsersLocalService.countByUser(userId);
+	}
+
+	public int countByOwner(long ownerId, boolean authorized)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _oAuthApplications_UsersLocalService.countByOwner(ownerId,
+			authorized);
+	}
+
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplications_Users> findByUser(
+		long userId) throws com.liferay.portal.kernel.exception.SystemException {
+		return _oAuthApplications_UsersLocalService.findByUser(userId);
+	}
+
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplications_Users> findByUser(
+		long userId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _oAuthApplications_UsersLocalService.findByUser(userId, start,
+			end);
+	}
+
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplications_Users> findByUser(
+		long userId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _oAuthApplications_UsersLocalService.findByUser(userId, start,
+			end, orderByComparator);
+	}
+
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplications_Users> findByOwner(
+		long ownerId, boolean authorized, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _oAuthApplications_UsersLocalService.findByOwner(ownerId,
+			authorized, start, end, orderByComparator);
+	}
+
 	public com.liferay.portal.oauth.model.OAuthApplications_Users updateOAuthApplications_Users(
 		long oAuthApplicationId, long userId, boolean authorized)
 		throws com.liferay.portal.kernel.exception.SystemException {

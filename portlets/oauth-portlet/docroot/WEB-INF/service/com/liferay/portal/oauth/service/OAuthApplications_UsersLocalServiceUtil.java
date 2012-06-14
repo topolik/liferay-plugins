@@ -281,6 +281,43 @@ public class OAuthApplications_UsersLocalServiceUtil {
 	*
 	* Never reference this interface directly. Always use {@link com.liferay.portal.oauth.service.OAuthApplications_UsersLocalServiceUtil} to access the o auth applications_ users local service.
 	*/
+	public static int countByUser(long userId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().countByUser(userId);
+	}
+
+	public static int countByOwner(long ownerId, boolean authorized)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().countByOwner(ownerId, authorized);
+	}
+
+	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplications_Users> findByUser(
+		long userId) throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().findByUser(userId);
+	}
+
+	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplications_Users> findByUser(
+		long userId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().findByUser(userId, start, end);
+	}
+
+	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplications_Users> findByUser(
+		long userId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().findByUser(userId, start, end, orderByComparator);
+	}
+
+	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplications_Users> findByOwner(
+		long ownerId, boolean authorized, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .findByOwner(ownerId, authorized, start, end,
+			orderByComparator);
+	}
+
 	public static com.liferay.portal.oauth.model.OAuthApplications_Users updateOAuthApplications_Users(
 		long oAuthApplicationId, long userId, boolean authorized)
 		throws com.liferay.portal.kernel.exception.SystemException {

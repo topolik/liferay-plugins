@@ -252,6 +252,29 @@ public interface OAuthApplications_UsersLocalService extends BaseLocalService,
 	*
 	* Never reference this interface directly. Always use {@link com.liferay.portal.oauth.service.OAuthApplications_UsersLocalServiceUtil} to access the o auth applications_ users local service.
 	*/
+	public int countByUser(long userId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public int countByOwner(long ownerId, boolean authorized)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplications_Users> findByUser(
+		long userId) throws com.liferay.portal.kernel.exception.SystemException;
+
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplications_Users> findByUser(
+		long userId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplications_Users> findByUser(
+		long userId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplications_Users> findByOwner(
+		long ownerId, boolean authorized, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	public com.liferay.portal.oauth.model.OAuthApplications_Users updateOAuthApplications_Users(
 		long oAuthApplicationId, long userId, boolean authorized)
 		throws com.liferay.portal.kernel.exception.SystemException;
