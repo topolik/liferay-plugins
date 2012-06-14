@@ -12,20 +12,31 @@
  * details.
  */
 
-package com.liferay.portal.oauth.util;
+package com.liferay.portal.oauth;
+
+import org.scribe.builder.api.DefaultApi10a;
 
 /**
  * @author Ivica Cardic
  */
-public class OAuthConstants {
-	public static final String AUTHORIZED = "authorized";
-	public static final String LOCATION = "Location";
-	public static final String NONE = "none";
-	public static final String OAUTH_CALLBACK = "oauth_callback";
-	public static final String OAUTH_TOKEN = "oauth_token";
-	public static final String OAUTH_TOKEN_SECRET = "oauth_token_secret";
-	public static final String OAUTH_VERIFIER = "oauth_verifier";
-	public static final String SUCCESS_AUTHORIZATION = "success_authorization";
-	public static final String USER = "user";
+public class LiferayApi extends DefaultApi10a{
+
+	public static final String AUTHORIZE_URL =
+			OAuthProviderTest.getString("portal.default.url") +
+					"/c/portal/oauth/authorize?oauth_token=%s";
+
+	@Override
+	public String getAccessTokenEndpoint()
+	{
+		return OAuthProviderTest.getString("portal.default.url") +
+				"/c/portal/oauth/access_token";
+	}
+
+	@Override
+	public String getRequestTokenEndpoint()
+	{
+		return OAuthProviderTest.getString("portal.default.url") +
+				"/c/portal/oauth/request_token";
+	}
 
 }

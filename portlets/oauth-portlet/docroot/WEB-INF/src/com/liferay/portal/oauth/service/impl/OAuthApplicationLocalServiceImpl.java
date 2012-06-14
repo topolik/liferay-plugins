@@ -132,8 +132,7 @@ public class OAuthApplicationLocalServiceImpl
 		return oAuthApplicationPersistence.findByC_N(companyId, name);
 	}
 
-	public List<OAuthApplication> getApplicationsByON(
-			long ownerId, String name)
+	public List<OAuthApplication> getApplicationsByON(long ownerId, String name)
 		throws SystemException {
 
 		return oAuthApplicationPersistence.findByO_N(ownerId, name);

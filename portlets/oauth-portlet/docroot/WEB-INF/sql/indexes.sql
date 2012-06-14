@@ -14,8 +14,9 @@ create index IX_4096D457 on OAuth_OAuthApplication (ownerId);
 create index IX_46D6 on OAuth_OAuthApplication (ownerId, name);
 create index IX_3192F284 on OAuth_OAuthApplication (website);
 
-create unique index IX_6BD08564 on OAuth_OAuthApplications_Users (accessToken);
 create index IX_A537743A on OAuth_OAuthApplications_Users (applicationId);
 create index IX_A8469A89 on OAuth_OAuthApplications_Users (applicationId, authorized);
 create unique index IX_41C1F274 on OAuth_OAuthApplications_Users (applicationId, userId);
 create index IX_638A495B on OAuth_OAuthApplications_Users (userId);
+create unique index IX_F9E482BC on OAuthApplications_Users (accessToken, applicationId, userId);
+create unique index IX_C75B21CC on OAuthApplications_Users (applicationId, userId);

@@ -22,7 +22,6 @@ import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-
 public class OAuthApplicationAdminPortlet extends MVCPortlet {
 
 	@Override
@@ -78,8 +77,7 @@ public class OAuthApplicationAdminPortlet extends MVCPortlet {
 		}
 		catch (Exception e) {
 			if (e instanceof SystemException) {
-				SessionErrors.add(
-					actionRequest, e.getClass().getName(), e);
+				SessionErrors.add(actionRequest, e.getClass().getName(), e);
 			}
 			else {
 				throw new PortletException(e.fillInStackTrace());
@@ -114,8 +112,7 @@ public class OAuthApplicationAdminPortlet extends MVCPortlet {
 			}
 			catch (Exception e) {
 				if (e instanceof SystemException) {
-					SessionErrors.add(
-						actionRequest, e.getClass().getName(), e);
+					SessionErrors.add(actionRequest, e.getClass().getName(), e);
 				}
 				else {
 					throw new PortletException(e);
