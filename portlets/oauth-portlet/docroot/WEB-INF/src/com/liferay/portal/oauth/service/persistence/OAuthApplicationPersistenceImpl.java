@@ -2123,7 +2123,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns all the o auth applications where website = &#63;.
+	 * Returns all the o auth applications where website LIKE &#63;.
 	 *
 	 * @param website the website
 	 * @return the matching o auth applications
@@ -2135,7 +2135,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns a range of all the o auth applications where website = &#63;.
+	 * Returns a range of all the o auth applications where website LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
@@ -2153,7 +2153,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns an ordered range of all the o auth applications where website = &#63;.
+	 * Returns an ordered range of all the o auth applications where website LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
@@ -2263,7 +2263,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the first o auth application in the ordered set where website = &#63;.
+	 * Returns the first o auth application in the ordered set where website LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
@@ -2299,7 +2299,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the last o auth application in the ordered set where website = &#63;.
+	 * Returns the last o auth application in the ordered set where website LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
@@ -2337,7 +2337,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the o auth applications before and after the current o auth application in the ordered set where website = &#63;.
+	 * Returns the o auth applications before and after the current o auth application in the ordered set where website LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
@@ -2495,7 +2495,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns all the o auth applications that the user has permission to view where website = &#63;.
+	 * Returns all the o auth applications that the user has permission to view where website LIKE &#63;.
 	 *
 	 * @param website the website
 	 * @return the matching o auth applications that the user has permission to view
@@ -2508,7 +2508,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns a range of all the o auth applications that the user has permission to view where website = &#63;.
+	 * Returns a range of all the o auth applications that the user has permission to view where website LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
@@ -2526,7 +2526,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns an ordered range of all the o auth applications that the user has permissions to view where website = &#63;.
+	 * Returns an ordered range of all the o auth applications that the user has permissions to view where website LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
@@ -2626,7 +2626,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the o auth applications before and after the current o auth application in the ordered set of o auth applications that the user has permission to view where website = &#63;.
+	 * Returns the o auth applications before and after the current o auth application in the ordered set of o auth applications that the user has permission to view where website LIKE &#63;.
 	 *
 	 * @param applicationId the primary key of the current o auth application
 	 * @param website the website
@@ -2815,7 +2815,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns all the o auth applications where companyId = &#63; and name = &#63;.
+	 * Returns all the o auth applications where companyId = &#63; and name LIKE &#63;.
 	 *
 	 * @param companyId the company ID
 	 * @param name the name
@@ -2829,7 +2829,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns a range of all the o auth applications where companyId = &#63; and name = &#63;.
+	 * Returns a range of all the o auth applications where companyId = &#63; and name LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
@@ -2848,7 +2848,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns an ordered range of all the o auth applications where companyId = &#63; and name = &#63;.
+	 * Returns an ordered range of all the o auth applications where companyId = &#63; and name LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
@@ -2969,7 +2969,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the first o auth application in the ordered set where companyId = &#63; and name = &#63;.
+	 * Returns the first o auth application in the ordered set where companyId = &#63; and name LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
@@ -3009,7 +3009,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the last o auth application in the ordered set where companyId = &#63; and name = &#63;.
+	 * Returns the last o auth application in the ordered set where companyId = &#63; and name LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
@@ -3051,7 +3051,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the o auth applications before and after the current o auth application in the ordered set where companyId = &#63; and name = &#63;.
+	 * Returns the o auth applications before and after the current o auth application in the ordered set where companyId = &#63; and name LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
@@ -3214,7 +3214,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns all the o auth applications that the user has permission to view where companyId = &#63; and name = &#63;.
+	 * Returns all the o auth applications that the user has permission to view where companyId = &#63; and name LIKE &#63;.
 	 *
 	 * @param companyId the company ID
 	 * @param name the name
@@ -3228,7 +3228,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns a range of all the o auth applications that the user has permission to view where companyId = &#63; and name = &#63;.
+	 * Returns a range of all the o auth applications that the user has permission to view where companyId = &#63; and name LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
@@ -3247,7 +3247,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns an ordered range of all the o auth applications that the user has permissions to view where companyId = &#63; and name = &#63;.
+	 * Returns an ordered range of all the o auth applications that the user has permissions to view where companyId = &#63; and name LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
@@ -3352,7 +3352,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the o auth applications before and after the current o auth application in the ordered set of o auth applications that the user has permission to view where companyId = &#63; and name = &#63;.
+	 * Returns the o auth applications before and after the current o auth application in the ordered set of o auth applications that the user has permission to view where companyId = &#63; and name LIKE &#63;.
 	 *
 	 * @param applicationId the primary key of the current o auth application
 	 * @param companyId the company ID
@@ -3546,7 +3546,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns all the o auth applications where ownerId = &#63; and name = &#63;.
+	 * Returns all the o auth applications where ownerId = &#63; and name LIKE &#63;.
 	 *
 	 * @param ownerId the owner ID
 	 * @param name the name
@@ -3560,7 +3560,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns a range of all the o auth applications where ownerId = &#63; and name = &#63;.
+	 * Returns a range of all the o auth applications where ownerId = &#63; and name LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
@@ -3579,7 +3579,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns an ordered range of all the o auth applications where ownerId = &#63; and name = &#63;.
+	 * Returns an ordered range of all the o auth applications where ownerId = &#63; and name LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
@@ -3700,7 +3700,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the first o auth application in the ordered set where ownerId = &#63; and name = &#63;.
+	 * Returns the first o auth application in the ordered set where ownerId = &#63; and name LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
@@ -3740,7 +3740,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the last o auth application in the ordered set where ownerId = &#63; and name = &#63;.
+	 * Returns the last o auth application in the ordered set where ownerId = &#63; and name LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
@@ -3782,7 +3782,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the o auth applications before and after the current o auth application in the ordered set where ownerId = &#63; and name = &#63;.
+	 * Returns the o auth applications before and after the current o auth application in the ordered set where ownerId = &#63; and name LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
@@ -3945,7 +3945,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns all the o auth applications that the user has permission to view where ownerId = &#63; and name = &#63;.
+	 * Returns all the o auth applications that the user has permission to view where ownerId = &#63; and name LIKE &#63;.
 	 *
 	 * @param ownerId the owner ID
 	 * @param name the name
@@ -3959,7 +3959,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns a range of all the o auth applications that the user has permission to view where ownerId = &#63; and name = &#63;.
+	 * Returns a range of all the o auth applications that the user has permission to view where ownerId = &#63; and name LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
@@ -3978,7 +3978,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns an ordered range of all the o auth applications that the user has permissions to view where ownerId = &#63; and name = &#63;.
+	 * Returns an ordered range of all the o auth applications that the user has permissions to view where ownerId = &#63; and name LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
@@ -4083,7 +4083,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the o auth applications before and after the current o auth application in the ordered set of o auth applications that the user has permission to view where ownerId = &#63; and name = &#63;.
+	 * Returns the o auth applications before and after the current o auth application in the ordered set of o auth applications that the user has permission to view where ownerId = &#63; and name LIKE &#63;.
 	 *
 	 * @param applicationId the primary key of the current o auth application
 	 * @param ownerId the owner ID
@@ -4430,7 +4430,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Removes all the o auth applications where website = &#63; from the database.
+	 * Removes all the o auth applications where website LIKE &#63; from the database.
 	 *
 	 * @param website the website
 	 * @throws SystemException if a system exception occurred
@@ -4442,7 +4442,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Removes all the o auth applications where companyId = &#63; and name = &#63; from the database.
+	 * Removes all the o auth applications where companyId = &#63; and name LIKE &#63; from the database.
 	 *
 	 * @param companyId the company ID
 	 * @param name the name
@@ -4456,7 +4456,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Removes all the o auth applications where ownerId = &#63; and name = &#63; from the database.
+	 * Removes all the o auth applications where ownerId = &#63; and name LIKE &#63; from the database.
 	 *
 	 * @param ownerId the owner ID
 	 * @param name the name
@@ -4748,7 +4748,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the number of o auth applications where website = &#63;.
+	 * Returns the number of o auth applications where website LIKE &#63;.
 	 *
 	 * @param website the website
 	 * @return the number of matching o auth applications
@@ -4813,7 +4813,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the number of o auth applications that the user has permission to view where website = &#63;.
+	 * Returns the number of o auth applications that the user has permission to view where website LIKE &#63;.
 	 *
 	 * @param website the website
 	 * @return the number of matching o auth applications that the user has permission to view
@@ -4873,7 +4873,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the number of o auth applications where companyId = &#63; and name = &#63;.
+	 * Returns the number of o auth applications where companyId = &#63; and name LIKE &#63;.
 	 *
 	 * @param companyId the company ID
 	 * @param name the name
@@ -4944,7 +4944,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the number of o auth applications that the user has permission to view where companyId = &#63; and name = &#63;.
+	 * Returns the number of o auth applications that the user has permission to view where companyId = &#63; and name LIKE &#63;.
 	 *
 	 * @param companyId the company ID
 	 * @param name the name
@@ -5010,7 +5010,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the number of o auth applications where ownerId = &#63; and name = &#63;.
+	 * Returns the number of o auth applications where ownerId = &#63; and name LIKE &#63;.
 	 *
 	 * @param ownerId the owner ID
 	 * @param name the name
@@ -5080,7 +5080,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the number of o auth applications that the user has permission to view where ownerId = &#63; and name = &#63;.
+	 * Returns the number of o auth applications that the user has permission to view where ownerId = &#63; and name LIKE &#63;.
 	 *
 	 * @param ownerId the owner ID
 	 * @param name the name
@@ -5229,17 +5229,17 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	private static final String _FINDER_COLUMN_CONSUMERKEY_CONSUMERKEY_2 = "oAuthApplication.consumerKey = ?";
 	private static final String _FINDER_COLUMN_CONSUMERKEY_CONSUMERKEY_3 = "(oAuthApplication.consumerKey IS NULL OR oAuthApplication.consumerKey = ?)";
 	private static final String _FINDER_COLUMN_OWNERID_OWNERID_2 = "oAuthApplication.ownerId = ?";
-	private static final String _FINDER_COLUMN_WEBSITE_WEBSITE_1 = "oAuthApplication.website IS NULL";
-	private static final String _FINDER_COLUMN_WEBSITE_WEBSITE_2 = "oAuthApplication.website = ?";
-	private static final String _FINDER_COLUMN_WEBSITE_WEBSITE_3 = "(oAuthApplication.website IS NULL OR oAuthApplication.website = ?)";
+	private static final String _FINDER_COLUMN_WEBSITE_WEBSITE_1 = "oAuthApplication.website LIKE NULL";
+	private static final String _FINDER_COLUMN_WEBSITE_WEBSITE_2 = "oAuthApplication.website LIKE ?";
+	private static final String _FINDER_COLUMN_WEBSITE_WEBSITE_3 = "(oAuthApplication.website IS NULL OR oAuthApplication.website LIKE ?)";
 	private static final String _FINDER_COLUMN_C_N_COMPANYID_2 = "oAuthApplication.companyId = ? AND ";
-	private static final String _FINDER_COLUMN_C_N_NAME_1 = "oAuthApplication.name IS NULL";
-	private static final String _FINDER_COLUMN_C_N_NAME_2 = "oAuthApplication.name = ?";
-	private static final String _FINDER_COLUMN_C_N_NAME_3 = "(oAuthApplication.name IS NULL OR oAuthApplication.name = ?)";
+	private static final String _FINDER_COLUMN_C_N_NAME_1 = "oAuthApplication.name LIKE NULL";
+	private static final String _FINDER_COLUMN_C_N_NAME_2 = "oAuthApplication.name LIKE ?";
+	private static final String _FINDER_COLUMN_C_N_NAME_3 = "(oAuthApplication.name IS NULL OR oAuthApplication.name LIKE ?)";
 	private static final String _FINDER_COLUMN_O_N_OWNERID_2 = "oAuthApplication.ownerId = ? AND ";
-	private static final String _FINDER_COLUMN_O_N_NAME_1 = "oAuthApplication.name IS NULL";
-	private static final String _FINDER_COLUMN_O_N_NAME_2 = "oAuthApplication.name = ?";
-	private static final String _FINDER_COLUMN_O_N_NAME_3 = "(oAuthApplication.name IS NULL OR oAuthApplication.name = ?)";
+	private static final String _FINDER_COLUMN_O_N_NAME_1 = "oAuthApplication.name LIKE NULL";
+	private static final String _FINDER_COLUMN_O_N_NAME_2 = "oAuthApplication.name LIKE ?";
+	private static final String _FINDER_COLUMN_O_N_NAME_3 = "(oAuthApplication.name IS NULL OR oAuthApplication.name LIKE ?)";
 	private static final String _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN = "oAuthApplication.applicationId";
 	private static final String _FILTER_SQL_SELECT_OAUTHAPPLICATION_WHERE = "SELECT DISTINCT {oAuthApplication.*} FROM OAuth_OAuthApplication oAuthApplication WHERE ";
 	private static final String _FILTER_SQL_SELECT_OAUTHAPPLICATION_NO_INLINE_DISTINCT_WHERE_1 =
