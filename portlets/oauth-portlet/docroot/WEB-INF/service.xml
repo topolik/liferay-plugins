@@ -75,7 +75,7 @@
 			<finder-column name="applicationId" />
 			<finder-column name="authorized" />
 		</finder>
-		<finder name="AccessToken" return-type="OAuthApplications_Users" unique="true">
+		<finder name="AccessToken" return-type="Collection">
 			<finder-column name="accessToken" />
 		</finder>
 		<finder name="ApplicationId" return-type="Collection" >
