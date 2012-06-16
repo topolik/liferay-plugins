@@ -16,3 +16,4 @@ OAuthApplicationDisplayTerms displayTerms = (OAuthApplicationDisplayTerms)search
 
 	<aui:button type="submit" value="search" />
 </span>
+<div class="separator"><!-- --></div>

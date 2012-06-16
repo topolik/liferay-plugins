@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.oauth.service.OAuthApplications_UsersLocalServiceUtil"%>
 <%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@page import="com.liferay.portal.oauth.service.OAuthApplicationLocalServiceUtil"%>
 <%@page import="com.liferay.portlet.oauth.search.OAuthApplicationSearchTerms"%>
@@ -60,6 +61,10 @@ String replaceParm0 = "{0}";
 		keyProperty="applicationId"
 		modelVar="app">
 		
+		<%
+		int authorizationsCount = OAuthApplications_UsersLocalServiceUtil.findByApplicationId(app.getApplicationId()).size();
+		%>
+		
 		<liferay-ui:search-container-column-text
 					name="id"
 					value="<%= Long.toString(app.getApplicationId()) %>"
@@ -80,6 +85,11 @@ String replaceParm0 = "{0}";
 				>
 				<liferay-ui:message key="<%= OAuthConstants.WEB_APP_LANG_KEY_ACCESS_TYPE_SHORT.replace(replaceParm0, Integer.toString(app.getAccessLevel())) %>" />
 		</liferay-ui:search-container-column-text>
+		<liferay-ui:search-container-column-text
+					name="authorizations-count"
+					value="<%= Integer.toString(authorizationsCount) %>"
+					orderable="<%= true %>"
+				/>
 		<liferay-ui:search-container-column-jsp
 					align="right"
 					path="/html/admin/actions.jsp"

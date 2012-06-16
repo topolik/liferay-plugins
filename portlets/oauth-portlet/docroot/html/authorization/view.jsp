@@ -55,16 +55,25 @@
 	<liferay-ui:search-container-row
 		className="com.liferay.portal.oauth.model.OAuthApplications_Users"
 		keyProperty="oaauid"
-		modelVar="app">
+		modelVar="appAuth">
+		<%
+		OAuthApplication app = OAuthApplicationLocalServiceUtil.fetchOAuthApplication(appAuth.getApplicationId());
+		%>
+		
 		<liferay-ui:search-container-column-text
 					name="oaauid"
-					value="<%= Long.toString(app.getOaauid()) %>"
+					value="<%= Long.toString(appAuth.getOaauid()) %>"
 					orderable="<%= true %>"
 				/>
 		<liferay-ui:search-container-column-text
 					name="applicationId"
-					value="<%= Long.toString(app.getApplicationId()) %>"
+					value="<%= Long.toString(appAuth.getApplicationId()) %>"
 					orderable="<%= true %>"
+				/>
+		<liferay-ui:search-container-column-text
+					name="name"
+					value="<%= app.getName() %>"
+					orderable="<%= false %>"
 				/>
 		<liferay-ui:search-container-column-text
 					name="accessToken"
@@ -72,7 +81,7 @@
 				/>
 		<liferay-ui:search-container-column-text
 					name="authorized"
-					value="<%= Boolean.toString(app.getAuthorized()) %>"
+					value="<%= Boolean.toString(appAuth.getAuthorized()) %>"
 					orderable="<%= false %>"
 				/>
 	</liferay-ui:search-container-row>

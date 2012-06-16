@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.oauth.model.OAuthApplication;
+import com.liferay.portal.oauth.model.OAuthApplications_Users;
 import com.liferay.portal.oauth.service.base.OAuthApplicationLocalServiceBaseImpl;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portlet.oauth.OAuthConstants;
@@ -115,7 +116,11 @@ public class OAuthApplicationLocalServiceImpl
 		throws PortalException, SystemException {
 
 		// Application user's authorizations
-		// TODO: delete authorizations
+		oAuthApplications_UsersPersistence
+			.removeByApplicationId(applicationId);
+		
+		// TODO remove resorces when ivica is done with his code...
+		
 		
 		// Application
 
@@ -130,12 +135,14 @@ public class OAuthApplicationLocalServiceImpl
 		application.setUserName(user.getFullName());
 		application.setModifiedDate(serviceContext.getModifiedDate(now));
 		
-		oAuthApplicationPersistence.remove(application);
-
 		// Resources
 
 		resourceLocalService.deleteResource(
 				application, ResourceConstants.SCOPE_COMPANY);
+		
+		// Application
+		
+		application = oAuthApplicationPersistence.remove(application);
 
 		return application;
 	}
@@ -262,8 +269,7 @@ public class OAuthApplicationLocalServiceImpl
 		oAuthApplicationPersistence.update(application, true);
 
 		// Resources
-
-		resourceLocalService.updateModelResources(application, serviceContext);
+		// TODO: Ray/Mike does update requires resource updates?
 
 		return application;
 	}

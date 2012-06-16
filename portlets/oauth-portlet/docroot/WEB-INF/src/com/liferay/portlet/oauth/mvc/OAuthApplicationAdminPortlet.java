@@ -63,12 +63,11 @@ public class OAuthApplicationAdminPortlet extends MVCPortlet {
 
 		try {
 			if (applicationId > 0) {
-
-				// TODO Make sure to create a real delete method which can
-				// remove associations (like resources) in a transaction.
-
-				OAuthApplicationLocalServiceUtil.deleteOAuthApplication(
-					applicationId);
+				ServiceContext serviceContext =
+						ServiceContextFactory.getInstance(actionRequest);
+				
+				OAuthApplicationLocalServiceUtil.deleteApplication(
+					applicationId, serviceContext.getUserId(), serviceContext);
 			}
 			else {
 				SessionErrors.add(
@@ -93,6 +92,18 @@ public class OAuthApplicationAdminPortlet extends MVCPortlet {
 			actionRequest, OAuthConstants.WEB_APP_ID);
 
 		if (applicationId > 0) {
+			String name = ParamUtil.getString(
+				actionRequest, OAuthConstants.WEB_APP_NAME);
+			String description = ParamUtil.getString(
+				actionRequest, OAuthConstants.WEB_APP_DESCRIPTION);
+			String website = ParamUtil.getString(
+				actionRequest, OAuthConstants.WEB_APP_WEBSITE);
+			String callBackURL = ParamUtil.getString(
+				actionRequest, OAuthConstants.WEB_APP_CALLBACKURL);
+			int accessLevel = ParamUtil.getInteger(
+				actionRequest, OAuthConstants.WEB_APP_ACCESS_TYPE,
+				OAuthConstants.ACCESS_TYPE_READ);
+			
 			try {
 				OAuthApplication application =
 					OAuthApplicationLocalServiceUtil.fetchOAuthApplication(
@@ -100,9 +111,15 @@ public class OAuthApplicationAdminPortlet extends MVCPortlet {
 
 				// TODO write real application update method (because we may
 				// have to update other entities in a transaction)
-
-				OAuthApplicationLocalServiceUtil.updateOAuthApplication(
-					application);
+				
+				ServiceContext serviceContext = ServiceContextFactory.getInstance(
+						actionRequest);
+				
+				application = OAuthApplicationLocalServiceUtil
+					.updateApplication(
+						applicationId, serviceContext.getUserId(), name,
+						description, website, callBackURL, accessLevel,
+						serviceContext);
 
 				// TODO This won't work because there is a redirect after
 				// actions to avoid Back button issues.
