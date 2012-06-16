@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.util.DigesterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
+import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.oauth.model.OAuthApplication;
 import com.liferay.portal.oauth.service.base.OAuthApplicationLocalServiceBaseImpl;
@@ -100,6 +101,41 @@ public class OAuthApplicationLocalServiceImpl
 		// Resources
 
 		resourceLocalService.addModelResources(application, serviceContext);
+
+		return application;
+	}
+	
+	/**
+	 * Delete OAuth application designated by applicationId. Method will
+	 * delete all application user's authorizations, application and
+	 * corresponding resource entries.
+	 */
+	public OAuthApplication deleteApplication(
+			long applicationId, long userId, ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		// Application user's authorizations
+		// TODO: delete authorizations
+		
+		// Application
+
+		User user = userPersistence.findByPrimaryKey(userId);
+
+		Date now = new Date();
+
+		OAuthApplication application =
+				oAuthApplicationPersistence.findByPrimaryKey(applicationId);
+
+		application.setUserId(user.getUserId());
+		application.setUserName(user.getFullName());
+		application.setModifiedDate(serviceContext.getModifiedDate(now));
+		
+		oAuthApplicationPersistence.remove(application);
+
+		// Resources
+
+		resourceLocalService.deleteResource(
+				application, ResourceConstants.SCOPE_COMPANY);
 
 		return application;
 	}
@@ -188,6 +224,48 @@ public class OAuthApplicationLocalServiceImpl
 		if (!Validator.isUrl(website)) {
 			throw new PortalException(new MalformedURLException(website));
 		}
+	}
+	
+	/**
+	 * Update existing application that should use OAuth feature. If changed
+	 * method will update name, description, website, callbackURL and
+	 * access level.
+	 */
+	public OAuthApplication updateApplication(
+			long applicationId, long userId, String name, String description,
+			String website, String callBackURL, int accessLevel,
+			ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		// Application
+
+		User user = userPersistence.findByPrimaryKey(userId);
+
+		validate(name, website, callBackURL);
+
+		Date now = new Date();
+
+		OAuthApplication application =
+				oAuthApplicationPersistence.findByPrimaryKey(applicationId);
+
+		application.setUserId(user.getUserId());
+		application.setUserName(user.getFullName());
+		application.setModifiedDate(serviceContext.getModifiedDate(now));
+		application.setName(name);
+		application.setDescription(description);
+		application.setWebsite(website);
+		application.setCallBackURL(callBackURL);
+		
+		// TODO: Ray/Mike - we probably shouldn't allow access level change? 
+		application.setAccessLevel(accessLevel);
+
+		oAuthApplicationPersistence.update(application, true);
+
+		// Resources
+
+		resourceLocalService.updateModelResources(application, serviceContext);
+
+		return application;
 	}
 
 }

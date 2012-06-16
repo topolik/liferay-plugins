@@ -52,6 +52,13 @@ public class OAuthApplications_UsersLocalServiceImpl
 		return oAuthApplications_UsersFinder.countByO_A(ownerId, authorized);
 	}
 	
+	public List<OAuthApplications_Users> findByApplicationId(
+			long applicationId)
+		throws SystemException {
+			return oAuthApplications_UsersPersistence
+					.findByApplicationId(applicationId);
+	}
+	
 	public List<OAuthApplications_Users> findByUser(long userId)
 		throws SystemException {
 		return oAuthApplications_UsersPersistence.findByUserId(userId);
