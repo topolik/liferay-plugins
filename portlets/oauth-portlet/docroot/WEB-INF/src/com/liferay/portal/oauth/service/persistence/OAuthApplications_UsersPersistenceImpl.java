@@ -110,10 +110,23 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 			OAuthApplications_UsersModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByA_A",
 			new String[] { Long.class.getName(), Boolean.class.getName() });
-	public static final FinderPath FINDER_PATH_FETCH_BY_ACCESSTOKEN = new FinderPath(OAuthApplications_UsersModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_ACCESSTOKEN =
+		new FinderPath(OAuthApplications_UsersModelImpl.ENTITY_CACHE_ENABLED,
 			OAuthApplications_UsersModelImpl.FINDER_CACHE_ENABLED,
-			OAuthApplications_UsersImpl.class, FINDER_CLASS_NAME_ENTITY,
-			"fetchByAccessToken", new String[] { String.class.getName() },
+			OAuthApplications_UsersImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByAccessToken",
+			new String[] {
+				String.class.getName(),
+				
+			"java.lang.Integer", "java.lang.Integer",
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			});
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_ACCESSTOKEN =
+		new FinderPath(OAuthApplications_UsersModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthApplications_UsersModelImpl.FINDER_CACHE_ENABLED,
+			OAuthApplications_UsersImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByAccessToken",
+			new String[] { String.class.getName() },
 			OAuthApplications_UsersModelImpl.ACCESSTOKEN_COLUMN_BITMASK);
 	public static final FinderPath FINDER_PATH_COUNT_BY_ACCESSTOKEN = new FinderPath(OAuthApplications_UsersModelImpl.ENTITY_CACHE_ENABLED,
 			OAuthApplications_UsersModelImpl.FINDER_CACHE_ENABLED, Long.class,
@@ -189,10 +202,6 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 				Long.valueOf(oAuthApplications_Users.getApplicationId()),
 				Long.valueOf(oAuthApplications_Users.getUserId())
 			}, oAuthApplications_Users);
-
-		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
-			new Object[] { oAuthApplications_Users.getAccessToken() },
-			oAuthApplications_Users);
 
 		oAuthApplications_Users.resetOriginalValues();
 	}
@@ -278,9 +287,6 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 				Long.valueOf(oAuthApplications_Users.getApplicationId()),
 				Long.valueOf(oAuthApplications_Users.getUserId())
 			});
-
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
-			new Object[] { oAuthApplications_Users.getAccessToken() });
 	}
 
 	/**
@@ -408,6 +414,7 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 		if (isNew || !OAuthApplications_UsersModelImpl.COLUMN_BITMASK_ENABLED) {
 			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
+
 		else {
 			if ((oAuthApplications_UsersModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_A_A.getColumnBitmask()) != 0) {
@@ -427,6 +434,27 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_A_A, args);
 				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_A_A,
+					args);
+			}
+
+			if ((oAuthApplications_UsersModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_ACCESSTOKEN.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						oAuthApplications_UsersModelImpl.getOriginalAccessToken()
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_ACCESSTOKEN,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_ACCESSTOKEN,
+					args);
+
+				args = new Object[] {
+						oAuthApplications_UsersModelImpl.getAccessToken()
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_ACCESSTOKEN,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_ACCESSTOKEN,
 					args);
 			}
 
@@ -481,10 +509,6 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 					Long.valueOf(oAuthApplications_Users.getApplicationId()),
 					Long.valueOf(oAuthApplications_Users.getUserId())
 				}, oAuthApplications_Users);
-
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
-				new Object[] { oAuthApplications_Users.getAccessToken() },
-				oAuthApplications_Users);
 		}
 		else {
 			if ((oAuthApplications_UsersModelImpl.getColumnBitmask() &
@@ -495,6 +519,7 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_A_U, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_A_U, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_A_U,
@@ -502,22 +527,6 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 						Long.valueOf(oAuthApplications_Users.getApplicationId()),
 						Long.valueOf(oAuthApplications_Users.getUserId())
 					}, oAuthApplications_Users);
-			}
-
-			if ((oAuthApplications_UsersModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_ACCESSTOKEN.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						oAuthApplications_UsersModelImpl.getOriginalAccessToken()
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_ACCESSTOKEN,
-					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
-					args);
-
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
-					new Object[] { oAuthApplications_Users.getAccessToken() },
-					oAuthApplications_Users);
 			}
 		}
 
@@ -1487,79 +1496,90 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 	}
 
 	/**
-	 * Returns the o auth applications_ users where accessToken = &#63; or throws a {@link com.liferay.portal.oauth.NoSuchApplications_UsersException} if it could not be found.
+	 * Returns all the o auth applications_ userses where accessToken = &#63;.
 	 *
 	 * @param accessToken the access token
-	 * @return the matching o auth applications_ users
-	 * @throws com.liferay.portal.oauth.NoSuchApplications_UsersException if a matching o auth applications_ users could not be found
+	 * @return the matching o auth applications_ userses
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OAuthApplications_Users findByAccessToken(String accessToken)
-		throws NoSuchApplications_UsersException, SystemException {
-		OAuthApplications_Users oAuthApplications_Users = fetchByAccessToken(accessToken);
-
-		if (oAuthApplications_Users == null) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("accessToken=");
-			msg.append(accessToken);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			if (_log.isWarnEnabled()) {
-				_log.warn(msg.toString());
-			}
-
-			throw new NoSuchApplications_UsersException(msg.toString());
-		}
-
-		return oAuthApplications_Users;
-	}
-
-	/**
-	 * Returns the o auth applications_ users where accessToken = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param accessToken the access token
-	 * @return the matching o auth applications_ users, or <code>null</code> if a matching o auth applications_ users could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthApplications_Users fetchByAccessToken(String accessToken)
+	public List<OAuthApplications_Users> findByAccessToken(String accessToken)
 		throws SystemException {
-		return fetchByAccessToken(accessToken, true);
+		return findByAccessToken(accessToken, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS, null);
 	}
 
 	/**
-	 * Returns the o auth applications_ users where accessToken = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns a range of all the o auth applications_ userses where accessToken = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
 	 *
 	 * @param accessToken the access token
-	 * @param retrieveFromCache whether to use the finder cache
-	 * @return the matching o auth applications_ users, or <code>null</code> if a matching o auth applications_ users could not be found
+	 * @param start the lower bound of the range of o auth applications_ userses
+	 * @param end the upper bound of the range of o auth applications_ userses (not inclusive)
+	 * @return the range of matching o auth applications_ userses
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OAuthApplications_Users fetchByAccessToken(String accessToken,
-		boolean retrieveFromCache) throws SystemException {
-		Object[] finderArgs = new Object[] { accessToken };
+	public List<OAuthApplications_Users> findByAccessToken(String accessToken,
+		int start, int end) throws SystemException {
+		return findByAccessToken(accessToken, start, end, null);
+	}
 
-		Object result = null;
+	/**
+	 * Returns an ordered range of all the o auth applications_ userses where accessToken = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param accessToken the access token
+	 * @param start the lower bound of the range of o auth applications_ userses
+	 * @param end the upper bound of the range of o auth applications_ userses (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching o auth applications_ userses
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<OAuthApplications_Users> findByAccessToken(String accessToken,
+		int start, int end, OrderByComparator orderByComparator)
+		throws SystemException {
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
 
-		if (retrieveFromCache) {
-			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
-					finderArgs, this);
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+				(orderByComparator == null)) {
+			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_ACCESSTOKEN;
+			finderArgs = new Object[] { accessToken };
+		}
+		else {
+			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_ACCESSTOKEN;
+			finderArgs = new Object[] { accessToken, start, end, orderByComparator };
 		}
 
-		if (result instanceof OAuthApplications_Users) {
-			OAuthApplications_Users oAuthApplications_Users = (OAuthApplications_Users)result;
+		List<OAuthApplications_Users> list = (List<OAuthApplications_Users>)FinderCacheUtil.getResult(finderPath,
+				finderArgs, this);
 
-			if (!Validator.equals(accessToken,
-						oAuthApplications_Users.getAccessToken())) {
-				result = null;
+		if ((list != null) && !list.isEmpty()) {
+			for (OAuthApplications_Users oAuthApplications_Users : list) {
+				if (!Validator.equals(accessToken,
+							oAuthApplications_Users.getAccessToken())) {
+					list = null;
+
+					break;
+				}
 			}
 		}
 
-		if (result == null) {
-			StringBundler query = new StringBundler(2);
+		if (list == null) {
+			StringBundler query = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(3 +
+						(orderByComparator.getOrderByFields().length * 3));
+			}
+			else {
+				query = new StringBundler(2);
+			}
 
 			query.append(_SQL_SELECT_OAUTHAPPLICATIONS_USERS_WHERE);
 
@@ -1573,6 +1593,11 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 				else {
 					query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_2);
 				}
+			}
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+					orderByComparator);
 			}
 
 			String sql = query.toString();
@@ -1590,50 +1615,586 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 					qPos.add(accessToken);
 				}
 
-				List<OAuthApplications_Users> list = q.list();
-
-				result = list;
-
-				OAuthApplications_Users oAuthApplications_Users = null;
-
-				if (list.isEmpty()) {
-					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
-						finderArgs, list);
-				}
-				else {
-					oAuthApplications_Users = list.get(0);
-
-					cacheResult(oAuthApplications_Users);
-
-					if ((oAuthApplications_Users.getAccessToken() == null) ||
-							!oAuthApplications_Users.getAccessToken()
-														.equals(accessToken)) {
-						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
-							finderArgs, oAuthApplications_Users);
-					}
-				}
-
-				return oAuthApplications_Users;
+				list = (List<OAuthApplications_Users>)QueryUtil.list(q,
+						getDialect(), start, end);
 			}
 			catch (Exception e) {
 				throw processException(e);
 			}
 			finally {
-				if (result == null) {
-					FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
-						finderArgs);
+				if (list == null) {
+					FinderCacheUtil.removeResult(finderPath, finderArgs);
+				}
+				else {
+					cacheResult(list);
+
+					FinderCacheUtil.putResult(finderPath, finderArgs, list);
 				}
 
 				closeSession(session);
 			}
 		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first o auth applications_ users in the ordered set where accessToken = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param accessToken the access token
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching o auth applications_ users
+	 * @throws com.liferay.portal.oauth.NoSuchApplications_UsersException if a matching o auth applications_ users could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public OAuthApplications_Users findByAccessToken_First(String accessToken,
+		OrderByComparator orderByComparator)
+		throws NoSuchApplications_UsersException, SystemException {
+		List<OAuthApplications_Users> list = findByAccessToken(accessToken, 0,
+				1, orderByComparator);
+
+		if (list.isEmpty()) {
+			StringBundler msg = new StringBundler(4);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("accessToken=");
+			msg.append(accessToken);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			throw new NoSuchApplications_UsersException(msg.toString());
+		}
 		else {
-			if (result instanceof List<?>) {
-				return null;
+			return list.get(0);
+		}
+	}
+
+	/**
+	 * Returns the last o auth applications_ users in the ordered set where accessToken = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param accessToken the access token
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching o auth applications_ users
+	 * @throws com.liferay.portal.oauth.NoSuchApplications_UsersException if a matching o auth applications_ users could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public OAuthApplications_Users findByAccessToken_Last(String accessToken,
+		OrderByComparator orderByComparator)
+		throws NoSuchApplications_UsersException, SystemException {
+		int count = countByAccessToken(accessToken);
+
+		List<OAuthApplications_Users> list = findByAccessToken(accessToken,
+				count - 1, count, orderByComparator);
+
+		if (list.isEmpty()) {
+			StringBundler msg = new StringBundler(4);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("accessToken=");
+			msg.append(accessToken);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			throw new NoSuchApplications_UsersException(msg.toString());
+		}
+		else {
+			return list.get(0);
+		}
+	}
+
+	/**
+	 * Returns the o auth applications_ userses before and after the current o auth applications_ users in the ordered set where accessToken = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param oaauid the primary key of the current o auth applications_ users
+	 * @param accessToken the access token
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next o auth applications_ users
+	 * @throws com.liferay.portal.oauth.NoSuchApplications_UsersException if a o auth applications_ users with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public OAuthApplications_Users[] findByAccessToken_PrevAndNext(
+		long oaauid, String accessToken, OrderByComparator orderByComparator)
+		throws NoSuchApplications_UsersException, SystemException {
+		OAuthApplications_Users oAuthApplications_Users = findByPrimaryKey(oaauid);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			OAuthApplications_Users[] array = new OAuthApplications_UsersImpl[3];
+
+			array[0] = getByAccessToken_PrevAndNext(session,
+					oAuthApplications_Users, accessToken, orderByComparator,
+					true);
+
+			array[1] = oAuthApplications_Users;
+
+			array[2] = getByAccessToken_PrevAndNext(session,
+					oAuthApplications_Users, accessToken, orderByComparator,
+					false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected OAuthApplications_Users getByAccessToken_PrevAndNext(
+		Session session, OAuthApplications_Users oAuthApplications_Users,
+		String accessToken, OrderByComparator orderByComparator,
+		boolean previous) {
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(6 +
+					(orderByComparator.getOrderByFields().length * 6));
+		}
+		else {
+			query = new StringBundler(3);
+		}
+
+		query.append(_SQL_SELECT_OAUTHAPPLICATIONS_USERS_WHERE);
+
+		if (accessToken == null) {
+			query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_1);
+		}
+		else {
+			if (accessToken.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_3);
 			}
 			else {
-				return (OAuthApplications_Users)result;
+				query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_2);
 			}
+		}
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+
+		String sql = query.toString();
+
+		Query q = session.createQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		if (accessToken != null) {
+			qPos.add(accessToken);
+		}
+
+		if (orderByComparator != null) {
+			Object[] values = orderByComparator.getOrderByConditionValues(oAuthApplications_Users);
+
+			for (Object value : values) {
+				qPos.add(value);
+			}
+		}
+
+		List<OAuthApplications_Users> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Returns all the o auth applications_ userses that the user has permission to view where accessToken = &#63;.
+	 *
+	 * @param accessToken the access token
+	 * @return the matching o auth applications_ userses that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<OAuthApplications_Users> filterFindByAccessToken(
+		String accessToken) throws SystemException {
+		return filterFindByAccessToken(accessToken, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the o auth applications_ userses that the user has permission to view where accessToken = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param accessToken the access token
+	 * @param start the lower bound of the range of o auth applications_ userses
+	 * @param end the upper bound of the range of o auth applications_ userses (not inclusive)
+	 * @return the range of matching o auth applications_ userses that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<OAuthApplications_Users> filterFindByAccessToken(
+		String accessToken, int start, int end) throws SystemException {
+		return filterFindByAccessToken(accessToken, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the o auth applications_ userses that the user has permissions to view where accessToken = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param accessToken the access token
+	 * @param start the lower bound of the range of o auth applications_ userses
+	 * @param end the upper bound of the range of o auth applications_ userses (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching o auth applications_ userses that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<OAuthApplications_Users> filterFindByAccessToken(
+		String accessToken, int start, int end,
+		OrderByComparator orderByComparator) throws SystemException {
+		if (!InlineSQLHelperUtil.isEnabled()) {
+			return findByAccessToken(accessToken, start, end, orderByComparator);
+		}
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(3 +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(2);
+		}
+
+		if (getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATIONS_USERS_WHERE);
+		}
+		else {
+			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATIONS_USERS_NO_INLINE_DISTINCT_WHERE_1);
+		}
+
+		if (accessToken == null) {
+			query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_1);
+		}
+		else {
+			if (accessToken.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_3);
+			}
+			else {
+				query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_2);
+			}
+		}
+
+		if (!getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATIONS_USERS_NO_INLINE_DISTINCT_WHERE_2);
+		}
+
+		if (orderByComparator != null) {
+			if (getDB().isSupportsInlineDistinct()) {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+					orderByComparator);
+			}
+			else {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_TABLE,
+					orderByComparator);
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
+				OAuthApplications_Users.class.getName(),
+				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSQLQuery(sql);
+
+			if (getDB().isSupportsInlineDistinct()) {
+				q.addEntity(_FILTER_ENTITY_ALIAS,
+					OAuthApplications_UsersImpl.class);
+			}
+			else {
+				q.addEntity(_FILTER_ENTITY_TABLE,
+					OAuthApplications_UsersImpl.class);
+			}
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			if (accessToken != null) {
+				qPos.add(accessToken);
+			}
+
+			return (List<OAuthApplications_Users>)QueryUtil.list(q,
+				getDialect(), start, end);
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	/**
+	 * Returns the o auth applications_ userses before and after the current o auth applications_ users in the ordered set of o auth applications_ userses that the user has permission to view where accessToken = &#63;.
+	 *
+	 * @param oaauid the primary key of the current o auth applications_ users
+	 * @param accessToken the access token
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next o auth applications_ users
+	 * @throws com.liferay.portal.oauth.NoSuchApplications_UsersException if a o auth applications_ users with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public OAuthApplications_Users[] filterFindByAccessToken_PrevAndNext(
+		long oaauid, String accessToken, OrderByComparator orderByComparator)
+		throws NoSuchApplications_UsersException, SystemException {
+		if (!InlineSQLHelperUtil.isEnabled()) {
+			return findByAccessToken_PrevAndNext(oaauid, accessToken,
+				orderByComparator);
+		}
+
+		OAuthApplications_Users oAuthApplications_Users = findByPrimaryKey(oaauid);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			OAuthApplications_Users[] array = new OAuthApplications_UsersImpl[3];
+
+			array[0] = filterGetByAccessToken_PrevAndNext(session,
+					oAuthApplications_Users, accessToken, orderByComparator,
+					true);
+
+			array[1] = oAuthApplications_Users;
+
+			array[2] = filterGetByAccessToken_PrevAndNext(session,
+					oAuthApplications_Users, accessToken, orderByComparator,
+					false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected OAuthApplications_Users filterGetByAccessToken_PrevAndNext(
+		Session session, OAuthApplications_Users oAuthApplications_Users,
+		String accessToken, OrderByComparator orderByComparator,
+		boolean previous) {
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(6 +
+					(orderByComparator.getOrderByFields().length * 6));
+		}
+		else {
+			query = new StringBundler(3);
+		}
+
+		if (getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATIONS_USERS_WHERE);
+		}
+		else {
+			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATIONS_USERS_NO_INLINE_DISTINCT_WHERE_1);
+		}
+
+		if (accessToken == null) {
+			query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_1);
+		}
+		else {
+			if (accessToken.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_3);
+			}
+			else {
+				query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_2);
+			}
+		}
+
+		if (!getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATIONS_USERS_NO_INLINE_DISTINCT_WHERE_2);
+		}
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				if (getDB().isSupportsInlineDistinct()) {
+					query.append(_ORDER_BY_ENTITY_ALIAS);
+				}
+				else {
+					query.append(_ORDER_BY_ENTITY_TABLE);
+				}
+
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				if (getDB().isSupportsInlineDistinct()) {
+					query.append(_ORDER_BY_ENTITY_ALIAS);
+				}
+				else {
+					query.append(_ORDER_BY_ENTITY_TABLE);
+				}
+
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
+				OAuthApplications_Users.class.getName(),
+				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		SQLQuery q = session.createSQLQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		if (getDB().isSupportsInlineDistinct()) {
+			q.addEntity(_FILTER_ENTITY_ALIAS, OAuthApplications_UsersImpl.class);
+		}
+		else {
+			q.addEntity(_FILTER_ENTITY_TABLE, OAuthApplications_UsersImpl.class);
+		}
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		if (accessToken != null) {
+			qPos.add(accessToken);
+		}
+
+		if (orderByComparator != null) {
+			Object[] values = orderByComparator.getOrderByConditionValues(oAuthApplications_Users);
+
+			for (Object value : values) {
+				qPos.add(value);
+			}
+		}
+
+		List<OAuthApplications_Users> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
 		}
 	}
 
@@ -3088,17 +3649,17 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 	}
 
 	/**
-	 * Removes the o auth applications_ users where accessToken = &#63; from the database.
+	 * Removes all the o auth applications_ userses where accessToken = &#63; from the database.
 	 *
 	 * @param accessToken the access token
-	 * @return the o auth applications_ users that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OAuthApplications_Users removeByAccessToken(String accessToken)
-		throws NoSuchApplications_UsersException, SystemException {
-		OAuthApplications_Users oAuthApplications_Users = findByAccessToken(accessToken);
-
-		return remove(oAuthApplications_Users);
+	public void removeByAccessToken(String accessToken)
+		throws SystemException {
+		for (OAuthApplications_Users oAuthApplications_Users : findByAccessToken(
+				accessToken)) {
+			remove(oAuthApplications_Users);
+		}
 	}
 
 	/**
@@ -3374,6 +3935,67 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 		}
 
 		return count.intValue();
+	}
+
+	/**
+	 * Returns the number of o auth applications_ userses that the user has permission to view where accessToken = &#63;.
+	 *
+	 * @param accessToken the access token
+	 * @return the number of matching o auth applications_ userses that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int filterCountByAccessToken(String accessToken)
+		throws SystemException {
+		if (!InlineSQLHelperUtil.isEnabled()) {
+			return countByAccessToken(accessToken);
+		}
+
+		StringBundler query = new StringBundler(2);
+
+		query.append(_FILTER_SQL_COUNT_OAUTHAPPLICATIONS_USERS_WHERE);
+
+		if (accessToken == null) {
+			query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_1);
+		}
+		else {
+			if (accessToken.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_3);
+			}
+			else {
+				query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_2);
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
+				OAuthApplications_Users.class.getName(),
+				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSQLQuery(sql);
+
+			q.addScalar(COUNT_COLUMN_NAME,
+				com.liferay.portal.kernel.dao.orm.Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			if (accessToken != null) {
+				qPos.add(accessToken);
+			}
+
+			Long count = (Long)q.uniqueResult();
+
+			return count.intValue();
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
 	}
 
 	/**
