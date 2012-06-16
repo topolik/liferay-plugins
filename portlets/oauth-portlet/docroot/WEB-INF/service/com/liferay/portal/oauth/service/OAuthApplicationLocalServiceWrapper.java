@@ -288,6 +288,20 @@ public class OAuthApplicationLocalServiceWrapper
 			description, website, callBackURL, accessLevel, serviceContext);
 	}
 
+	/**
+	* Delete OAuth application designated by applicationId. Method will
+	* delete all application user's authorizations, application and
+	* corresponding resource entries.
+	*/
+	public com.liferay.portal.oauth.model.OAuthApplication deleteApplication(
+		long applicationId, long userId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _oAuthApplicationLocalService.deleteApplication(applicationId,
+			userId, serviceContext);
+	}
+
 	public com.liferay.portal.oauth.model.OAuthApplication getApplication(
 		java.lang.String consumerKey)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -343,6 +357,23 @@ public class OAuthApplicationLocalServiceWrapper
 	public int getApplicationsCount(long companyId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _oAuthApplicationLocalService.getApplicationsCount(companyId);
+	}
+
+	/**
+	* Update existing application that should use OAuth feature. If changed
+	* method will update name, description, website, callbackURL and
+	* access level.
+	*/
+	public com.liferay.portal.oauth.model.OAuthApplication updateApplication(
+		long applicationId, long userId, java.lang.String name,
+		java.lang.String description, java.lang.String website,
+		java.lang.String callBackURL, int accessLevel,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _oAuthApplicationLocalService.updateApplication(applicationId,
+			userId, name, description, website, callBackURL, accessLevel,
+			serviceContext);
 	}
 
 	/**

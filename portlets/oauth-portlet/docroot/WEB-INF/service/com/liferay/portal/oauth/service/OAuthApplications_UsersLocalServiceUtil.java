@@ -291,6 +291,12 @@ public class OAuthApplications_UsersLocalServiceUtil {
 		return getService().countByOwner(ownerId, authorized);
 	}
 
+	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplications_Users> findByApplicationId(
+		long applicationId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().findByApplicationId(applicationId);
+	}
+
 	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplications_Users> findByUser(
 		long userId) throws com.liferay.portal.kernel.exception.SystemException {
 		return getService().findByUser(userId);

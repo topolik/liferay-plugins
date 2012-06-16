@@ -121,35 +121,39 @@ public class OAuthApplications_UsersLocalServiceClpInvoker {
 
 		_methodParameterTypes45 = new String[] { "long", "boolean" };
 
-		_methodName46 = "findByUser";
+		_methodName46 = "findByApplicationId";
 
 		_methodParameterTypes46 = new String[] { "long" };
 
 		_methodName47 = "findByUser";
 
-		_methodParameterTypes47 = new String[] { "long", "int", "int" };
+		_methodParameterTypes47 = new String[] { "long" };
 
 		_methodName48 = "findByUser";
 
-		_methodParameterTypes48 = new String[] {
+		_methodParameterTypes48 = new String[] { "long", "int", "int" };
+
+		_methodName49 = "findByUser";
+
+		_methodParameterTypes49 = new String[] {
 				"long", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName49 = "findByOwner";
+		_methodName50 = "findByOwner";
 
-		_methodParameterTypes49 = new String[] {
+		_methodParameterTypes50 = new String[] {
 				"long", "boolean", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName50 = "updateOAuthApplications_Users";
-
-		_methodParameterTypes50 = new String[] { "long", "long", "boolean" };
-
 		_methodName51 = "updateOAuthApplications_Users";
 
-		_methodParameterTypes51 = new String[] {
+		_methodParameterTypes51 = new String[] { "long", "long", "boolean" };
+
+		_methodName52 = "updateOAuthApplications_Users";
+
+		_methodParameterTypes52 = new String[] {
 				"long", "long", "java.lang.String", "java.lang.String"
 			};
 	}
@@ -266,26 +270,31 @@ public class OAuthApplications_UsersLocalServiceClpInvoker {
 
 		if (_methodName46.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
-			return OAuthApplications_UsersLocalServiceUtil.findByUser(((Long)arguments[0]).longValue());
+			return OAuthApplications_UsersLocalServiceUtil.findByApplicationId(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName47.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
-			return OAuthApplications_UsersLocalServiceUtil.findByUser(((Long)arguments[0]).longValue(),
-				((Integer)arguments[1]).intValue(),
-				((Integer)arguments[2]).intValue());
+			return OAuthApplications_UsersLocalServiceUtil.findByUser(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName48.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
 			return OAuthApplications_UsersLocalServiceUtil.findByUser(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
-				((Integer)arguments[2]).intValue(),
-				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3]);
+				((Integer)arguments[2]).intValue());
 		}
 
 		if (_methodName49.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes49, parameterTypes)) {
+			return OAuthApplications_UsersLocalServiceUtil.findByUser(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue(),
+				((Integer)arguments[2]).intValue(),
+				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3]);
+		}
+
+		if (_methodName50.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
 			return OAuthApplications_UsersLocalServiceUtil.findByOwner(((Long)arguments[0]).longValue(),
 				((Boolean)arguments[1]).booleanValue(),
 				((Integer)arguments[2]).intValue(),
@@ -293,15 +302,15 @@ public class OAuthApplications_UsersLocalServiceClpInvoker {
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[4]);
 		}
 
-		if (_methodName50.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
+		if (_methodName51.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes51, parameterTypes)) {
 			return OAuthApplications_UsersLocalServiceUtil.updateOAuthApplications_Users(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				((Boolean)arguments[2]).booleanValue());
 		}
 
-		if (_methodName51.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes51, parameterTypes)) {
+		if (_methodName52.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
 			return OAuthApplications_UsersLocalServiceUtil.updateOAuthApplications_Users(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2], (java.lang.String)arguments[3]);
@@ -362,4 +371,6 @@ public class OAuthApplications_UsersLocalServiceClpInvoker {
 	private String[] _methodParameterTypes50;
 	private String _methodName51;
 	private String[] _methodParameterTypes51;
+	private String _methodName52;
+	private String[] _methodParameterTypes52;
 }

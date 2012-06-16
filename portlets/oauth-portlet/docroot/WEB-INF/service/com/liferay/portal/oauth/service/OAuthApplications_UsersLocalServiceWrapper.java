@@ -288,6 +288,12 @@ public class OAuthApplications_UsersLocalServiceWrapper
 			authorized);
 	}
 
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplications_Users> findByApplicationId(
+		long applicationId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _oAuthApplications_UsersLocalService.findByApplicationId(applicationId);
+	}
+
 	public java.util.List<com.liferay.portal.oauth.model.OAuthApplications_Users> findByUser(
 		long userId) throws com.liferay.portal.kernel.exception.SystemException {
 		return _oAuthApplications_UsersLocalService.findByUser(userId);

@@ -261,6 +261,17 @@ public interface OAuthApplicationLocalService extends BaseLocalService,
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
+	/**
+	* Delete OAuth application designated by applicationId. Method will
+	* delete all application user's authorizations, application and
+	* corresponding resource entries.
+	*/
+	public com.liferay.portal.oauth.model.OAuthApplication deleteApplication(
+		long applicationId, long userId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.portal.oauth.model.OAuthApplication getApplication(
 		java.lang.String consumerKey)
@@ -304,4 +315,17 @@ public interface OAuthApplicationLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getApplicationsCount(long companyId)
 		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Update existing application that should use OAuth feature. If changed
+	* method will update name, description, website, callbackURL and
+	* access level.
+	*/
+	public com.liferay.portal.oauth.model.OAuthApplication updateApplication(
+		long applicationId, long userId, java.lang.String name,
+		java.lang.String description, java.lang.String website,
+		java.lang.String callBackURL, int accessLevel,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 }

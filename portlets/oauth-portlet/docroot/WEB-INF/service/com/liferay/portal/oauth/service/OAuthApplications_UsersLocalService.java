@@ -258,6 +258,10 @@ public interface OAuthApplications_UsersLocalService extends BaseLocalService,
 	public int countByOwner(long ownerId, boolean authorized)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplications_Users> findByApplicationId(
+		long applicationId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	public java.util.List<com.liferay.portal.oauth.model.OAuthApplications_Users> findByUser(
 		long userId) throws com.liferay.portal.kernel.exception.SystemException;
 
