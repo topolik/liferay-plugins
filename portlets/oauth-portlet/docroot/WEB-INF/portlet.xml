@@ -86,7 +86,7 @@
 		</portlet-class>
 		<init-param>
 			<name>view-jsp</name>
-			<value>/html/simulator/edit.jsp</value>
+			<value>/html/simulator/view.jsp</value>
 		</init-param>
 		<init-param>
 			<name>config-jsp</name>

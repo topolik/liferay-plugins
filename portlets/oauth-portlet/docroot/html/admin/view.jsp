@@ -1,9 +1,5 @@
-<%@page import="com.liferay.portal.kernel.language.LanguageUtil"%>
 <%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
-<%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
-<%@page import="com.liferay.portal.oauth.model.OAuthApplication"%>
 <%@page import="com.liferay.portal.oauth.service.OAuthApplicationLocalServiceUtil"%>
-<%@page import="com.liferay.portlet.oauth.OAuthConstants"%>
 <%@page import="com.liferay.portlet.oauth.search.OAuthApplicationSearchTerms"%>
 <%@page import="com.liferay.portlet.oauth.search.OAuthApplicationDisplayTerms"%>
 <%@page import="com.liferay.portlet.oauth.search.OAuthApplicationSearch"%>

@@ -1,11 +1,6 @@
 <%@page import="com.liferay.portlet.oauth.search.OAuthApplicationSearch"%>
 <%@page import="com.liferay.portlet.oauth.search.OAuthApplicationSearchTerms"%>
 <%@page import="com.liferay.portal.oauth.service.OAuthApplicationLocalServiceUtil"%>
-<%@page import="java.net.MalformedURLException"%>
-<%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
-<%@page import="com.liferay.portal.oauth.model.OAuthApplication"%>
-<%@page import="com.liferay.portal.RequiredFieldException" %>
-<%@page import="com.liferay.portlet.oauth.OAuthConstants"%>
 
 <%@page import="java.util.List"%>
 
@@ -31,7 +26,7 @@ boolean verifyStep = null != oauthURL && !"".equals(oauthURL);
 		</liferay-ui:panel>
 		
 		<liferay-portlet:actionURL name="verifyOAuthorization" var="verifyOAuthorizationURL">
-				<portlet:param name="jspPage" value="/html/simulator/edit.jsp"/>
+				<portlet:param name="jspPage" value="/html/simulator/view.jsp"/>
 		</liferay-portlet:actionURL>
 		
 		<aui:form action="<%= verifyOAuthorizationURL %>" method="post">
@@ -88,7 +83,7 @@ boolean verifyStep = null != oauthURL && !"".equals(oauthURL);
 		</liferay-ui:search-container-column-text>
 		
 		<liferay-portlet:actionURL name="addOAuthorization" var="addAuthorizationURL">
-			<portlet:param name="jspPage" value="/html/simulator/edit.jsp"/>
+			<portlet:param name="jspPage" value="/html/simulator/view.jsp"/>
 			<portlet:param name="applicationId" value="<%= String.valueOf(app.getApplicationId()) %>" />
 		</liferay-portlet:actionURL>
 		
