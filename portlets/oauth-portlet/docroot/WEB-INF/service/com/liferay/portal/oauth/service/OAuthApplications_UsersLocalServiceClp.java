@@ -115,47 +115,51 @@ public class OAuthApplications_UsersLocalServiceClp
 
 		_methodParameterTypes17 = new String[] { "java.lang.String" };
 
-		_methodName19 = "countByUser";
+		_methodName19 = "countByApplicationId";
 
 		_methodParameterTypes19 = new String[] { "long" };
 
-		_methodName20 = "countByOwner";
+		_methodName20 = "countByUser";
 
-		_methodParameterTypes20 = new String[] { "long", "boolean" };
+		_methodParameterTypes20 = new String[] { "long" };
 
-		_methodName21 = "findByApplicationId";
+		_methodName21 = "countByOwner";
 
-		_methodParameterTypes21 = new String[] { "long" };
+		_methodParameterTypes21 = new String[] { "long", "boolean" };
 
-		_methodName22 = "findByUser";
+		_methodName22 = "findByApplicationId";
 
 		_methodParameterTypes22 = new String[] { "long" };
 
 		_methodName23 = "findByUser";
 
-		_methodParameterTypes23 = new String[] { "long", "int", "int" };
+		_methodParameterTypes23 = new String[] { "long" };
 
 		_methodName24 = "findByUser";
 
-		_methodParameterTypes24 = new String[] {
+		_methodParameterTypes24 = new String[] { "long", "int", "int" };
+
+		_methodName25 = "findByUser";
+
+		_methodParameterTypes25 = new String[] {
 				"long", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName25 = "findByOwner";
+		_methodName26 = "findByOwner";
 
-		_methodParameterTypes25 = new String[] {
+		_methodParameterTypes26 = new String[] {
 				"long", "boolean", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName26 = "updateOAuthApplications_Users";
-
-		_methodParameterTypes26 = new String[] { "long", "long", "boolean" };
-
 		_methodName27 = "updateOAuthApplications_Users";
 
-		_methodParameterTypes27 = new String[] {
+		_methodParameterTypes27 = new String[] { "long", "long", "boolean" };
+
+		_methodName28 = "updateOAuthApplications_Users";
+
+		_methodParameterTypes28 = new String[] {
 				"long", "long", "java.lang.String", "java.lang.String"
 			};
 	}
@@ -696,13 +700,40 @@ public class OAuthApplications_UsersLocalServiceClp
 		throw new UnsupportedOperationException();
 	}
 
-	public int countByUser(long userId)
+	public int countByApplicationId(long applicationId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName19,
-					_methodParameterTypes19, new Object[] { userId });
+					_methodParameterTypes19, new Object[] { applicationId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Integer)returnObj).intValue();
+	}
+
+	public int countByUser(long userId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20, new Object[] { userId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -728,8 +759,8 @@ public class OAuthApplications_UsersLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName20,
-					_methodParameterTypes20,
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
 					new Object[] { ownerId, authorized });
 		}
 		catch (Throwable t) {
@@ -757,8 +788,8 @@ public class OAuthApplications_UsersLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName21,
-					_methodParameterTypes21, new Object[] { applicationId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22, new Object[] { applicationId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -784,8 +815,8 @@ public class OAuthApplications_UsersLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName22,
-					_methodParameterTypes22, new Object[] { userId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23, new Object[] { userId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -812,8 +843,8 @@ public class OAuthApplications_UsersLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName23,
-					_methodParameterTypes23, new Object[] { userId, start, end });
+			returnObj = _invokableLocalService.invokeMethod(_methodName24,
+					_methodParameterTypes24, new Object[] { userId, start, end });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -841,8 +872,8 @@ public class OAuthApplications_UsersLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName24,
-					_methodParameterTypes24,
+			returnObj = _invokableLocalService.invokeMethod(_methodName25,
+					_methodParameterTypes25,
 					new Object[] {
 						userId,
 						
@@ -879,8 +910,8 @@ public class OAuthApplications_UsersLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName25,
-					_methodParameterTypes25,
+			returnObj = _invokableLocalService.invokeMethod(_methodName26,
+					_methodParameterTypes26,
 					new Object[] {
 						ownerId,
 						
@@ -918,8 +949,8 @@ public class OAuthApplications_UsersLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName26,
-					_methodParameterTypes26,
+			returnObj = _invokableLocalService.invokeMethod(_methodName27,
+					_methodParameterTypes27,
 					new Object[] { oAuthApplicationId, userId, authorized });
 		}
 		catch (Throwable t) {
@@ -948,8 +979,8 @@ public class OAuthApplications_UsersLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName27,
-					_methodParameterTypes27,
+			returnObj = _invokableLocalService.invokeMethod(_methodName28,
+					_methodParameterTypes28,
 					new Object[] {
 						oAuthApplicationId,
 						
@@ -1034,4 +1065,6 @@ public class OAuthApplications_UsersLocalServiceClp
 	private String[] _methodParameterTypes26;
 	private String _methodName27;
 	private String[] _methodParameterTypes27;
+	private String _methodName28;
+	private String[] _methodParameterTypes28;
 }

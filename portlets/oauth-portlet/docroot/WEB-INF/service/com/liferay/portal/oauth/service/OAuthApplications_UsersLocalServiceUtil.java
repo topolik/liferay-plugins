@@ -281,6 +281,11 @@ public class OAuthApplications_UsersLocalServiceUtil {
 	*
 	* Never reference this interface directly. Always use {@link com.liferay.portal.oauth.service.OAuthApplications_UsersLocalServiceUtil} to access the o auth applications_ users local service.
 	*/
+	public static int countByApplicationId(long applicationId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().countByApplicationId(applicationId);
+	}
+
 	public static int countByUser(long userId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService().countByUser(userId);
