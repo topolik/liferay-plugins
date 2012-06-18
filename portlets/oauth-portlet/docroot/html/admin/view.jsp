@@ -62,7 +62,7 @@ String replaceParm0 = "{0}";
 		modelVar="app">
 		
 		<%
-		int authorizationsCount = OAuthApplications_UsersLocalServiceUtil.findByApplicationId(app.getApplicationId()).size();
+		int authorizationsCount = OAuthApplications_UsersLocalServiceUtil.countByApplicationId(app.getApplicationId());
 		%>
 		
 		<liferay-ui:search-container-column-text
