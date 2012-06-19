@@ -77,18 +77,15 @@ String replaceParm0 = "{0}";
 				/>
 		<liferay-ui:search-container-column-text
 					name="website"
-					orderable="<%= false %>"
 				/>
 		<liferay-ui:search-container-column-text
 					name="access-level"
-					orderable="<%= false %>"
 				>
 				<liferay-ui:message key="<%= OAuthConstants.WEB_APP_LANG_KEY_ACCESS_TYPE_SHORT.replace(replaceParm0, Integer.toString(app.getAccessLevel())) %>" />
 		</liferay-ui:search-container-column-text>
 		<liferay-ui:search-container-column-text
-					name="authorizations-count"
+					name="authorizations-count-short"
 					value="<%= Integer.toString(authorizationsCount) %>"
-					orderable="<%= true %>"
 				/>
 		<liferay-ui:search-container-column-jsp
 					align="right"

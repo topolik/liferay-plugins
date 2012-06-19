@@ -158,6 +158,15 @@ public class OAuthApplicationLocalServiceImpl
 
 		return oAuthApplicationPersistence.findByCompanyId(companyId);
 	}
+	
+	public List<OAuthApplication> getApplications(
+			long companyId, int start, int end,
+			OrderByComparator orderByComparator)
+			throws SystemException {
+
+			return oAuthApplicationPersistence.filterFindByCompanyId(
+					companyId, start, end, orderByComparator);
+		}
 
 	public List<OAuthApplication> getApplications(
 			long companyId, String name, int start, int end,

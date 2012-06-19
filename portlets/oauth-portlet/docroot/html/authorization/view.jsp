@@ -66,7 +66,7 @@
 					orderable="<%= true %>"
 				/>
 		<liferay-ui:search-container-column-text
-					name="applicationId"
+					name="application-id-short"
 					value="<%= Long.toString(appAuth.getApplicationId()) %>"
 					orderable="<%= true %>"
 				/>
@@ -76,7 +76,8 @@
 					orderable="<%= false %>"
 				/>
 		<liferay-ui:search-container-column-text
-					name="accessToken"
+					name="access-token"
+					value="<%= appAuth.getAccessToken() %>"
 					orderable="<%= false %>"
 				/>
 		<liferay-ui:search-container-column-text
@@ -84,6 +85,12 @@
 					value="<%= Boolean.toString(appAuth.getAuthorized()) %>"
 					orderable="<%= false %>"
 				/>
+		<liferay-ui:search-container-column-text
+					name="access-level"
+					orderable="<%= false %>"
+				>
+				<liferay-ui:message key='<%= OAuthConstants.WEB_APP_LANG_KEY_ACCESS_TYPE_SHORT.replace("{0}", Integer.toString(app.getAccessLevel())) %>' />
+		</liferay-ui:search-container-column-text>
 	</liferay-ui:search-container-row>
 
 	<liferay-ui:search-iterator />
