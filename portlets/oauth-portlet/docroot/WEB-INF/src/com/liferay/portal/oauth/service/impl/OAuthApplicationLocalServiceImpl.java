@@ -198,6 +198,15 @@ public class OAuthApplicationLocalServiceImpl
 		return oAuthApplicationPersistence.findByO_N(
 			ownerId, name, start, end, orderByComparator);
 	}
+	
+	public List<OAuthApplication> getApplicationsByOwner(
+			long ownerId, int start, int end,
+			OrderByComparator orderByComparator)
+		throws SystemException {
+
+		return oAuthApplicationPersistence.findByOwnerId(
+					ownerId, start, end, orderByComparator);
+	}
 
 	public int getApplicationsByCNCount(long companyId, String name)
 		throws SystemException {
@@ -210,6 +219,12 @@ public class OAuthApplicationLocalServiceImpl
 
 		return oAuthApplicationPersistence.countByO_N(ownerId, name);
 	}
+	
+	public int getApplicationsByOwnerCount(long ownerId)
+			throws SystemException {
+
+			return oAuthApplicationPersistence.countByOwnerId(ownerId);
+		}
 
 	public int getApplicationsCount(long companyId) throws SystemException {
 		return oAuthApplicationPersistence.countByCompanyId(companyId);
