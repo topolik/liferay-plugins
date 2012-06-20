@@ -165,21 +165,32 @@ public class OAuthApplicationLocalServiceClp
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName28 = "getApplicationsByCNCount";
+		_methodName28 = "getApplicationsByOwner";
 
-		_methodParameterTypes28 = new String[] { "long", "java.lang.String" };
+		_methodParameterTypes28 = new String[] {
+				"long", "int", "int",
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			};
 
-		_methodName29 = "getApplicationsByONCount";
+		_methodName29 = "getApplicationsByCNCount";
 
 		_methodParameterTypes29 = new String[] { "long", "java.lang.String" };
 
-		_methodName30 = "getApplicationsCount";
+		_methodName30 = "getApplicationsByONCount";
 
-		_methodParameterTypes30 = new String[] { "long" };
+		_methodParameterTypes30 = new String[] { "long", "java.lang.String" };
 
-		_methodName31 = "updateApplication";
+		_methodName31 = "getApplicationsByOwnerCount";
 
-		_methodParameterTypes31 = new String[] {
+		_methodParameterTypes31 = new String[] { "long" };
+
+		_methodName32 = "getApplicationsCount";
+
+		_methodParameterTypes32 = new String[] { "long" };
+
+		_methodName33 = "updateApplication";
+
+		_methodParameterTypes33 = new String[] {
 				"long", "long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "int",
 				"com.liferay.portal.service.ServiceContext"
@@ -1045,13 +1056,51 @@ public class OAuthApplicationLocalServiceClp
 		return (java.util.List<com.liferay.portal.oauth.model.OAuthApplication>)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public int getApplicationsByCNCount(long companyId, java.lang.String name)
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> getApplicationsByOwner(
+		long ownerId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName28,
 					_methodParameterTypes28,
+					new Object[] {
+						ownerId,
+						
+					start,
+						
+					end,
+						
+					ClpSerializer.translateInput(orderByComparator)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.portal.oauth.model.OAuthApplication>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public int getApplicationsByCNCount(long companyId, java.lang.String name)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName29,
+					_methodParameterTypes29,
 					new Object[] { companyId, ClpSerializer.translateInput(name) });
 		}
 		catch (Throwable t) {
@@ -1078,9 +1127,36 @@ public class OAuthApplicationLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName29,
-					_methodParameterTypes29,
+			returnObj = _invokableLocalService.invokeMethod(_methodName30,
+					_methodParameterTypes30,
 					new Object[] { ownerId, ClpSerializer.translateInput(name) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Integer)returnObj).intValue();
+	}
+
+	public int getApplicationsByOwnerCount(long ownerId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName31,
+					_methodParameterTypes31, new Object[] { ownerId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -1106,8 +1182,8 @@ public class OAuthApplicationLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName30,
-					_methodParameterTypes30, new Object[] { companyId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName32,
+					_methodParameterTypes32, new Object[] { companyId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -1138,8 +1214,8 @@ public class OAuthApplicationLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName31,
-					_methodParameterTypes31,
+			returnObj = _invokableLocalService.invokeMethod(_methodName33,
+					_methodParameterTypes33,
 					new Object[] {
 						applicationId,
 						
@@ -1244,4 +1320,8 @@ public class OAuthApplicationLocalServiceClp
 	private String[] _methodParameterTypes30;
 	private String _methodName31;
 	private String[] _methodParameterTypes31;
+	private String _methodName32;
+	private String[] _methodParameterTypes32;
+	private String _methodName33;
+	private String[] _methodParameterTypes33;
 }

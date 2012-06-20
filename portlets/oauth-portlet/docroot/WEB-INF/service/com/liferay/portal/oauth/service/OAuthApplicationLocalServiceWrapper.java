@@ -350,6 +350,14 @@ public class OAuthApplicationLocalServiceWrapper
 			start, end, orderByComparator);
 	}
 
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> getApplicationsByOwner(
+		long ownerId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _oAuthApplicationLocalService.getApplicationsByOwner(ownerId,
+			start, end, orderByComparator);
+	}
+
 	public int getApplicationsByCNCount(long companyId, java.lang.String name)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _oAuthApplicationLocalService.getApplicationsByCNCount(companyId,
@@ -360,6 +368,11 @@ public class OAuthApplicationLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _oAuthApplicationLocalService.getApplicationsByONCount(ownerId,
 			name);
+	}
+
+	public int getApplicationsByOwnerCount(long ownerId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _oAuthApplicationLocalService.getApplicationsByOwnerCount(ownerId);
 	}
 
 	public int getApplicationsCount(long companyId)

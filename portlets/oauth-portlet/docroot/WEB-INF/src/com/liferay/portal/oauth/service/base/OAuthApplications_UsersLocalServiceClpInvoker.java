@@ -113,52 +113,72 @@ public class OAuthApplications_UsersLocalServiceClpInvoker {
 
 		_methodParameterTypes39 = new String[] { "java.lang.String" };
 
-		_methodName44 = "countByApplicationId";
+		_methodName44 = "addOAuthApplications_Users";
 
-		_methodParameterTypes44 = new String[] { "long" };
+		_methodParameterTypes44 = new String[] {
+				"boolean", "long", "long", "java.lang.String",
+				"java.lang.String", "com.liferay.portal.service.ServiceContext"
+			};
 
-		_methodName45 = "countByUser";
+		_methodName45 = "countByApplicationId";
 
 		_methodParameterTypes45 = new String[] { "long" };
 
-		_methodName46 = "countByOwner";
+		_methodName46 = "countByUser";
 
-		_methodParameterTypes46 = new String[] { "long", "boolean" };
+		_methodParameterTypes46 = new String[] { "long" };
 
-		_methodName47 = "findByApplicationId";
+		_methodName47 = "countByOwner";
 
-		_methodParameterTypes47 = new String[] { "long" };
+		_methodParameterTypes47 = new String[] { "long", "boolean" };
 
-		_methodName48 = "findByUser";
+		_methodName48 = "deleteOAuthApplications_Users";
 
-		_methodParameterTypes48 = new String[] { "long" };
+		_methodParameterTypes48 = new String[] {
+				"long", "long", "com.liferay.portal.service.ServiceContext"
+			};
 
-		_methodName49 = "findByUser";
+		_methodName49 = "findByApplicationId";
 
-		_methodParameterTypes49 = new String[] { "long", "int", "int" };
+		_methodParameterTypes49 = new String[] { "long" };
 
 		_methodName50 = "findByUser";
 
-		_methodParameterTypes50 = new String[] {
+		_methodParameterTypes50 = new String[] { "long" };
+
+		_methodName51 = "findByUser";
+
+		_methodParameterTypes51 = new String[] { "long", "int", "int" };
+
+		_methodName52 = "findByUser";
+
+		_methodParameterTypes52 = new String[] {
 				"long", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName51 = "findByOwner";
+		_methodName53 = "findByOwner";
 
-		_methodParameterTypes51 = new String[] {
+		_methodParameterTypes53 = new String[] {
 				"long", "boolean", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName52 = "updateOAuthApplications_Users";
+		_methodName54 = "updateOAuthApplications_Users";
 
-		_methodParameterTypes52 = new String[] { "long", "long", "boolean" };
+		_methodParameterTypes54 = new String[] { "long", "long", "boolean" };
 
-		_methodName53 = "updateOAuthApplications_Users";
+		_methodName55 = "updateOAuthApplications_Users";
 
-		_methodParameterTypes53 = new String[] {
+		_methodParameterTypes55 = new String[] {
 				"long", "long", "java.lang.String", "java.lang.String"
+			};
+
+		_methodName56 = "updateOAuthApplications_Users";
+
+		_methodParameterTypes56 = new String[] {
+				"boolean", "long", "long", "java.lang.String",
+				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
 	}
 
@@ -263,47 +283,63 @@ public class OAuthApplications_UsersLocalServiceClpInvoker {
 
 		if (_methodName44.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes44, parameterTypes)) {
-			return OAuthApplications_UsersLocalServiceUtil.countByApplicationId(((Long)arguments[0]).longValue());
+			return OAuthApplications_UsersLocalServiceUtil.addOAuthApplications_Users(((Boolean)arguments[0]).booleanValue(),
+				((Long)arguments[1]).longValue(),
+				((Long)arguments[2]).longValue(),
+				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
+				(com.liferay.portal.service.ServiceContext)arguments[5]);
 		}
 
 		if (_methodName45.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
-			return OAuthApplications_UsersLocalServiceUtil.countByUser(((Long)arguments[0]).longValue());
+			return OAuthApplications_UsersLocalServiceUtil.countByApplicationId(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName46.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
-			return OAuthApplications_UsersLocalServiceUtil.countByOwner(((Long)arguments[0]).longValue(),
-				((Boolean)arguments[1]).booleanValue());
+			return OAuthApplications_UsersLocalServiceUtil.countByUser(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName47.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
-			return OAuthApplications_UsersLocalServiceUtil.findByApplicationId(((Long)arguments[0]).longValue());
+			return OAuthApplications_UsersLocalServiceUtil.countByOwner(((Long)arguments[0]).longValue(),
+				((Boolean)arguments[1]).booleanValue());
 		}
 
 		if (_methodName48.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
-			return OAuthApplications_UsersLocalServiceUtil.findByUser(((Long)arguments[0]).longValue());
+			return OAuthApplications_UsersLocalServiceUtil.deleteOAuthApplications_Users(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				(com.liferay.portal.service.ServiceContext)arguments[2]);
 		}
 
 		if (_methodName49.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes49, parameterTypes)) {
+			return OAuthApplications_UsersLocalServiceUtil.findByApplicationId(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName50.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
+			return OAuthApplications_UsersLocalServiceUtil.findByUser(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName51.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes51, parameterTypes)) {
 			return OAuthApplications_UsersLocalServiceUtil.findByUser(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue());
 		}
 
-		if (_methodName50.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
+		if (_methodName52.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
 			return OAuthApplications_UsersLocalServiceUtil.findByUser(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3]);
 		}
 
-		if (_methodName51.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes51, parameterTypes)) {
+		if (_methodName53.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
 			return OAuthApplications_UsersLocalServiceUtil.findByOwner(((Long)arguments[0]).longValue(),
 				((Boolean)arguments[1]).booleanValue(),
 				((Integer)arguments[2]).intValue(),
@@ -311,18 +347,27 @@ public class OAuthApplications_UsersLocalServiceClpInvoker {
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[4]);
 		}
 
-		if (_methodName52.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
+		if (_methodName54.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
 			return OAuthApplications_UsersLocalServiceUtil.updateOAuthApplications_Users(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				((Boolean)arguments[2]).booleanValue());
 		}
 
-		if (_methodName53.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
+		if (_methodName55.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
 			return OAuthApplications_UsersLocalServiceUtil.updateOAuthApplications_Users(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2], (java.lang.String)arguments[3]);
+		}
+
+		if (_methodName56.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
+			return OAuthApplications_UsersLocalServiceUtil.updateOAuthApplications_Users(((Boolean)arguments[0]).booleanValue(),
+				((Long)arguments[1]).longValue(),
+				((Long)arguments[2]).longValue(),
+				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
+				(com.liferay.portal.service.ServiceContext)arguments[5]);
 		}
 
 		throw new UnsupportedOperationException();
@@ -384,4 +429,10 @@ public class OAuthApplications_UsersLocalServiceClpInvoker {
 	private String[] _methodParameterTypes52;
 	private String _methodName53;
 	private String[] _methodParameterTypes53;
+	private String _methodName54;
+	private String[] _methodParameterTypes54;
+	private String _methodName55;
+	private String[] _methodParameterTypes55;
+	private String _methodName56;
+	private String[] _methodParameterTypes56;
 }
