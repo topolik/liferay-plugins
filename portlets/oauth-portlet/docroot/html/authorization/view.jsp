@@ -10,6 +10,16 @@
 
 <%@ include file="/html/init.jsp" %>
 
+<%
+long userId = themeDisplay.getUserId();
+int myAppsCount = 0;
+
+if (!adminUser) {
+	myAppsCount = OAuthApplicationLocalServiceUtil.getApplicationsByOwnerCount(userId);	
+}
+
+%>
+
 <c:if test="<%= SessionMessages.contains(request, OAuthConstants.WEB_APP_REQ_PROCESSED) %>">
 	<liferay-ui:success key="<%= OAuthConstants.WEB_APP_REQ_PROCESSED %>" message="your-request-completed-successfully"></liferay-ui:success>
 </c:if>
@@ -19,8 +29,9 @@
 
 <aui:form action="<%= searchActionURL %>" name="fm">
 
-<liferay-util:include page="/html/admin/toolbar.jsp" servletContext="<%= application %>">
+<liferay-util:include page="/html/authorization/toolbar.jsp" servletContext="<%= application %>">
 		<liferay-util:param name="toolbarItem" value="view-all" />
+		<liferay-util:param name="myAppsCount" value="<%= Integer.toString(myAppsCount) %>" />
 </liferay-util:include>
 
 <liferay-ui:search-container
@@ -42,8 +53,8 @@
 			oAuthApps = OAuthApplications_UsersLocalServiceUtil.getOAuthApplications_Userses(searchContainer.getStart(), searchContainer.getEnd());
 			oAuthAppsCnt = OAuthApplications_UsersLocalServiceUtil.getOAuthApplications_UsersesCount();
 		} else {
-			oAuthApps = OAuthApplications_UsersLocalServiceUtil.getOAuthApplications_Userses(searchContainer.getStart(), searchContainer.getEnd());
-			oAuthAppsCnt = OAuthApplications_UsersLocalServiceUtil.getOAuthApplications_UsersesCount();
+			oAuthApps = OAuthApplications_UsersLocalServiceUtil.findByUser(userId, searchContainer.getStart(), searchContainer.getEnd());
+			oAuthAppsCnt = OAuthApplications_UsersLocalServiceUtil.countByUser(userId);
 		}
 	%>
 	
