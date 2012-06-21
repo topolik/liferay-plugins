@@ -41,6 +41,7 @@ if (!adminUser) {
 
 <liferay-ui:search-container
 	searchContainer="<%= new OAuthApplicationUserSearch(renderRequest, currentURLObj) %>"
+	emptyResultsMessage="<%= noResultsMsgKey %>"
 	delta="5">
 	
 	<liferay-ui:search-form

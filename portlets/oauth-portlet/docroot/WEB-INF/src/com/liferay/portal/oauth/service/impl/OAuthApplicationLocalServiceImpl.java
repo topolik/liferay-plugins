@@ -174,7 +174,7 @@ public class OAuthApplicationLocalServiceImpl
 		if (null == name) {
 			name = "%";
 		}
-		System.out.println("Pozivam pretragu name je "+name);
+
 		return oAuthApplicationPersistence.findByC_N(
 			companyId, name, start, end, orderByComparator);
 	}
