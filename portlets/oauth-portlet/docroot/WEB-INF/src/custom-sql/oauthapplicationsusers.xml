@@ -33,7 +33,7 @@
 	<sql id="com.liferay.portal.oauth.service.persistence.OAuthApplications_UsersFinder.findByO_A">
 		<![CDATA[
 			SELECT
-				oau
+				OAuthApplications_Users.*
 			FROM
 				OAuthApplications_Users oau,
 				OAuthApplication oa

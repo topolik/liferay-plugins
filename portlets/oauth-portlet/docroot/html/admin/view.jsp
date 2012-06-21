@@ -43,7 +43,7 @@ String replaceParm0 = "{0}";
 		int oAuthAppsCnt = 0;
 		
 		if (adminUser) {
-			oAuthApps = OAuthApplicationLocalServiceUtil.getApplicationsByCN(themeDisplay.getCompanyId(), name);
+			oAuthApps = OAuthApplicationLocalServiceUtil.getApplications(themeDisplay.getCompanyId(), name, searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator());
 			oAuthAppsCnt = OAuthApplicationLocalServiceUtil.getApplicationsByCNCount(themeDisplay.getCompanyId(), name);
 		} else {
 			oAuthApps = OAuthApplicationLocalServiceUtil.getApplicationsByON(themeDisplay.getUserId(), name, searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator());

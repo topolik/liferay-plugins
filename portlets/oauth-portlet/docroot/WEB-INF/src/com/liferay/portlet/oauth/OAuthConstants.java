@@ -48,4 +48,7 @@ public static final int ACCESS_TYPE_WRITE = 1;
 
 public static final String PORTLET_KEY_OAUTH_ADMIN = "OA01";
 public static final String PORTLET_KEY_OAUTH_USERS = "OA02";
+
+public static final String TOOLBAR_ITEM = "toolbarItem";
+public static final String TOOLBAR_ITEM_MY_APPS = "view-my-apps";
 }

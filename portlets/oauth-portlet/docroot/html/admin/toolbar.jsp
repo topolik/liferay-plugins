@@ -5,7 +5,7 @@
 <%@ include file="/html/init.jsp" %>
 
 <%
-String toolbarItem = ParamUtil.getString(request, "toolbarItem", "view-all");
+String toolbarItem = ParamUtil.getString(request, OAuthConstants.TOOLBAR_ITEM, "view-all");
 %>
 
 <div class="lfr-portlet-toolbar">

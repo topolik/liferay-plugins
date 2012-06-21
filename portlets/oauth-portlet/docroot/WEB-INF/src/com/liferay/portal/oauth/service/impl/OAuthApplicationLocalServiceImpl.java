@@ -24,7 +24,6 @@ import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.oauth.model.OAuthApplication;
-import com.liferay.portal.oauth.model.OAuthApplications_Users;
 import com.liferay.portal.oauth.service.base.OAuthApplicationLocalServiceBaseImpl;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portlet.oauth.OAuthConstants;
@@ -162,17 +161,20 @@ public class OAuthApplicationLocalServiceImpl
 	public List<OAuthApplication> getApplications(
 			long companyId, int start, int end,
 			OrderByComparator orderByComparator)
-			throws SystemException {
+		throws SystemException {
 
-			return oAuthApplicationPersistence.filterFindByCompanyId(
+		return oAuthApplicationPersistence.filterFindByCompanyId(
 					companyId, start, end, orderByComparator);
-		}
+	}
 
 	public List<OAuthApplication> getApplications(
 			long companyId, String name, int start, int end,
 			OrderByComparator orderByComparator)
 		throws SystemException {
-
+		if (null == name) {
+			name = "%";
+		}
+		System.out.println("Pozivam pretragu name je "+name);
 		return oAuthApplicationPersistence.findByC_N(
 			companyId, name, start, end, orderByComparator);
 	}
@@ -180,13 +182,16 @@ public class OAuthApplicationLocalServiceImpl
 	public List<OAuthApplication> getApplicationsByCN(
 			long companyId, String name)
 		throws SystemException {
-
+		
 		return oAuthApplicationPersistence.findByC_N(companyId, name);
 	}
 
 	public List<OAuthApplication> getApplicationsByON(long ownerId, String name)
 		throws SystemException {
-
+		if (null == name) {
+			name = "%";
+		}
+		
 		return oAuthApplicationPersistence.findByO_N(ownerId, name);
 	}
 
@@ -194,7 +199,10 @@ public class OAuthApplicationLocalServiceImpl
 			long ownerId, String name, int start, int end,
 			OrderByComparator orderByComparator)
 		throws SystemException {
-
+		if (null == name) {
+			name = "%";
+		}
+		
 		return oAuthApplicationPersistence.findByO_N(
 			ownerId, name, start, end, orderByComparator);
 	}
@@ -210,13 +218,19 @@ public class OAuthApplicationLocalServiceImpl
 
 	public int getApplicationsByCNCount(long companyId, String name)
 		throws SystemException {
-
+		if (null == name) {
+			name = "%";
+		}
+		
 		return oAuthApplicationPersistence.countByC_N(companyId, name);
 	}
 
 	public int getApplicationsByONCount(long ownerId, String name)
 		throws SystemException {
-
+		if (null == name) {
+			name = "%";
+		}
+		
 		return oAuthApplicationPersistence.countByO_N(ownerId, name);
 	}
 	

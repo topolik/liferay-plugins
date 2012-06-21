@@ -11,13 +11,19 @@
 <%@ include file="/html/init.jsp" %>
 
 <%
-long userId = themeDisplay.getUserId();
 int myAppsCount = 0;
+long userId = themeDisplay.getUserId();
+
+String noResultsMsgKey = "no-authorized-apps-were-found";
+String toolbarItem = ParamUtil.getString(request, OAuthConstants.TOOLBAR_ITEM, "view-all");
 
 if (!adminUser) {
-	myAppsCount = OAuthApplicationLocalServiceUtil.getApplicationsByOwnerCount(userId);	
+	myAppsCount = OAuthApplicationLocalServiceUtil.getApplicationsByOwnerCount(userId);
+	
+	if (OAuthConstants.TOOLBAR_ITEM_MY_APPS.equals(toolbarItem)) {
+		noResultsMsgKey = "no-authorized-my-apps-were-found";
+	}
 }
-
 %>
 
 <c:if test="<%= SessionMessages.contains(request, OAuthConstants.WEB_APP_REQ_PROCESSED) %>">
@@ -30,7 +36,6 @@ if (!adminUser) {
 <aui:form action="<%= searchActionURL %>" name="fm">
 
 <liferay-util:include page="/html/authorization/toolbar.jsp" servletContext="<%= application %>">
-		<liferay-util:param name="toolbarItem" value="view-all" />
 		<liferay-util:param name="myAppsCount" value="<%= Integer.toString(myAppsCount) %>" />
 </liferay-util:include>
 
@@ -53,8 +58,14 @@ if (!adminUser) {
 			oAuthApps = OAuthApplications_UsersLocalServiceUtil.getOAuthApplications_Userses(searchContainer.getStart(), searchContainer.getEnd());
 			oAuthAppsCnt = OAuthApplications_UsersLocalServiceUtil.getOAuthApplications_UsersesCount();
 		} else {
-			oAuthApps = OAuthApplications_UsersLocalServiceUtil.findByUser(userId, searchContainer.getStart(), searchContainer.getEnd());
-			oAuthAppsCnt = OAuthApplications_UsersLocalServiceUtil.countByUser(userId);
+			if (OAuthConstants.TOOLBAR_ITEM_MY_APPS.equals(toolbarItem)) {
+				oAuthApps = OAuthApplications_UsersLocalServiceUtil.findByOwner(userId, true, searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator());
+				oAuthAppsCnt = OAuthApplications_UsersLocalServiceUtil.countByOwner(userId, true);
+			}
+			else {
+				oAuthApps = OAuthApplications_UsersLocalServiceUtil.findByUser(userId, searchContainer.getStart(), searchContainer.getEnd());
+				oAuthAppsCnt = OAuthApplications_UsersLocalServiceUtil.countByUser(userId);	
+			}
 		}
 	%>
 	
