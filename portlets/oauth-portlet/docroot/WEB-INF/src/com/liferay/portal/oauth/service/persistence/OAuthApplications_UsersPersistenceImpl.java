@@ -4292,16 +4292,16 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 	private static final String _FINDER_COLUMN_USERID_USERID_2 = "oAuthApplications_Users.userId = ?";
 	private static final String _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN = "oAuthApplications_Users.oaauid";
 	private static final String _FILTER_SQL_SELECT_OAUTHAPPLICATIONS_USERS_WHERE =
-		"SELECT DISTINCT {oAuthApplications_Users.*} FROM OAuth_OAuthApplications_Users oAuthApplications_Users WHERE ";
+		"SELECT DISTINCT {oAuthApplications_Users.*} FROM OAuthApplications_Users oAuthApplications_Users WHERE ";
 	private static final String _FILTER_SQL_SELECT_OAUTHAPPLICATIONS_USERS_NO_INLINE_DISTINCT_WHERE_1 =
-		"SELECT {OAuth_OAuthApplications_Users.*} FROM (SELECT DISTINCT oAuthApplications_Users.oaauid FROM OAuth_OAuthApplications_Users oAuthApplications_Users WHERE ";
+		"SELECT {OAuthApplications_Users.*} FROM (SELECT DISTINCT oAuthApplications_Users.oaauid FROM OAuthApplications_Users oAuthApplications_Users WHERE ";
 	private static final String _FILTER_SQL_SELECT_OAUTHAPPLICATIONS_USERS_NO_INLINE_DISTINCT_WHERE_2 =
-		") TEMP_TABLE INNER JOIN OAuth_OAuthApplications_Users ON TEMP_TABLE.oaauid = OAuth_OAuthApplications_Users.oaauid";
-	private static final String _FILTER_SQL_COUNT_OAUTHAPPLICATIONS_USERS_WHERE = "SELECT COUNT(DISTINCT oAuthApplications_Users.oaauid) AS COUNT_VALUE FROM OAuth_OAuthApplications_Users oAuthApplications_Users WHERE ";
+		") TEMP_TABLE INNER JOIN OAuthApplications_Users ON TEMP_TABLE.oaauid = OAuthApplications_Users.oaauid";
+	private static final String _FILTER_SQL_COUNT_OAUTHAPPLICATIONS_USERS_WHERE = "SELECT COUNT(DISTINCT oAuthApplications_Users.oaauid) AS COUNT_VALUE FROM OAuthApplications_Users oAuthApplications_Users WHERE ";
 	private static final String _FILTER_ENTITY_ALIAS = "oAuthApplications_Users";
-	private static final String _FILTER_ENTITY_TABLE = "OAuth_OAuthApplications_Users";
+	private static final String _FILTER_ENTITY_TABLE = "OAuthApplications_Users";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "oAuthApplications_Users.";
-	private static final String _ORDER_BY_ENTITY_TABLE = "OAuth_OAuthApplications_Users.";
+	private static final String _ORDER_BY_ENTITY_TABLE = "OAuthApplications_Users.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No OAuthApplications_Users exists with the primary key ";
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No OAuthApplications_Users exists with the key {";
 	private static final boolean _HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE = GetterUtil.getBoolean(PropsUtil.get(

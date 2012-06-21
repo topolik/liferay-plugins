@@ -5130,16 +5130,16 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	private static final String _FINDER_COLUMN_O_N_NAME_2 = "oAuthApplication.name LIKE ?";
 	private static final String _FINDER_COLUMN_O_N_NAME_3 = "(oAuthApplication.name IS NULL OR oAuthApplication.name LIKE ?)";
 	private static final String _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN = "oAuthApplication.applicationId";
-	private static final String _FILTER_SQL_SELECT_OAUTHAPPLICATION_WHERE = "SELECT DISTINCT {oAuthApplication.*} FROM OAuth_OAuthApplication oAuthApplication WHERE ";
+	private static final String _FILTER_SQL_SELECT_OAUTHAPPLICATION_WHERE = "SELECT DISTINCT {oAuthApplication.*} FROM OAuthApplication oAuthApplication WHERE ";
 	private static final String _FILTER_SQL_SELECT_OAUTHAPPLICATION_NO_INLINE_DISTINCT_WHERE_1 =
-		"SELECT {OAuth_OAuthApplication.*} FROM (SELECT DISTINCT oAuthApplication.applicationId FROM OAuth_OAuthApplication oAuthApplication WHERE ";
+		"SELECT {OAuthApplication.*} FROM (SELECT DISTINCT oAuthApplication.applicationId FROM OAuthApplication oAuthApplication WHERE ";
 	private static final String _FILTER_SQL_SELECT_OAUTHAPPLICATION_NO_INLINE_DISTINCT_WHERE_2 =
-		") TEMP_TABLE INNER JOIN OAuth_OAuthApplication ON TEMP_TABLE.applicationId = OAuth_OAuthApplication.applicationId";
-	private static final String _FILTER_SQL_COUNT_OAUTHAPPLICATION_WHERE = "SELECT COUNT(DISTINCT oAuthApplication.applicationId) AS COUNT_VALUE FROM OAuth_OAuthApplication oAuthApplication WHERE ";
+		") TEMP_TABLE INNER JOIN OAuthApplication ON TEMP_TABLE.applicationId = OAuthApplication.applicationId";
+	private static final String _FILTER_SQL_COUNT_OAUTHAPPLICATION_WHERE = "SELECT COUNT(DISTINCT oAuthApplication.applicationId) AS COUNT_VALUE FROM OAuthApplication oAuthApplication WHERE ";
 	private static final String _FILTER_ENTITY_ALIAS = "oAuthApplication";
-	private static final String _FILTER_ENTITY_TABLE = "OAuth_OAuthApplication";
+	private static final String _FILTER_ENTITY_TABLE = "OAuthApplication";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "oAuthApplication.";
-	private static final String _ORDER_BY_ENTITY_TABLE = "OAuth_OAuthApplication.";
+	private static final String _ORDER_BY_ENTITY_TABLE = "OAuthApplication.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No OAuthApplication exists with the primary key ";
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No OAuthApplication exists with the key {";
 	private static final boolean _HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE = GetterUtil.getBoolean(PropsUtil.get(
