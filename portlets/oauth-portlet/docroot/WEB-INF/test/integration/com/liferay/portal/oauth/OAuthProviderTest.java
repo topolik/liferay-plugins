@@ -18,6 +18,7 @@ import java.io.InputStream;
 
 import java.sql.*;
 
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -78,13 +79,9 @@ public class OAuthProviderTest {
 	}
 
 	@Test
-	public void testGetAccessToken() throws Exception {
+	public void testGetAccessTokenWithoutCallback() throws Exception {
 		for (int i = 0; i < dataWithoutCallback.length; i++) {
-			OAuthService service = new ServiceBuilder()
-				.provider(LiferayApi.class)
-				.apiKey((String) dataWithoutCallback[i][8])
-				.apiSecret((String) dataWithoutCallback[i][9])
-				.build();
+			OAuthService service = buildOAuthService(dataWithoutCallback, i);
 
 			Token requestToken = service.getRequestToken();
 
@@ -119,11 +116,7 @@ public class OAuthProviderTest {
 	@Test
 	public void testGetAccessTokenWithCallbackUrl() throws Exception {
 		for (int i = 0; i < dataWithCallback.length; i++) {
-			OAuthService service = new ServiceBuilder()
-				.provider(LiferayApi.class)
-				.apiKey((String) dataWithCallback[i][8])
-				.apiSecret((String) dataWithCallback[i][9])
-				.build();
+			OAuthService service = buildOAuthService(dataWithCallback, i);
 
 			Token requestToken = service.getRequestToken();
 
@@ -151,6 +144,90 @@ public class OAuthProviderTest {
 			Assert.assertNotNull(accessToken.getToken());
 		}
 	}
+
+	@Test
+	public void testAlreadyAuthorized() throws Exception {
+		for (int i = 0; i < dataWithCallback.length; i++) {
+			OAuthService service = buildOAuthService(dataWithCallback, i);
+
+			Token requestToken = service.getRequestToken();
+
+			goToAuthorizationPage(requestToken);
+
+			if (i == 0) {
+				redirectedToLoginPage();
+			}
+
+			WebElement element = _driver.findElement(
+				By.id(OAUTH_PORTLET_ID));
+			element.submit();
+
+			goToAuthorizationPage(requestToken);
+
+			List<WebElement> elements = _driver.findElements(
+				By.className("portlet-msg-error"));
+
+			for(WebElement webElement : elements){
+				if(webElement.getText().contains("You are already authorized.")){
+					return;
+				}
+			}
+
+			Assert.fail();
+		}
+	}
+
+	@Test
+	public void testTokenExpired() throws Exception {
+		for (int i = 0; i < dataWithCallback.length; i++) {
+			OAuthService service = buildOAuthService(dataWithCallback, i);
+
+			Token requestToken = service.getRequestToken();
+
+			goToAuthorizationPage(requestToken);
+
+			if (i == 0) {
+				redirectedToLoginPage();
+			}
+
+			WebElement element = _driver.findElement(
+				By.id(OAUTH_PORTLET_ID));
+			element.submit();
+
+			String[] params = extractParams(_driver.getCurrentUrl());
+
+			Verifier verifier = new Verifier(params[1]);
+
+			service.getAccessToken(requestToken, verifier);
+
+			goToAuthorizationPage(requestToken);
+
+			List<WebElement> elements = _driver.findElements(
+				By.className("portlet-msg-error"));
+
+			for(WebElement webElement : elements){
+				if(webElement.getText().contains(
+					"Your token has been expired.")){
+
+					return;
+				}
+			}
+
+			Assert.fail();
+		}
+	}
+
+	private OAuthService buildOAuthService(Object[][] data, int index){
+		OAuthService service = new ServiceBuilder()
+			.provider(LiferayApi.class)
+			.apiKey((String) data[index][8])
+			.apiSecret((String) data[index][9])
+			.build();
+
+		return service;
+	}
+
+
 
 	private void clearData(Object[][] data) throws Exception {
 		for (int i = 0; i< data.length; i++) {
@@ -269,12 +346,15 @@ public class OAuthProviderTest {
 	}
 
 	private static final String DELETE_STATEMENT_OAUTHAPPLICATION =
-			"delete from oauth_oauthapplication where applicationId=?";
+			"delete from oauthapplication where applicationId=?";
 	private static final String DELETE_STATEMENT_OAUTHAPPLICATIONS_USERS =
-			"delete from oauth_oauthapplications_users where applicationId=?";
+			"delete from oauthapplications_users where applicationId=?";
 	private static final String INSERT_STATEMENT_OAUTHAPPLICATION =
-		"INSERT INTO oauth_oauthapplication VALUES " +
+		"INSERT INTO oauthapplication VALUES " +
 			"(? ,? ,? ,? ,? ,? , ?, ?, ?, ?, ?, ?, ?, ?)";
+
+	private static final String OAUTH_PORTLET_ID =
+		"_4_WAR_oauthportlet_authorize";
 
 	Object[][] dataWithoutCallback = {
 		{

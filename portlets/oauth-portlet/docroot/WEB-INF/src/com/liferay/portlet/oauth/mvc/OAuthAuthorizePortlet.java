@@ -67,7 +67,8 @@ public class OAuthAuthorizePortlet extends MVCPortlet {
 		catch (Exception e) {
 			if (e instanceof OAuthProblemException) {
 				SessionErrors.add(
-					request, ((OAuthProblemException) e).getProblem());
+					request, OAuthProblemException.class,
+					((OAuthProblemException) e).getProblem());
 			}
 			else {
 				SessionErrors.add(request, e.getClass());

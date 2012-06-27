@@ -27,17 +27,19 @@
 		callback = OAuthConstants.NONE;
 	}
 
-	boolean alreadyAuthorized = GetterUtil.get(SessionErrors.contains(request, OAuthConstants.ALREADY_AUTHORIZED), false);
+	boolean alreadyAuthorized = GetterUtil.get(SessionErrors.contains(renderRequest, OAuthConstants.ALREADY_AUTHORIZED), false);
 %>
 
-<c:if test='<%= SessionErrors.contains(request, OAuthProblemException.TOKEN_EXPIRED)  %>'>
-	<div class="portlet-msg-error">
-		<liferay-ui:message key="token-expired" />
-	</div>
+<c:if test='<%= SessionErrors.contains(renderRequest, OAuthProblemException.class)  %>'>
+	<c:if test='<%= SessionErrors.get(renderRequest, OAuthProblemException.class) == OAuthProblemException.TOKEN_EXPIRED%>'>
+		<div class="portlet-msg-error">
+			<liferay-ui:message key="your-token-has-been-expired" />
+		</div>
+	</c:if>
 </c:if>
 <c:if test='<%= alreadyAuthorized %>'>
 	<div class="portlet-msg-error">
-		<liferay-ui:message key="already-authorized" />
+		<liferay-ui:message key="you-are-already-authorized" />
 	</div>
 </c:if>
 
