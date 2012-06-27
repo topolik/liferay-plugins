@@ -1,4 +1,3 @@
-<%@page import="com.liferay.portal.kernel.util.WebKeys"%>
 <%@page import="com.liferay.portal.kernel.dao.search.ResultRow"%>
 
 <%@ include file="/html/init.jsp" %>
@@ -24,7 +23,7 @@ OAuthApplication oAuthApp = (OAuthApplication)row.getObject();
 		url="<%= viewURL %>"
 	/>
 
-	<c:if test="<%= true %>">
+	<c:if test='<%= permissionChecker.hasPermission(layout.getGroupId(), "com.liferay.portlet.oauth", layout.getGroupId(), ActionKeys.UPDATE) %>'>
 		<liferay-portlet:renderURL var="editURL">
 			<portlet:param name="jspPage" value="/html/admin/edit.jsp"/>
 			<portlet:param name="referer" value="<%= currentURL %>"/>
@@ -38,7 +37,7 @@ OAuthApplication oAuthApp = (OAuthApplication)row.getObject();
 		/>
 	</c:if>
 
-	<c:if test="<%= true %>">
+	<c:if test='<%= permissionChecker.hasPermission(layout.getGroupId(), "com.liferay.portlet.oauth", layout.getGroupId(), ActionKeys.DELETE) %>'>
 		<liferay-portlet:actionURL name="deleteOAuthApp" var="deleteURL">
 			<portlet:param name="applicationId" value="<%= String.valueOf(oAuthApp.getApplicationId()) %>" />
 		</liferay-portlet:actionURL>

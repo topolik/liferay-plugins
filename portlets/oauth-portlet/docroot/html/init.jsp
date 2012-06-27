@@ -7,6 +7,10 @@
 <%@page import="com.liferay.portal.oauth.OAuthAccessor" %>
 <%@page import="com.liferay.portlet.oauth.OAuthWebKeys" %>
 <%@page import="com.liferay.portal.kernel.servlet.SessionErrors" %>
+<%@page import="com.liferay.portal.kernel.util.StringPool"%>
+<%@page import="com.liferay.portal.kernel.util.WebKeys"%>
+<%@page import="com.liferay.portal.security.permission.ActionKeys"%>
+<%@page import="com.liferay.portal.security.permission.PermissionChecker"%>
 
 <%@page import="com.liferay.portlet.oauth.OAuthConstants"%>
 <%@page import="com.liferay.portlet.PortletURLUtil"%>

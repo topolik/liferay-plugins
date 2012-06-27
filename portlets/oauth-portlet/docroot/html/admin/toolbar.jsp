@@ -1,7 +1,3 @@
-<%@page import="com.liferay.portal.security.permission.ActionKeys"%>
-<%@page import="com.liferay.portal.security.permission.PermissionChecker"%>
-<%@page import="com.liferay.portal.kernel.util.StringPool"%>
-
 <%@ include file="/html/init.jsp" %>
 
 <%
