@@ -63,9 +63,9 @@ public interface OAuthProviderManager {
 
 	public void markAsAuthorized(OAuthAccessor accessor, long userId)
 		throws SystemException;
-	
-	public void markAsAuthorized(OAuthAccessor accessor,
-			long userId, ServiceContext serviceContext)
+
+	public void markAsAuthorized(
+			OAuthAccessor accessor, long userId, ServiceContext serviceContext)
 		throws PortalException, SystemException;
 
 	void validateMessage(OAuthMessage message, OAuthAccessor accessor)

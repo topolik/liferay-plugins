@@ -98,9 +98,9 @@ public class OAuthProviderManagerUtil {
 
 		getOAuthProviderManager().markAsAuthorized(accessor, userId);
 	}
-	
-	public static void markAsAuthorized(OAuthAccessor accessor,
-			long userId, ServiceContext serviceContext)
+
+	public static void markAsAuthorized(
+			OAuthAccessor accessor, long userId, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 		getOAuthProviderManager().markAsAuthorized(
 				accessor, userId, serviceContext);

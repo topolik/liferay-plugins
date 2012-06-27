@@ -1,12 +1,28 @@
-<%@page import="com.liferay.portal.oauth.service.OAuthApplications_UsersLocalServiceUtil"%>
-<%@page import="com.liferay.portal.oauth.model.OAuthApplications_Users"%>
-<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
-<%@page import="com.liferay.portal.oauth.service.OAuthApplicationLocalServiceUtil"%>
-<%@page import="com.liferay.portlet.oauth.search.OAuthApplicationSearchTerms"%>
-<%@page import="com.liferay.portlet.oauth.search.OAuthApplicationDisplayTerms"%>
-<%@page import="com.liferay.portlet.oauth.search.OAuthApplicationUserSearch"%>
+<%--
+/**
+ * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+--%>
 
-<%@page import="java.util.List"%>
+<%@ page import="com.liferay.portal.kernel.servlet.SessionMessages" %>
+<%@ page import="com.liferay.portal.oauth.model.OAuthApplications_Users" %>
+<%@ page import="com.liferay.portal.oauth.service.OAuthApplicationLocalServiceUtil" %>
+<%@ page import="com.liferay.portal.oauth.service.OAuthApplications_UsersLocalServiceUtil" %>
+<%@ page import="com.liferay.portlet.oauth.search.OAuthApplicationDisplayTerms" %>
+<%@ page import="com.liferay.portlet.oauth.search.OAuthApplicationSearchTerms" %>
+<%@ page import="com.liferay.portlet.oauth.search.OAuthApplicationUserSearch" %>
+
+<%@ page import="java.util.List" %>
 
 <%@ include file="/html/init.jsp" %>
 
@@ -19,7 +35,7 @@ String toolbarItem = ParamUtil.getString(request, OAuthConstants.TOOLBAR_ITEM, O
 
 if (!adminUser) {
 	myAppsCount = OAuthApplicationLocalServiceUtil.getApplicationsByOwnerCount(userId);
-	
+
 	if (OAuthConstants.TOOLBAR_ITEM_MY_APPS.equals(toolbarItem)) {
 		noResultsMsgKey = "no-authorized-my-apps-were-found";
 	}
@@ -40,26 +56,27 @@ if (!adminUser) {
 </liferay-util:include>
 
 <liferay-ui:search-container
-	searchContainer="<%= new OAuthApplicationUserSearch(renderRequest, currentURLObj) %>"
+	delta="5"
 	emptyResultsMessage="<%= noResultsMsgKey %>"
-	delta="5">
-	
+	searchContainer="<%= new OAuthApplicationUserSearch(renderRequest, currentURLObj) %>"
+	>
+
 	<liferay-ui:search-form
 				page="/html/authorization/search.jsp"
 				servletContext="<%= application %>"
 			/>
-	
+
 	<%
 		String name = ((OAuthApplicationSearchTerms)searchContainer.getSearchTerms()).getName();
-		
+
 		List<OAuthApplications_Users> oAuthApps = null;
 		int oAuthAppsCnt = 0;
-		
+
 		boolean renderRevokeAction = false;
-		
+
 		if (adminUser) {
 			renderRevokeAction = true;
-			
+
 			oAuthApps = OAuthApplications_UsersLocalServiceUtil.getOAuthApplications_Userses(searchContainer.getStart(), searchContainer.getEnd());
 			oAuthAppsCnt = OAuthApplications_UsersLocalServiceUtil.getOAuthApplications_UsersesCount();
 		} else {
@@ -69,13 +86,13 @@ if (!adminUser) {
 			}
 			else {
 				renderRevokeAction = true;
-				
+
 				oAuthApps = OAuthApplications_UsersLocalServiceUtil.findByUser(userId, searchContainer.getStart(), searchContainer.getEnd());
-				oAuthAppsCnt = OAuthApplications_UsersLocalServiceUtil.countByUser(userId);	
+				oAuthAppsCnt = OAuthApplications_UsersLocalServiceUtil.countByUser(userId);
 			}
 		}
 	%>
-	
+
 	<liferay-ui:search-container-results
 	results="<%= oAuthApps %>"
 	total="<%= oAuthAppsCnt %>"
@@ -85,19 +102,20 @@ if (!adminUser) {
 		className="com.liferay.portal.oauth.model.OAuthApplications_Users"
 		keyProperty="oaauid"
 		modelVar="appAuth">
+
 		<%
 		OAuthApplication app = OAuthApplicationLocalServiceUtil.fetchOAuthApplication(appAuth.getApplicationId());
 		%>
-		
+
 		<liferay-ui:search-container-column-text
 			name="oaauid"
-			value="<%= String.valueOf(appAuth.getOaauid()) %>"
 			orderable="<%= true %>"
+			value="<%= String.valueOf(appAuth.getOaauid()) %>"
 		/>
 		<liferay-ui:search-container-column-text
 			name="application-id-short"
-			value="<%= String.valueOf(appAuth.getApplicationId()) %>"
 			orderable="<%= true %>"
+			value="<%= String.valueOf(appAuth.getApplicationId()) %>"
 		/>
 		<liferay-ui:search-container-column-text
 			name="name"
@@ -116,13 +134,13 @@ if (!adminUser) {
 		>
 			<liferay-ui:message key='<%= OAuthConstants.WEB_APP_LANG_KEY_ACCESS_TYPE_SHORT.replace("{0}", Integer.toString(app.getAccessLevel())) %>' />
 		</liferay-ui:search-container-column-text>
-		
-		<c:if test="<%= renderRevokeAction %>" >
+
+		<c:if test="<%= renderRevokeAction %>">
 			<liferay-portlet:actionURL name="deleteOAuthAppUsr" var="revokeURL">
 				<portlet:param name="<%= OAuthConstants.WEB_APP_ID %>" value="<%= String.valueOf(appAuth.getApplicationId()) %>" />
 			</liferay-portlet:actionURL>
-			
-			<liferay-ui:search-container-column-text href="<%= revokeURL %>" >
+
+			<liferay-ui:search-container-column-text href="<%= revokeURL %>">
 				<liferay-ui:message key="revoke" />
 			</liferay-ui:search-container-column-text>
 		</c:if>
@@ -132,4 +150,3 @@ if (!adminUser) {
 
 </liferay-ui:search-container>
 </aui:form>
-

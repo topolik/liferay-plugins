@@ -104,7 +104,7 @@ public class OAuthApplicationLocalServiceImpl
 
 		return application;
 	}
-	
+
 	/**
 	 * Delete OAuth application designated by applicationId. Method will
 	 * delete all application user's authorizations, application and
@@ -117,10 +117,9 @@ public class OAuthApplicationLocalServiceImpl
 		// Application user's authorizations
 		oAuthApplications_UsersPersistence
 			.removeByApplicationId(applicationId);
-		
+
 		// TODO remove resorces when ivica is done with his code...
-		
-		
+
 		// Application
 
 		User user = userPersistence.findByPrimaryKey(userId);
@@ -133,14 +132,14 @@ public class OAuthApplicationLocalServiceImpl
 		application.setUserId(user.getUserId());
 		application.setUserName(user.getFullName());
 		application.setModifiedDate(serviceContext.getModifiedDate(now));
-		
+
 		// Resources
 
 		resourceLocalService.deleteResource(
 				application, ResourceConstants.SCOPE_COMPANY);
-		
+
 		// Application
-		
+
 		application = oAuthApplicationPersistence.remove(application);
 
 		return application;
@@ -157,7 +156,7 @@ public class OAuthApplicationLocalServiceImpl
 
 		return oAuthApplicationPersistence.findByCompanyId(companyId);
 	}
-	
+
 	public List<OAuthApplication> getApplications(
 			long companyId, int start, int end,
 			OrderByComparator orderByComparator)
@@ -182,8 +181,17 @@ public class OAuthApplicationLocalServiceImpl
 	public List<OAuthApplication> getApplicationsByCN(
 			long companyId, String name)
 		throws SystemException {
-		
+
 		return oAuthApplicationPersistence.findByC_N(companyId, name);
+	}
+
+	public int getApplicationsByCNCount(long companyId, String name)
+		throws SystemException {
+		if (null == name) {
+			name = "%";
+		}
+
+		return oAuthApplicationPersistence.countByC_N(companyId, name);
 	}
 
 	public List<OAuthApplication> getApplicationsByON(long ownerId, String name)
@@ -191,7 +199,7 @@ public class OAuthApplicationLocalServiceImpl
 		if (null == name) {
 			name = "%";
 		}
-		
+
 		return oAuthApplicationPersistence.findByO_N(ownerId, name);
 	}
 
@@ -202,11 +210,20 @@ public class OAuthApplicationLocalServiceImpl
 		if (null == name) {
 			name = "%";
 		}
-		
+
 		return oAuthApplicationPersistence.findByO_N(
 			ownerId, name, start, end, orderByComparator);
 	}
-	
+
+	public int getApplicationsByONCount(long ownerId, String name)
+			throws SystemException {
+			if (null == name) {
+				name = "%";
+			}
+
+			return oAuthApplicationPersistence.countByO_N(ownerId, name);
+		}
+
 	public List<OAuthApplication> getApplicationsByOwner(
 			long ownerId, int start, int end,
 			OrderByComparator orderByComparator)
@@ -216,24 +233,6 @@ public class OAuthApplicationLocalServiceImpl
 					ownerId, start, end, orderByComparator);
 	}
 
-	public int getApplicationsByCNCount(long companyId, String name)
-		throws SystemException {
-		if (null == name) {
-			name = "%";
-		}
-		
-		return oAuthApplicationPersistence.countByC_N(companyId, name);
-	}
-
-	public int getApplicationsByONCount(long ownerId, String name)
-		throws SystemException {
-		if (null == name) {
-			name = "%";
-		}
-		
-		return oAuthApplicationPersistence.countByO_N(ownerId, name);
-	}
-	
 	public int getApplicationsByOwnerCount(long ownerId)
 			throws SystemException {
 
@@ -244,33 +243,6 @@ public class OAuthApplicationLocalServiceImpl
 		return oAuthApplicationPersistence.countByCompanyId(companyId);
 	}
 
-	private void validate(String name, String website, String callBackURL)
-		throws PortalException {
-
-		if (Validator.isNull(name)) {
-			throw new RequiredFieldException(
-				"required-field", OAuthConstants.WEB_APP_NAME_ID);
-		}
-
-		if (Validator.isNull(callBackURL)) {
-			throw new RequiredFieldException(
-				"required-field", OAuthConstants.WEB_APP_CALLBACKURL_ID);
-		}
-
-		if (!Validator.isUrl(callBackURL)) {
-			throw new PortalException(new MalformedURLException(callBackURL));
-		}
-
-		if (Validator.isNull(website)) {
-			throw new RequiredFieldException(
-				"required-field", OAuthConstants.WEB_APP_WEBSITE_ID);
-		}
-
-		if (!Validator.isUrl(website)) {
-			throw new PortalException(new MalformedURLException(website));
-		}
-	}
-	
 	/**
 	 * Update existing application that should use OAuth feature. If changed
 	 * method will update name, description, website, callbackURL and
@@ -300,8 +272,8 @@ public class OAuthApplicationLocalServiceImpl
 		application.setDescription(description);
 		application.setWebsite(website);
 		application.setCallBackURL(callBackURL);
-		
-		// TODO: Ray/Mike - we probably shouldn't allow access level change? 
+
+		// TODO: Ray/Mike - we probably shouldn't allow access level change?
 		application.setAccessLevel(accessLevel);
 
 		oAuthApplicationPersistence.update(application, true);
@@ -310,6 +282,33 @@ public class OAuthApplicationLocalServiceImpl
 		// TODO: Ray/Mike does update requires resource updates?
 
 		return application;
+	}
+
+	private void validate(String name, String website, String callBackURL)
+		throws PortalException {
+
+		if (Validator.isNull(name)) {
+			throw new RequiredFieldException(
+				"required-field", OAuthConstants.WEB_APP_NAME_ID);
+		}
+
+		if (Validator.isNull(callBackURL)) {
+			throw new RequiredFieldException(
+				"required-field", OAuthConstants.WEB_APP_CALLBACKURL_ID);
+		}
+
+		if (!Validator.isUrl(callBackURL)) {
+			throw new PortalException(new MalformedURLException(callBackURL));
+		}
+
+		if (Validator.isNull(website)) {
+			throw new RequiredFieldException(
+				"required-field", OAuthConstants.WEB_APP_WEBSITE_ID);
+		}
+
+		if (!Validator.isUrl(website)) {
+			throw new PortalException(new MalformedURLException(website));
+		}
 	}
 
 }
