@@ -91,17 +91,19 @@ public class OAuthSimulatorPortlet extends MVCPortlet {
 					.apiKey(app.getConsumerKey())
 					.apiSecret(app.getConsumerSecret()).build();
 				
-				String tokenString = ParamUtil.getString(actionRequest, "oauth-simulator-token");
-				String secretString = ParamUtil.getString(actionRequest, "oauth-simulator-secret");
-				String verifierString = ParamUtil.getString(actionRequest, "oauth-simulator-verifier");
+				String tokenString = ParamUtil.getString(
+						actionRequest, "oauth-simulator-token");
+				String secretString = ParamUtil.getString(
+						actionRequest, "oauth-simulator-secret");
+				String verifierString = ParamUtil.getString(
+						actionRequest, "oauth-simulator-verifier");
 				
 				Verifier verifier = new Verifier(verifierString);
 				
 				Token requestToken = new Token(tokenString, secretString);
 				
-				Token accessToken = oAuthService.getAccessToken(requestToken, verifier);
-				
-				System.out.println(accessToken.getToken());
+				Token accessToken = oAuthService
+						.getAccessToken(requestToken, verifier);
 			}
 			catch (Exception e) {
 				if (e instanceof SystemException) {
@@ -121,7 +123,8 @@ public class OAuthSimulatorPortlet extends MVCPortlet {
 	
 	@Override
 	public void processAction(ActionRequest actionRequest,
-			ActionResponse actionResponse) throws IOException, PortletException {
+			ActionResponse actionResponse)
+		throws IOException, PortletException {
 		super.processAction(actionRequest, actionResponse);
 	}
 }

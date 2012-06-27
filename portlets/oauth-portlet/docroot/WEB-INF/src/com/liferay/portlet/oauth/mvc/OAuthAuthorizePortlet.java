@@ -7,6 +7,8 @@ import com.liferay.portal.oauth.OAuthMessage;
 import com.liferay.portal.oauth.OAuthProblemException;
 import com.liferay.portal.oauth.OAuthProviderManagerUtil;
 import com.liferay.portlet.oauth.OAuthWebKeys;
+import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.oauth.OAuthConstants;
 import com.liferay.util.bridges.mvc.MVCPortlet;
@@ -28,9 +30,12 @@ public class OAuthAuthorizePortlet extends MVCPortlet {
 		try {
 			OAuthAccessor accessor = OAuthProviderManagerUtil.getAccessor(
 				requestMessage);
+			
+			ServiceContext serviceContext =
+					ServiceContextFactory.getInstance(request);
 
 			OAuthProviderManagerUtil.markAsAuthorized(
-					accessor, themeDisplay.getUserId());
+					accessor, serviceContext.getUserId(), serviceContext);
 
 			returnToConsumer(request, response, accessor);
 		}
