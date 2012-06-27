@@ -1,5 +1,12 @@
 package com.liferay.portlet.oauth.mvc;
 
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.oauth.service.OAuthApplications_UsersLocalServiceUtil;
+import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.service.ServiceContextFactory;
+import com.liferay.portlet.oauth.OAuthConstants;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
 import java.io.IOException;
@@ -17,10 +24,34 @@ public class OAuthApplicationAuthorizationPortlet extends MVCPortlet {
 		super.render(request, response);
 	}
 
-	public void deleteOAuthApp(ActionRequest actionRequest,
+	public void deleteOAuthAppUsr(ActionRequest actionRequest,
 			ActionResponse actionResponse)
 		throws IOException, PortletException {
-		//TODO: implement delete authorization
+		long applicationId = ParamUtil.getLong(actionRequest, OAuthConstants.WEB_APP_ID, 0L);
+		
+		try {
+			if (applicationId > 0) {
+				ServiceContext serviceContext =
+						ServiceContextFactory.getInstance(actionRequest);
+				
+				OAuthApplications_UsersLocalServiceUtil
+					.deleteOAuthApplications_Users(
+						applicationId, serviceContext.getUserId(), serviceContext);
+			}
+			else {
+				SessionErrors.add(
+						actionRequest, "cant-complete-operation-without-id");
+			}
+		}
+		catch (Exception e) {
+			if (e instanceof SystemException) {
+				SessionErrors.add(actionRequest, e.getClass().getName(), e);
+			}
+			else {
+				throw new PortletException(e.fillInStackTrace());
+			}
+		}
+		
 	}
 
 	@Override

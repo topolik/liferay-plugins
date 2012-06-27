@@ -113,7 +113,8 @@ public class OAuthApplications_UsersLocalServiceImpl
 			oAuthApplications_UsersPersistence
 				.findByA_U(oAuthApplicationId, userId);
 		
-		deleteOAuthApplications_Users(oAuthApplications_users);
+		oAuthApplications_users = deleteOAuthApplications_Users(
+				oAuthApplications_users);
 		
 		resourceLocalService.deleteResource(serviceContext.getCompanyId(),
 				OAuthApplications_Users.class.getName(),
