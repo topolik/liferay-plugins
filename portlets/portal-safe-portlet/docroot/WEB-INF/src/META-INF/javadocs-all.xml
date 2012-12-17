@@ -54,12 +54,12 @@
 			<param>
 				<name>companyId</name>
 				<type>long</type>
-				<comment><![CDATA[id of the company where the oldItemName is stored]]></comment>
+				<comment><![CDATA[ID of the company where the oldItemName is stored]]></comment>
 			</param>
 			<param>
 				<name>groupId</name>
 				<type>long</type>
-				<comment><![CDATA[id of the group where the oldItemName is stored]]></comment>
+				<comment><![CDATA[ID of the group where the oldItemName is stored]]></comment>
 			</param>
 			<param>
 				<name>oldItemName</name>
@@ -88,12 +88,12 @@
 			<param>
 				<name>companyId</name>
 				<type>long</type>
-				<comment><![CDATA[id of the company where the oldItemName is stored]]></comment>
+				<comment><![CDATA[ID of the company where the oldItemName is stored]]></comment>
 			</param>
 			<param>
 				<name>groupId</name>
 				<type>long</type>
-				<comment><![CDATA[id of the group where the oldItemName is stored]]></comment>
+				<comment><![CDATA[ID of the group where the oldItemName is stored]]></comment>
 			</param>
 			<param>
 				<name>itemName</name>
@@ -117,12 +117,12 @@
 			<param>
 				<name>companyId</name>
 				<type>long</type>
-				<comment><![CDATA[id of the company where the oldItemName is stored]]></comment>
+				<comment><![CDATA[ID of the company where the oldItemName is stored]]></comment>
 			</param>
 			<param>
 				<name>groupId</name>
 				<type>long</type>
-				<comment><![CDATA[id of the group where the oldItemName is stored]]></comment>
+				<comment><![CDATA[ID of the group where the oldItemName is stored]]></comment>
 			</param>
 			<param>
 				<name>request</name>
@@ -391,7 +391,7 @@
 			</return>
 		</method>
 		<method>
-			<name>readHeader</name>
+			<name>readMetadata</name>
 			<comment><![CDATA[Loads and sets {@link SerializedItem}'s header from the serializedItem's stream.]]></comment>
 			<param>
 				<name>serializedItem</name>
@@ -405,7 +405,7 @@
 			</throws>
 		</method>
 		<method>
-			<name>writeHeader</name>
+			<name>writeMetadata</name>
 			<comment><![CDATA[Writes metadata ({@link com.liferay.portal.kernel.safe.serializer .SerializedItem#getHeader()} into the serializedItem's stream.]]></comment>
 			<param>
 				<name>serializedItem</name>
@@ -458,7 +458,7 @@ Uses {@link SerializedItem#getHeader()} to obtain KeyStore type and creates new 
 			<throws>
 				<name>ItemSerializerException</name>
 				<type>com.liferay.portal.kernel.safe.serializer.ItemSerializerException</type>
-				<comment><![CDATA[if the serializedItem is null, itemStream is null or if fails KeyStore instantiation or loading from the input stream.]]></comment>
+				<comment><![CDATA[if the serializedItem is <code>null</code>, itemStream is <code>null</code> or if fails KeyStore instantiation or loading from the input stream.]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -483,7 +483,7 @@ KeyStore type is written into SerializedItem header to be used for deserializati
 			<throws>
 				<name>ItemSerializerException</name>
 				<type>com.liferay.portal.kernel.safe.serializer.ItemSerializerException</type>
-				<comment><![CDATA[if the item is null, if {@link KeyStoreItem#getKeyStore()} is null or if serialization of the KeyStore fails]]></comment>
+				<comment><![CDATA[if the item is <code>null</code>, if {@link KeyStoreItem#getKeyStore()} is <code>null</code> or if serialization of the KeyStore fails]]></comment>
 			</throws>
 		</method>
 		<field>
@@ -655,15 +655,15 @@ All custom service methods should be put in this class. Whenever methods are add
 			<param>
 				<name>companyId</name>
 				<type>long</type>
-				<comment><![CDATA[id of company to load items from]]></comment>
+				<comment><![CDATA[ID of company to load items from]]></comment>
 			</param>
 			<param>
 				<name>groupId</name>
 				<type>long</type>
-				<comment><![CDATA[id of group inside the company to load items from]]></comment>
+				<comment><![CDATA[ID of group inside the company to load items from]]></comment>
 			</param>
 			<return>
-				<comment><![CDATA[not null list of accessible items names. These can be later used for loading or removing items from the safe.]]></comment>
+				<comment><![CDATA[not <code>null</code> list of accessible items names. These can be later used for loading or removing items from the safe.]]></comment>
 			</return>
 			<throws>
 				<name>PortalSafeException</name>
@@ -677,12 +677,12 @@ All custom service methods should be put in this class. Whenever methods are add
 			<param>
 				<name>companyId</name>
 				<type>long</type>
-				<comment><![CDATA[id of company to load items from]]></comment>
+				<comment><![CDATA[ID of company to load items from]]></comment>
 			</param>
 			<param>
 				<name>groupId</name>
 				<type>long</type>
-				<comment><![CDATA[id of group inside the company to load items from]]></comment>
+				<comment><![CDATA[ID of group inside the company to load items from]]></comment>
 			</param>
 			<param>
 				<name>name</name>
@@ -704,12 +704,12 @@ All custom service methods should be put in this class. Whenever methods are add
 			<param>
 				<name>companyId</name>
 				<type>long</type>
-				<comment><![CDATA[id of company to remove the item from]]></comment>
+				<comment><![CDATA[ID of company to remove the item from]]></comment>
 			</param>
 			<param>
 				<name>groupId</name>
 				<type>long</type>
-				<comment><![CDATA[id of group inside the company to remove the item from]]></comment>
+				<comment><![CDATA[ID of group inside the company to remove the item from]]></comment>
 			</param>
 			<param>
 				<name>name</name>
@@ -728,12 +728,12 @@ All custom service methods should be put in this class. Whenever methods are add
 			<param>
 				<name>companyId</name>
 				<type>long</type>
-				<comment><![CDATA[id of company to save the item to]]></comment>
+				<comment><![CDATA[ID of company to save the item to]]></comment>
 			</param>
 			<param>
 				<name>groupId</name>
 				<type>long</type>
-				<comment><![CDATA[id of group inside the company to save the item to]]></comment>
+				<comment><![CDATA[ID of group inside the company to save the item to]]></comment>
 			</param>
 			<param>
 				<name>item</name>
@@ -1085,7 +1085,7 @@ portal safe remote service.]]></comment>
 			<param>
 				<name>companyId</name>
 				<type>long</type>
-				<comment><![CDATA[id of company to be used to get and decrypt secret key]]></comment>
+				<comment><![CDATA[ID of company to be used to get and decrypt secret key]]></comment>
 			</param>
 			<param>
 				<name>fileName</name>
@@ -1107,7 +1107,7 @@ portal safe remote service.]]></comment>
 			<param>
 				<name>companyId</name>
 				<type>long</type>
-				<comment><![CDATA[id of company to be used to get and decrypt secret key]]></comment>
+				<comment><![CDATA[ID of company to be used to get and decrypt secret key]]></comment>
 			</param>
 			<param>
 				<name>fileName</name>
@@ -1247,12 +1247,12 @@ portal safe remote service.]]></comment>
 			<param>
 				<name>companyId</name>
 				<type>long</type>
-				<comment><![CDATA[id of the company where to store the file]]></comment>
+				<comment><![CDATA[ID of the company where to store the file]]></comment>
 			</param>
 			<param>
 				<name>groupId</name>
 				<type>long</type>
-				<comment><![CDATA[id of the group where to store the file]]></comment>
+				<comment><![CDATA[ID of the group where to store the file]]></comment>
 			</param>
 			<param>
 				<name>name</name>
@@ -1282,6 +1282,7 @@ portal safe remote service.]]></comment>
 				<name>StorageException</name>
 				<type>com.liferay.portal.kernel.safe.storage.StorageException</type>
 			</throws>
+			<see><![CDATA[com.liferay.portal.kernel.safe.storage.Storage#listNames(long, long)]]></see>
 		</method>
 		<method>
 			<name>loadEncrypted</name>
@@ -1306,6 +1307,7 @@ portal safe remote service.]]></comment>
 				<name>StorageException</name>
 				<type>com.liferay.portal.kernel.safe.storage.StorageException</type>
 			</throws>
+			<see><![CDATA[com.liferay.portal.kernel.safe.storage.Storage#load(long, long, String)]]></see>
 		</method>
 		<method>
 			<name>removeEncrypted</name>
@@ -1330,6 +1332,7 @@ portal safe remote service.]]></comment>
 				<name>StorageException</name>
 				<type>com.liferay.portal.kernel.safe.storage.StorageException</type>
 			</throws>
+			<see><![CDATA[com.liferay.portal.kernel.safe.storage.Storage#remove(long, long, String)]]></see>
 		</method>
 		<method>
 			<name>saveEncrypted</name>
@@ -1354,6 +1357,7 @@ portal safe remote service.]]></comment>
 				<name>StorageException</name>
 				<type>com.liferay.portal.kernel.safe.storage.StorageException</type>
 			</throws>
+			<see><![CDATA[com.liferay.portal.kernel.safe.storage.Storage#save(com.liferay.portal.kernel.safe.serializer.SerializedItem, String)]]></see>
 		</method>
 		<field>
 			<name>ENCRYPTED_EXT</name>
@@ -1378,12 +1382,12 @@ portal safe remote service.]]></comment>
 			<param>
 				<name>companyId</name>
 				<type>long</type>
-				<comment><![CDATA[id of the company where to store the file]]></comment>
+				<comment><![CDATA[ID of the company where to store the file]]></comment>
 			</param>
 			<param>
 				<name>groupId</name>
 				<type>long</type>
-				<comment><![CDATA[id of the group where to store the file]]></comment>
+				<comment><![CDATA[ID of the group where to store the file]]></comment>
 			</param>
 			<param>
 				<name>name</name>
@@ -1404,12 +1408,12 @@ portal safe remote service.]]></comment>
 			<param>
 				<name>companyId</name>
 				<type>long</type>
-				<comment><![CDATA[id of the company where to store the file]]></comment>
+				<comment><![CDATA[ID of the company where to store the file]]></comment>
 			</param>
 			<param>
 				<name>groupId</name>
 				<type>long</type>
-				<comment><![CDATA[id of the group where to store the file]]></comment>
+				<comment><![CDATA[ID of the group where to store the file]]></comment>
 			</param>
 			<return>
 				<comment><![CDATA[<code>companyId-groupId-</code>]]></comment>
@@ -1421,16 +1425,12 @@ portal safe remote service.]]></comment>
 			<param>
 				<name>companyId</name>
 				<type>long</type>
-				<comment><![CDATA[id of the company where files are stored]]></comment>
 			</param>
 			<param>
 				<name>groupId</name>
 				<type>long</type>
-				<comment><![CDATA[id of the group where files are stored]]></comment>
 			</param>
-			<return>
-				<comment><![CDATA[list of names]]></comment>
-			</return>
+			<see><![CDATA[com.liferay.portal.kernel.safe.storage.Storage#listNames(long, long)]]></see>
 		</method>
 		<method>
 			<name>loadEncrypted</name>
@@ -1455,6 +1455,7 @@ portal safe remote service.]]></comment>
 				<name>StorageException</name>
 				<type>com.liferay.portal.kernel.safe.storage.StorageException</type>
 			</throws>
+			<see><![CDATA[com.liferay.portal.kernel.safe.storage.Storage#load(long, long, String)]]></see>
 		</method>
 		<method>
 			<name>removeEncrypted</name>
@@ -1479,6 +1480,7 @@ portal safe remote service.]]></comment>
 				<name>StorageException</name>
 				<type>com.liferay.portal.kernel.safe.storage.StorageException</type>
 			</throws>
+			<see><![CDATA[com.liferay.portal.kernel.safe.storage.Storage#remove(long, long, String)]]></see>
 		</method>
 		<method>
 			<name>saveEncrypted</name>
@@ -1503,6 +1505,7 @@ portal safe remote service.]]></comment>
 				<name>StorageException</name>
 				<type>com.liferay.portal.kernel.safe.storage.StorageException</type>
 			</throws>
+			<see><![CDATA[com.liferay.portal.kernel.safe.storage.Storage#save(com.liferay.portal.kernel.safe.serializer.SerializedItem, String)]]></see>
 		</method>
 		<field>
 			<name>ENCRYPTED_EXT</name>
@@ -1552,7 +1555,7 @@ portal safe remote service.]]></comment>
 			<param>
 				<name>companyId</name>
 				<type>long</type>
-				<comment><![CDATA[id of company to be used to get and decrypt the key]]></comment>
+				<comment><![CDATA[ID of company to be used to get and decrypt the key]]></comment>
 			</param>
 			<param>
 				<name>content</name>
@@ -1574,7 +1577,7 @@ portal safe remote service.]]></comment>
 			<param>
 				<name>companyId</name>
 				<type>long</type>
-				<comment><![CDATA[id of company to be used to get and decrypt the key]]></comment>
+				<comment><![CDATA[ID of company to be used to get and decrypt the key]]></comment>
 			</param>
 			<param>
 				<name>content</name>
@@ -1596,7 +1599,7 @@ portal safe remote service.]]></comment>
 			<param>
 				<name>companyId</name>
 				<type>long</type>
-				<comment><![CDATA[id of company to be used to encrypt the password]]></comment>
+				<comment><![CDATA[ID of company to be used to encrypt the password]]></comment>
 			</param>
 			<param>
 				<name>userInput</name>
@@ -1623,7 +1626,7 @@ portal safe remote service.]]></comment>
 			<param>
 				<name>companyId</name>
 				<type>long</type>
-				<comment><![CDATA[id of company to be used to get and decrypt the key]]></comment>
+				<comment><![CDATA[ID of company to be used to get and decrypt the key]]></comment>
 			</param>
 			<param>
 				<name>inputStream</name>
@@ -1645,7 +1648,7 @@ portal safe remote service.]]></comment>
 			<param>
 				<name>companyId</name>
 				<type>long</type>
-				<comment><![CDATA[id of company to be used to get and decrypt the key]]></comment>
+				<comment><![CDATA[ID of company to be used to get and decrypt the key]]></comment>
 			</param>
 			<return>
 				<comment><![CDATA[the secret key in form of a character array]]></comment>
@@ -1662,7 +1665,7 @@ portal safe remote service.]]></comment>
 			<param>
 				<name>companyId</name>
 				<type>long</type>
-				<comment><![CDATA[id of company to be used to get and decrypt the key]]></comment>
+				<comment><![CDATA[ID of company to be used to get and decrypt the key]]></comment>
 			</param>
 			<return>
 				<comment><![CDATA[decrypted password as bytes]]></comment>
@@ -1683,7 +1686,7 @@ portal safe remote service.]]></comment>
 			<param>
 				<name>companyId</name>
 				<type>long</type>
-				<comment><![CDATA[id of company to be used to get and decrypt the key]]></comment>
+				<comment><![CDATA[ID of company to be used to get and decrypt the key]]></comment>
 			</param>
 			<throws>
 				<name>Exception</name>
