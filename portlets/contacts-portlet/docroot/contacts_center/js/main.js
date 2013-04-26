@@ -522,6 +522,7 @@ AUI.add(
 							var actionURL = new Liferay.PortletURL.createActionURL();
 
 							actionURL.setParameter('javax.portlet.action', 'deleteEntry');
+							actionURL.setParameter('p_p_auth', instance._config.ppAuthToken);
 							actionURL.setPortletId('1_WAR_contactsportlet');
 							actionURL.setWindowState('NORMAL');
 
@@ -552,6 +553,7 @@ AUI.add(
 						portletURL.setParameter('mvcPath', '/contacts_center/edit_entry.jsp');
 						portletURL.setParameter('redirect', contact.redirect);
 						portletURL.setParameter('entryId', contact.entryId);
+						portletURL.setParameter('p_p_auth', instance._config.ppAuthToken);
 						portletURL.setPortletId('1_WAR_contactsportlet');
 						portletURL.setWindowState('EXCLUSIVE');
 

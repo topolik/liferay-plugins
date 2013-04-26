@@ -44,7 +44,8 @@ long mbThreadId = ParamUtil.getLong(request, "mbThreadId");
 <aui:script use="liferay-plugin-privatemessaging">
 	Liferay.PrivateMessaging.init(
 		{
-			namespace: '<portlet:namespace />'
+			namespace: '<portlet:namespace />',
+			ppAuthToken: '<%= AuthTokenUtil.getToken(request, themeDisplay.getPlid(), "1_WAR_privatemessagingportlet") %>'
 		}
 	);
 </aui:script>

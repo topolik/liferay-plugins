@@ -66,6 +66,7 @@ page import="com.liferay.portal.model.Region" %><%@
 page import="com.liferay.portal.model.User" %><%@
 page import="com.liferay.portal.model.UserConstants" %><%@
 page import="com.liferay.portal.model.Website" %><%@
+page import="com.liferay.portal.security.auth.AuthTokenUtil" %><%@
 page import="com.liferay.portal.security.permission.ActionKeys" %><%@
 page import="com.liferay.portal.service.AddressServiceUtil" %><%@
 page import="com.liferay.portal.service.EmailAddressServiceUtil" %><%@

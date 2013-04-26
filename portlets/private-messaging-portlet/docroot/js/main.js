@@ -6,6 +6,7 @@ AUI.add(
 				var instance = this;
 
 				instance.namespace = params.namespace;
+				instance.ppAuthToken = params.ppAuthToken;
 
 				instance.checkAll = A.one('#' + instance.namespace + 'checkAll');
 				instance.userThreadsSearchContainer = A.one('#' + instance.namespace + 'userThreadsSearchContainer');
@@ -90,6 +91,7 @@ AUI.add(
 				portletURL.setWindowState('EXCLUSIVE');
 
 				portletURL.setParameter('mvcPath', '/new_message.jsp');
+				portletURL.setParameter('p_p_auth', instance.ppAuthToken);
 				portletURL.setParameter('redirect', redirectURL.toString());
 
 				new A.Dialog(
@@ -192,6 +194,7 @@ AUI.add(
 				var portletURL = new Liferay.PortletURL.createActionURL();
 
 				portletURL.setParameter('javax.portlet.action', name);
+				portletURL.setParameter('p_p_auth', instance.ppAuthToken);
 				portletURL.setPortletId('1_WAR_privatemessagingportlet');
 				portletURL.setWindowState(windowState);
 

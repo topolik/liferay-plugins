@@ -377,6 +377,7 @@ portletURL.setWindowState(WindowState.NORMAL);
 					getSelectedContactsURL: '<portlet:resourceURL id="getSelectedContacts" />',
 					maxResultCount: <%= ContactsConstants.MAX_RESULT_COUNT %>,
 					namespace: '<portlet:namespace />',
+					ppAuthToken: '<%= AuthTokenUtil.getToken(request, themeDisplay.getPlid(), "1_WAR_contactsportlet") %>',
 					showIcon: '<%= showIcon %>'
 				}
 			);
