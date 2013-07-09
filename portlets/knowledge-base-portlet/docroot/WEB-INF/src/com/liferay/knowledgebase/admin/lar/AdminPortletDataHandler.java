@@ -35,7 +35,7 @@ import com.liferay.portal.kernel.lar.BasePortletDataHandler;
 import com.liferay.portal.kernel.lar.DataLevel;
 import com.liferay.portal.kernel.lar.PortletDataContext;
 import com.liferay.portal.kernel.lar.PortletDataHandlerBoolean;
-import com.liferay.portal.kernel.lar.PortletDataHandlerControl;
+import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ListUtil;
@@ -67,19 +67,15 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 
 	public AdminPortletDataHandler() {
 		setDataLevel(DataLevel.SITE);
+		setDeletionSystemEventStagedModelTypes(
+			new StagedModelType(KBArticle.class),
+			new StagedModelType(KBComment.class),
+			new StagedModelType(KBTemplate.class));
 		setExportControls(
 			new PortletDataHandlerBoolean(
 				NAMESPACE, "kb-articles", true, true),
 			new PortletDataHandlerBoolean(
 				NAMESPACE, "kb-templates-and-kb-comments", true, true));
-		setExportMetadataControls(
-			new PortletDataHandlerBoolean(
-				NAMESPACE, "kb-articles", true,
-				new PortletDataHandlerControl[] {
-					new PortletDataHandlerBoolean(NAMESPACE, "categories"),
-					new PortletDataHandlerBoolean(NAMESPACE, "ratings"),
-					new PortletDataHandlerBoolean(NAMESPACE, "tags")
-				}));
 	}
 
 	@Override
@@ -535,6 +531,10 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 					curUserId, parentResourcePrimKey, curKBArticle.getTitle(),
 					curKBArticle.getContent(), curKBArticle.getDescription(),
 					curSections, curDirName, serviceContext);
+
+				KBArticleLocalServiceUtil.updatePriority(
+					importedKBArticle.getResourcePrimKey(),
+					curKBArticle.getPriority());
 			}
 			else {
 				importedKBArticle = KBArticleLocalServiceUtil.updateKBArticle(

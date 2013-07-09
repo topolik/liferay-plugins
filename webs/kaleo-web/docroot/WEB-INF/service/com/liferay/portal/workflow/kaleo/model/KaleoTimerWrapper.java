@@ -14,6 +14,7 @@
 
 package com.liferay.portal.workflow.kaleo.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +26,8 @@ import java.util.Map;
  * This class is a wrapper for {@link KaleoTimer}.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       KaleoTimer
+ * @author Brian Wing Shun Chan
+ * @see KaleoTimer
  * @generated
  */
 public class KaleoTimerWrapper implements KaleoTimer, ModelWrapper<KaleoTimer> {
@@ -680,6 +681,25 @@ public class KaleoTimerWrapper implements KaleoTimer, ModelWrapper<KaleoTimer> {
 	@Override
 	public boolean isRecurring() {
 		return _kaleoTimer.isRecurring();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof KaleoTimerWrapper)) {
+			return false;
+		}
+
+		KaleoTimerWrapper kaleoTimerWrapper = (KaleoTimerWrapper)obj;
+
+		if (Validator.equals(_kaleoTimer, kaleoTimerWrapper._kaleoTimer)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

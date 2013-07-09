@@ -55,11 +55,29 @@ public class NonWABHttpServiceWrapper extends HttpServiceWrapper {
 	public void registerListener(
 		Object listener, Map<String, String> initParameters,
 		HttpContext httpContext) {
+
+		if (httpContext == null) {
+			httpContext = createDefaultHttpContext();
+		}
+
+		bundleServletContext.registerListener(
+			listener, initParameters, httpContext);
+
+		_registrations.add(listener);
 	}
 
 	@Override
 	public void registerResources(
-		String alias, String name, HttpContext httpContext) {
+			String alias, String name, HttpContext httpContext)
+		throws NamespaceException {
+
+		if (httpContext == null) {
+			httpContext = createDefaultHttpContext();
+		}
+
+		bundleServletContext.registerResources(alias, name, httpContext);
+
+		_registrations.add(alias);
 	}
 
 	@Override
@@ -74,16 +92,19 @@ public class NonWABHttpServiceWrapper extends HttpServiceWrapper {
 		_registrations.add(servletName);
 	}
 
-	/**
-	 * @deprecated As of 6.2.0
-	 */
 	@Override
 	public void registerServlet(
-		String urlPattern, Servlet servlet,
-		@SuppressWarnings("rawtypes") Dictionary initParameters,
-		HttpContext httpContext) {
+			String urlPattern, Servlet servlet,
+			@SuppressWarnings("rawtypes") Dictionary initParameters,
+			HttpContext httpContext)
+		throws NamespaceException, ServletException {
 
-		throw new UnsupportedOperationException();
+		// This method is not called by Liferay directly, but is made available
+		// for other OSGi modules that depend on the HTTP service
+
+		super.registerServlet(urlPattern, servlet, initParameters, httpContext);
+
+		_registrations.add(urlPattern);
 	}
 
 	@Override
@@ -100,6 +121,9 @@ public class NonWABHttpServiceWrapper extends HttpServiceWrapper {
 
 	@Override
 	public void unregisterListener(Object listener) {
+		bundleServletContext.unregisterListener(listener);
+
+		removeRegistration(listener);
 	}
 
 	@Override

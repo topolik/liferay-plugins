@@ -14,6 +14,8 @@
 
 package com.liferay.calendar.model;
 
+import com.liferay.portal.kernel.lar.StagedModelType;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +27,8 @@ import java.util.Map;
  * This class is a wrapper for {@link CalendarResource}.
  * </p>
  *
- * @author    Eduardo Lundgren
- * @see       CalendarResource
+ * @author Eduardo Lundgren
+ * @see CalendarResource
  * @generated
  */
 public class CalendarResourceWrapper implements CalendarResource,
@@ -940,6 +942,31 @@ public class CalendarResourceWrapper implements CalendarResource,
 	@Override
 	public boolean isUser() {
 		return _calendarResource.isUser();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof CalendarResourceWrapper)) {
+			return false;
+		}
+
+		CalendarResourceWrapper calendarResourceWrapper = (CalendarResourceWrapper)obj;
+
+		if (Validator.equals(_calendarResource,
+					calendarResourceWrapper._calendarResource)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return _calendarResource.getStagedModelType();
 	}
 
 	/**

@@ -19,8 +19,8 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link AttachmentLocalService}.
  *
- * @author    Brian Wing Shun Chan
- * @see       AttachmentLocalService
+ * @author Brian Wing Shun Chan
+ * @see AttachmentLocalService
  * @generated
  */
 public class AttachmentLocalServiceWrapper implements AttachmentLocalService,
@@ -162,6 +162,23 @@ public class AttachmentLocalServiceWrapper implements AttachmentLocalService,
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _attachmentLocalService.dynamicQueryCount(dynamicQuery);
+	}
+
+	/**
+	* Returns the number of rows that match the dynamic query.
+	*
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows that match the dynamic query
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _attachmentLocalService.dynamicQueryCount(dynamicQuery,
+			projection);
 	}
 
 	@Override

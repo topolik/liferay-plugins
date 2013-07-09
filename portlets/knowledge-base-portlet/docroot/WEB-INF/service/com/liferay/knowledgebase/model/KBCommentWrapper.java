@@ -14,6 +14,8 @@
 
 package com.liferay.knowledgebase.model;
 
+import com.liferay.portal.kernel.lar.StagedModelType;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +27,8 @@ import java.util.Map;
  * This class is a wrapper for {@link KBComment}.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       KBComment
+ * @author Brian Wing Shun Chan
+ * @see KBComment
  * @generated
  */
 public class KBCommentWrapper implements KBComment, ModelWrapper<KBComment> {
@@ -548,6 +550,30 @@ public class KBCommentWrapper implements KBComment, ModelWrapper<KBComment> {
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_kbComment.persist();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof KBCommentWrapper)) {
+			return false;
+		}
+
+		KBCommentWrapper kbCommentWrapper = (KBCommentWrapper)obj;
+
+		if (Validator.equals(_kbComment, kbCommentWrapper._kbComment)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return _kbComment.getStagedModelType();
 	}
 
 	/**

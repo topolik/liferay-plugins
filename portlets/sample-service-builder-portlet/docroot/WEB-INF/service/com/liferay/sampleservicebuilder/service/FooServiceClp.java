@@ -18,6 +18,7 @@ import com.liferay.portal.service.InvokableService;
 
 /**
  * @author Brian Wing Shun Chan
+ * @generated
  */
 public class FooServiceClp implements FooService {
 	public FooServiceClp(InvokableService invokableService) {
@@ -35,7 +36,7 @@ public class FooServiceClp implements FooService {
 
 		_methodParameterTypes3 = new String[] { "long" };
 
-		_methodName4 = "getUserSites";
+		_methodName4 = "getUserPlacesGroups";
 
 		_methodParameterTypes4 = new String[] {  };
 	}
@@ -124,7 +125,7 @@ public class FooServiceClp implements FooService {
 	}
 
 	@Override
-	public java.util.List<com.liferay.portal.model.Group> getUserSites()
+	public java.util.List<com.liferay.portal.model.Group> getUserPlacesGroups()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;

@@ -14,6 +14,7 @@
 
 package com.liferay.socialnetworking.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +26,8 @@ import java.util.Map;
  * This class is a wrapper for {@link MeetupsRegistration}.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       MeetupsRegistration
+ * @author Brian Wing Shun Chan
+ * @see MeetupsRegistration
  * @generated
  */
 public class MeetupsRegistrationWrapper implements MeetupsRegistration,
@@ -445,6 +446,26 @@ public class MeetupsRegistrationWrapper implements MeetupsRegistration,
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_meetupsRegistration.persist();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof MeetupsRegistrationWrapper)) {
+			return false;
+		}
+
+		MeetupsRegistrationWrapper meetupsRegistrationWrapper = (MeetupsRegistrationWrapper)obj;
+
+		if (Validator.equals(_meetupsRegistration,
+					meetupsRegistrationWrapper._meetupsRegistration)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

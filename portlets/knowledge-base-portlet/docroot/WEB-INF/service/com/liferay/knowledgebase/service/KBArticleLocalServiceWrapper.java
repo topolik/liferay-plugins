@@ -19,8 +19,8 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link KBArticleLocalService}.
  *
- * @author    Brian Wing Shun Chan
- * @see       KBArticleLocalService
+ * @author Brian Wing Shun Chan
+ * @see KBArticleLocalService
  * @generated
  */
 public class KBArticleLocalServiceWrapper implements KBArticleLocalService,
@@ -168,11 +168,59 @@ public class KBArticleLocalServiceWrapper implements KBArticleLocalService,
 		return _kbArticleLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	/**
+	* Returns the number of rows that match the dynamic query.
+	*
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows that match the dynamic query
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _kbArticleLocalService.dynamicQueryCount(dynamicQuery, projection);
+	}
+
 	@Override
 	public com.liferay.knowledgebase.model.KBArticle fetchKBArticle(
 		long kbArticleId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _kbArticleLocalService.fetchKBArticle(kbArticleId);
+	}
+
+	/**
+	* Returns the k b article with the matching UUID and company.
+	*
+	* @param uuid the k b article's UUID
+	* @param companyId the primary key of the company
+	* @return the matching k b article, or <code>null</code> if a matching k b article could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public com.liferay.knowledgebase.model.KBArticle fetchKBArticleByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _kbArticleLocalService.fetchKBArticleByUuidAndCompanyId(uuid,
+			companyId);
+	}
+
+	/**
+	* Returns the k b article matching the UUID and group.
+	*
+	* @param uuid the k b article's UUID
+	* @param groupId the primary key of the group
+	* @return the matching k b article, or <code>null</code> if a matching k b article could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public com.liferay.knowledgebase.model.KBArticle fetchKBArticleByUuidAndGroupId(
+		java.lang.String uuid, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _kbArticleLocalService.fetchKBArticleByUuidAndGroupId(uuid,
+			groupId);
 	}
 
 	/**
@@ -197,6 +245,24 @@ public class KBArticleLocalServiceWrapper implements KBArticleLocalService,
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _kbArticleLocalService.getPersistedModel(primaryKeyObj);
+	}
+
+	/**
+	* Returns the k b article with the matching UUID and company.
+	*
+	* @param uuid the k b article's UUID
+	* @param companyId the primary key of the company
+	* @return the matching k b article
+	* @throws PortalException if a matching k b article could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public com.liferay.knowledgebase.model.KBArticle getKBArticleByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _kbArticleLocalService.getKBArticleByUuidAndCompanyId(uuid,
+			companyId);
 	}
 
 	/**
@@ -593,6 +659,13 @@ public class KBArticleLocalServiceWrapper implements KBArticleLocalService,
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_kbArticleLocalService.updateKBArticlesPriorities(resourcePrimKeyToPriorityMap);
+	}
+
+	@Override
+	public void updatePriority(long resourcePrimKey, double priority)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_kbArticleLocalService.updatePriority(resourcePrimKey, priority);
 	}
 
 	@Override

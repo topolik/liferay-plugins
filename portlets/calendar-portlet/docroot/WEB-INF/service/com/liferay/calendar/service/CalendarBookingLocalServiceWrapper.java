@@ -19,8 +19,8 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link CalendarBookingLocalService}.
  *
- * @author    Eduardo Lundgren
- * @see       CalendarBookingLocalService
+ * @author Eduardo Lundgren
+ * @see CalendarBookingLocalService
  * @generated
  */
 public class CalendarBookingLocalServiceWrapper
@@ -170,11 +170,60 @@ public class CalendarBookingLocalServiceWrapper
 		return _calendarBookingLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	/**
+	* Returns the number of rows that match the dynamic query.
+	*
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows that match the dynamic query
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _calendarBookingLocalService.dynamicQueryCount(dynamicQuery,
+			projection);
+	}
+
 	@Override
 	public com.liferay.calendar.model.CalendarBooking fetchCalendarBooking(
 		long calendarBookingId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _calendarBookingLocalService.fetchCalendarBooking(calendarBookingId);
+	}
+
+	/**
+	* Returns the calendar booking with the matching UUID and company.
+	*
+	* @param uuid the calendar booking's UUID
+	* @param companyId the primary key of the company
+	* @return the matching calendar booking, or <code>null</code> if a matching calendar booking could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public com.liferay.calendar.model.CalendarBooking fetchCalendarBookingByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _calendarBookingLocalService.fetchCalendarBookingByUuidAndCompanyId(uuid,
+			companyId);
+	}
+
+	/**
+	* Returns the calendar booking matching the UUID and group.
+	*
+	* @param uuid the calendar booking's UUID
+	* @param groupId the primary key of the group
+	* @return the matching calendar booking, or <code>null</code> if a matching calendar booking could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public com.liferay.calendar.model.CalendarBooking fetchCalendarBookingByUuidAndGroupId(
+		java.lang.String uuid, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _calendarBookingLocalService.fetchCalendarBookingByUuidAndGroupId(uuid,
+			groupId);
 	}
 
 	/**
@@ -199,6 +248,24 @@ public class CalendarBookingLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _calendarBookingLocalService.getPersistedModel(primaryKeyObj);
+	}
+
+	/**
+	* Returns the calendar booking with the matching UUID and company.
+	*
+	* @param uuid the calendar booking's UUID
+	* @param companyId the primary key of the company
+	* @return the matching calendar booking
+	* @throws PortalException if a matching calendar booking could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public com.liferay.calendar.model.CalendarBooking getCalendarBookingByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _calendarBookingLocalService.getCalendarBookingByUuidAndCompanyId(uuid,
+			companyId);
 	}
 
 	/**
@@ -405,6 +472,32 @@ public class CalendarBookingLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _calendarBookingLocalService.getChildCalendarBookings(parentCalendarBookingId,
 			status);
+	}
+
+	@Override
+	public void moveCalendarBookingToTrash(long userId, long calendarBookingId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_calendarBookingLocalService.moveCalendarBookingToTrash(userId,
+			calendarBookingId);
+	}
+
+	@Override
+	public void moveCalendarBookingToTrash(long userId,
+		com.liferay.calendar.model.CalendarBooking calendarBooking)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_calendarBookingLocalService.moveCalendarBookingToTrash(userId,
+			calendarBooking);
+	}
+
+	@Override
+	public void restoreCalendarBookingFromTrash(long userId,
+		long calendarBookingId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_calendarBookingLocalService.restoreCalendarBookingFromTrash(userId,
+			calendarBookingId);
 	}
 
 	@Override

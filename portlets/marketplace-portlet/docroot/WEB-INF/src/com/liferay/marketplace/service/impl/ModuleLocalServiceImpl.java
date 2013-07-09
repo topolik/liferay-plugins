@@ -25,12 +25,19 @@ import java.util.List;
  */
 public class ModuleLocalServiceImpl extends ModuleLocalServiceBaseImpl {
 
+	@Override
 	public Module addModule(long userId, long appId, String contextName)
 		throws SystemException {
 
+		Module module = modulePersistence.fetchByA_C(appId, contextName);
+
+		if (module != null) {
+			return module;
+		}
+
 		long moduleId = counterLocalService.increment();
 
-		Module module = modulePersistence.create(moduleId);
+		module = modulePersistence.create(moduleId);
 
 		module.setModuleId(moduleId);
 		module.setAppId(appId);
@@ -41,12 +48,14 @@ public class ModuleLocalServiceImpl extends ModuleLocalServiceBaseImpl {
 		return module;
 	}
 
+	@Override
 	public Module fetchModule(long appId, String contextName)
 		throws SystemException {
 
 		return modulePersistence.fetchByA_C(appId, contextName);
 	}
 
+	@Override
 	public List<Module> getModules(long appId) throws SystemException {
 		return modulePersistence.findByAppId(appId);
 	}

@@ -14,6 +14,7 @@
 
 package com.liferay.polls.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.HashMap;
@@ -24,8 +25,8 @@ import java.util.Map;
  * This class is a wrapper for {@link PollsChoice}.
  * </p>
  *
- * @author    Juan Fern√°ndez
- * @see       PollsChoice
+ * @author Juan Fern√°ndez
+ * @see PollsChoice
  * @generated
  */
 public class PollsChoiceWrapper implements PollsChoice,
@@ -447,6 +448,25 @@ public class PollsChoiceWrapper implements PollsChoice,
 	public int getPollsVotesCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _pollsChoice.getPollsVotesCount();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof PollsChoiceWrapper)) {
+			return false;
+		}
+
+		PollsChoiceWrapper pollsChoiceWrapper = (PollsChoiceWrapper)obj;
+
+		if (Validator.equals(_pollsChoice, pollsChoiceWrapper._pollsChoice)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

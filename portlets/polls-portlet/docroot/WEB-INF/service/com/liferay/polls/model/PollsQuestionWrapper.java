@@ -14,6 +14,8 @@
 
 package com.liferay.polls.model;
 
+import com.liferay.portal.kernel.lar.StagedModelType;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +27,8 @@ import java.util.Map;
  * This class is a wrapper for {@link PollsQuestion}.
  * </p>
  *
- * @author    Juan Fern√°ndez
- * @see       PollsQuestion
+ * @author Juan Fern√°ndez
+ * @see PollsQuestion
  * @generated
  */
 public class PollsQuestionWrapper implements PollsQuestion,
@@ -797,6 +799,30 @@ public class PollsQuestionWrapper implements PollsQuestion,
 		com.liferay.portal.service.ServiceContext serviceContext,
 		java.util.Date defaultCreateDate) {
 		return _pollsQuestion.isExpired(serviceContext, defaultCreateDate);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof PollsQuestionWrapper)) {
+			return false;
+		}
+
+		PollsQuestionWrapper pollsQuestionWrapper = (PollsQuestionWrapper)obj;
+
+		if (Validator.equals(_pollsQuestion, pollsQuestionWrapper._pollsQuestion)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return _pollsQuestion.getStagedModelType();
 	}
 
 	/**

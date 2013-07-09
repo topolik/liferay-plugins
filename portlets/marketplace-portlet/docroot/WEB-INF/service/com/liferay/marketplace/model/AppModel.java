@@ -18,7 +18,7 @@ import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.model.StagedModel;
+import com.liferay.portal.model.StagedAuditedModel;
 import com.liferay.portal.service.ServiceContext;
 
 import com.liferay.portlet.expando.model.ExpandoBridge;
@@ -40,7 +40,7 @@ import java.util.Date;
  * @see com.liferay.marketplace.model.impl.AppModelImpl
  * @generated
  */
-public interface AppModel extends BaseModel<App>, StagedModel {
+public interface AppModel extends BaseModel<App>, StagedAuditedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -203,6 +203,66 @@ public interface AppModel extends BaseModel<App>, StagedModel {
 	 * @param remoteAppId the remote app ID of this app
 	 */
 	public void setRemoteAppId(long remoteAppId);
+
+	/**
+	 * Returns the title of this app.
+	 *
+	 * @return the title of this app
+	 */
+	@AutoEscape
+	public String getTitle();
+
+	/**
+	 * Sets the title of this app.
+	 *
+	 * @param title the title of this app
+	 */
+	public void setTitle(String title);
+
+	/**
+	 * Returns the description of this app.
+	 *
+	 * @return the description of this app
+	 */
+	@AutoEscape
+	public String getDescription();
+
+	/**
+	 * Sets the description of this app.
+	 *
+	 * @param description the description of this app
+	 */
+	public void setDescription(String description);
+
+	/**
+	 * Returns the category of this app.
+	 *
+	 * @return the category of this app
+	 */
+	@AutoEscape
+	public String getCategory();
+
+	/**
+	 * Sets the category of this app.
+	 *
+	 * @param category the category of this app
+	 */
+	public void setCategory(String category);
+
+	/**
+	 * Returns the icon u r l of this app.
+	 *
+	 * @return the icon u r l of this app
+	 */
+	@AutoEscape
+	public String getIconURL();
+
+	/**
+	 * Sets the icon u r l of this app.
+	 *
+	 * @param iconURL the icon u r l of this app
+	 */
+	public void setIconURL(String iconURL);
 
 	/**
 	 * Returns the version of this app.

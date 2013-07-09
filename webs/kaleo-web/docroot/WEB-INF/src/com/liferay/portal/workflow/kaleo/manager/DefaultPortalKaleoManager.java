@@ -15,7 +15,6 @@
 package com.liferay.portal.workflow.kaleo.manager;
 
 import com.liferay.portal.NoSuchRoleException;
-import com.liferay.portal.NoSuchWorkflowDefinitionLinkException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -23,10 +22,12 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.workflow.WorkflowDefinition;
 import com.liferay.portal.kernel.workflow.WorkflowDefinitionManager;
+import com.liferay.portal.kernel.workflow.comparator.WorkflowComparatorFactoryUtil;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.model.User;
+import com.liferay.portal.model.WorkflowDefinitionLink;
 import com.liferay.portal.service.CompanyLocalServiceUtil;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
@@ -34,7 +35,6 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.service.WorkflowDefinitionLinkLocalServiceUtil;
 import com.liferay.portal.workflow.kaleo.BaseKaleoBean;
-import com.liferay.portal.workflow.kaleo.comparator.WorkflowDefinitionNameComparator;
 
 import java.io.InputStream;
 
@@ -49,6 +49,7 @@ import java.util.Map;
 public class DefaultPortalKaleoManager
 	extends BaseKaleoBean implements PortalKaleoManager {
 
+	@Override
 	public void deleteKaleoData(Company company) throws Exception {
 		long companyId = company.getCompanyId();
 
@@ -57,6 +58,7 @@ public class DefaultPortalKaleoManager
 		kaleoLogLocalService.deleteCompanyKaleoLogs(companyId);
 	}
 
+	@Override
 	public void deployDefaultDefinitionLink(String assetClassName)
 		throws Exception {
 
@@ -85,6 +87,7 @@ public class DefaultPortalKaleoManager
 		}
 	}
 
+	@Override
 	public void deployDefaultDefinitionLinks() throws Exception {
 		List<Company> companies = CompanyLocalServiceUtil.getCompanies(false);
 
@@ -93,6 +96,7 @@ public class DefaultPortalKaleoManager
 		}
 	}
 
+	@Override
 	public void deployDefaultDefinitionLinks(Company company) throws Exception {
 		User defaultUser = UserLocalServiceUtil.getDefaultUser(
 			company.getCompanyId());
@@ -114,6 +118,7 @@ public class DefaultPortalKaleoManager
 		}
 	}
 
+	@Override
 	public void deployDefaultDefinitions() throws Exception {
 		List<Company> companies = CompanyLocalServiceUtil.getCompanies();
 
@@ -122,6 +127,7 @@ public class DefaultPortalKaleoManager
 		}
 	}
 
+	@Override
 	public void deployDefaultDefinitions(Company company) throws Exception {
 		for (Map.Entry<String, String> entry : _definitionFiles.entrySet()) {
 			String definitionName = entry.getKey();
@@ -162,6 +168,7 @@ public class DefaultPortalKaleoManager
 		}
 	}
 
+	@Override
 	public void deployDefaultRoles() throws Exception {
 		List<Company> companies = CompanyLocalServiceUtil.getCompanies();
 
@@ -170,6 +177,7 @@ public class DefaultPortalKaleoManager
 		}
 	}
 
+	@Override
 	public void deployDefaultRoles(Company company) throws Exception {
 		User defaultUser = UserLocalServiceUtil.getDefaultUser(
 			company.getCompanyId());
@@ -193,12 +201,14 @@ public class DefaultPortalKaleoManager
 		}
 	}
 
+	@Override
 	public void deployKaleoDefaults() throws Exception {
 		deployDefaultRoles();
 		deployDefaultDefinitions();
 		deployDefaultDefinitionLinks();
 	}
 
+	@Override
 	public void deployKaleoDefaults(Company company) throws Exception {
 		deployDefaultRoles(company);
 		deployDefaultDefinitions(company);
@@ -232,20 +242,20 @@ public class DefaultPortalKaleoManager
 			String assetClassName, String workflowDefinitionName)
 		throws PortalException, SystemException {
 
-		try {
+		WorkflowDefinitionLink workflowDefinitionLink =
 			WorkflowDefinitionLinkLocalServiceUtil.
-				getDefaultWorkflowDefinitionLink(
+				fetchDefaultWorkflowDefinitionLink(
 					company.getCompanyId(), assetClassName, 0, 0);
 
+		if (workflowDefinitionLink != null) {
 			return;
-		}
-		catch (NoSuchWorkflowDefinitionLinkException nswdle) {
 		}
 
 		List<WorkflowDefinition> workflowDefinitions =
 			_workflowDefinitionManager.getActiveWorkflowDefinitions(
 				company.getCompanyId(), workflowDefinitionName, 0, 20,
-				new WorkflowDefinitionNameComparator(false));
+				WorkflowComparatorFactoryUtil.getDefinitionNameComparator(
+					false));
 
 		if (workflowDefinitions.isEmpty()) {
 			if (_log.isWarnEnabled()) {

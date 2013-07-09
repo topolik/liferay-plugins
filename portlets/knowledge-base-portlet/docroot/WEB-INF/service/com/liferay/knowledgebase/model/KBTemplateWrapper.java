@@ -14,6 +14,8 @@
 
 package com.liferay.knowledgebase.model;
 
+import com.liferay.portal.kernel.lar.StagedModelType;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +27,8 @@ import java.util.Map;
  * This class is a wrapper for {@link KBTemplate}.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       KBTemplate
+ * @author Brian Wing Shun Chan
+ * @see KBTemplate
  * @generated
  */
 public class KBTemplateWrapper implements KBTemplate, ModelWrapper<KBTemplate> {
@@ -469,6 +471,30 @@ public class KBTemplateWrapper implements KBTemplate, ModelWrapper<KBTemplate> {
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_kbTemplate.persist();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof KBTemplateWrapper)) {
+			return false;
+		}
+
+		KBTemplateWrapper kbTemplateWrapper = (KBTemplateWrapper)obj;
+
+		if (Validator.equals(_kbTemplate, kbTemplateWrapper._kbTemplate)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return _kbTemplate.getStagedModelType();
 	}
 
 	/**

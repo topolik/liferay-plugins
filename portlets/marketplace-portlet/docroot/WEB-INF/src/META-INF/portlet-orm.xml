@@ -23,6 +23,10 @@
 				<temporal>TIMESTAMP</temporal>
 			</basic>
 			<basic name="remoteAppId" />
+			<basic name="title" />
+			<basic name="description" />
+			<basic name="category" />
+			<basic name="iconURL" />
 			<basic name="version" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />

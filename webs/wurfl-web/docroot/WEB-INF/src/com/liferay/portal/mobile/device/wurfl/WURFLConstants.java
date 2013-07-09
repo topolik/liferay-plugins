@@ -25,6 +25,8 @@ public class WURFLConstants {
 
 	public static final String DEVICE_OS_VERSION = "device_os_version";
 
+	public static final String DUAL_ORIENTATION = "dual_orientation";
+
 	public static final String HAS_QWERTY_KEYBOARD = "has_qwerty_keyboard";
 
 	public static final String IS_TABLET = "is_tablet";
@@ -43,5 +45,10 @@ public class WURFLConstants {
 	public static final String RESOLUTION_HEIGHT = "resolution_height";
 
 	public static final String RESOLUTION_WIDTH = "resolution_width";
+
+	public static final String SCREEN_PHYSICAL_HEIGHT =
+		"physical_screen_height";
+
+	public static final String SCREEN_PHYSICAL_WIDTH = "physical_screen_width";
 
 }

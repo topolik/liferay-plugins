@@ -41,6 +41,7 @@ import java.util.Map;
 public class TemplateNotificationMessageGenerator
 	implements NotificationMessageGenerator {
 
+	@Override
 	public String generateMessage(
 			String kaleoClassName, long kaleoClassPK, String notificationName,
 			String notificationTemplateLanguage, String notificationTemplate,
@@ -117,6 +118,7 @@ public class TemplateNotificationMessageGenerator
 			template.put("taskName", kaleoTask.getName());
 
 			template.put("userId", kaleoTaskInstanceToken.getUserId());
+			template.put("userName", kaleoTaskInstanceToken.getUserName());
 
 			List<WorkflowTaskAssignee> workflowTaskAssignees =
 				KaleoTaskAssignmentInstanceUtil.getWorkflowTaskAssignees(
@@ -129,6 +131,7 @@ public class TemplateNotificationMessageGenerator
 				executionContext.getKaleoInstanceToken();
 
 			template.put("userId", kaleoInstanceToken.getUserId());
+			template.put("userName", kaleoInstanceToken.getUserName());
 		}
 	}
 

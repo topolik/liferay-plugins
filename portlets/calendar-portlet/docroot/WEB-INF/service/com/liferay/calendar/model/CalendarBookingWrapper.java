@@ -14,6 +14,8 @@
 
 package com.liferay.calendar.model;
 
+import com.liferay.portal.kernel.lar.StagedModelType;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +27,8 @@ import java.util.Map;
  * This class is a wrapper for {@link CalendarBooking}.
  * </p>
  *
- * @author    Eduardo Lundgren
- * @see       CalendarBooking
+ * @author Eduardo Lundgren
+ * @see CalendarBooking
  * @generated
  */
 public class CalendarBookingWrapper implements CalendarBooking,
@@ -1374,6 +1376,31 @@ public class CalendarBookingWrapper implements CalendarBooking,
 	@Override
 	public boolean isRecurring() {
 		return _calendarBooking.isRecurring();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof CalendarBookingWrapper)) {
+			return false;
+		}
+
+		CalendarBookingWrapper calendarBookingWrapper = (CalendarBookingWrapper)obj;
+
+		if (Validator.equals(_calendarBooking,
+					calendarBookingWrapper._calendarBooking)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return _calendarBooking.getStagedModelType();
 	}
 
 	/**

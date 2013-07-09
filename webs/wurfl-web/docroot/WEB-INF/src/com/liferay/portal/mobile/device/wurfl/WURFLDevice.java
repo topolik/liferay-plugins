@@ -100,20 +100,16 @@ public class WURFLDevice extends AbstractDevice {
 	}
 
 	@Override
-	public Dimensions getScreenSize() {
-		Capability heightCapability = _capabilities.get(
-			WURFLConstants.RESOLUTION_HEIGHT);
-		Capability widthCapability = _capabilities.get(
-			WURFLConstants.RESOLUTION_WIDTH);
+	public Dimensions getScreenPhysicalSize() {
+		return getDimensions(
+			WURFLConstants.SCREEN_PHYSICAL_HEIGHT,
+			WURFLConstants.SCREEN_PHYSICAL_WIDTH);
+	}
 
-		if ((heightCapability == null) || (widthCapability == null)) {
-			return Dimensions.UNKNOWN;
-		}
-
-		float height = GetterUtil.getFloat(heightCapability.getValue());
-		float width = GetterUtil.getFloat(widthCapability.getValue());
-
-		return new Dimensions(height, width);
+	@Override
+	public Dimensions getScreenResolution() {
+		return getDimensions(
+			WURFLConstants.RESOLUTION_HEIGHT, WURFLConstants.RESOLUTION_WIDTH);
 	}
 
 	@Override
@@ -137,6 +133,36 @@ public class WURFLDevice extends AbstractDevice {
 		}
 
 		return GetterUtil.getBoolean(capability.getValue(), false);
+	}
+
+	protected Dimensions getDimensions(
+		String heightCapabilityName, String widthCapabilityName) {
+
+		Capability heightCapability = _capabilities.get(heightCapabilityName);
+		Capability widthCapability = _capabilities.get(widthCapabilityName);
+
+		if ((heightCapability == null) || (widthCapability == null)) {
+			return Dimensions.UNKNOWN;
+		}
+
+		boolean dualOrientation = false;
+
+		Capability dualOrientationCapability = _capabilities.get(
+			WURFLConstants.DUAL_ORIENTATION);
+
+		if (dualOrientationCapability != null) {
+			dualOrientation = GetterUtil.getBoolean(
+				dualOrientationCapability.getValue());
+		}
+
+		float height = GetterUtil.getFloat(heightCapability.getValue());
+		float width = GetterUtil.getFloat(widthCapability.getValue());
+
+		if (dualOrientation && (height < width)) {
+			return new Dimensions(width, height);
+		}
+
+		return new Dimensions(height, width);
 	}
 
 	protected String getValue(String name) {

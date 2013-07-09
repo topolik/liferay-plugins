@@ -67,7 +67,6 @@ public abstract class BaseImporter implements Importer {
 
 			group = layoutSetPrototype.getGroup();
 
-			privateLayout = true;
 			targetClassPK = layoutSetPrototype.getLayoutSetPrototypeId();
 		}
 		else if (targetClassName.equals(Group.class.getName())) {
@@ -110,14 +109,15 @@ public abstract class BaseImporter implements Importer {
 				else {
 					group = GroupLocalServiceUtil.addGroup(
 						userId, GroupConstants.DEFAULT_PARENT_GROUP_ID,
-						StringPool.BLANK, 0,
+						StringPool.BLANK,
+						GroupConstants.DEFAULT_PARENT_GROUP_ID,
 						GroupConstants.DEFAULT_LIVE_GROUP_ID, targetValue,
-						StringPool.BLANK, GroupConstants.TYPE_SITE_OPEN, null,
+						StringPool.BLANK, GroupConstants.TYPE_SITE_OPEN, true,
+						GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, null,
 						true, true, new ServiceContext());
 				}
 			}
 
-			privateLayout = false;
 			targetClassPK = group.getGroupId();
 		}
 
@@ -203,7 +203,6 @@ public abstract class BaseImporter implements Importer {
 	protected long companyId;
 	protected boolean existing;
 	protected long groupId;
-	protected boolean privateLayout;
 	protected String resourcesDir;
 	protected ServletContext servletContext;
 	protected String servletContextName;

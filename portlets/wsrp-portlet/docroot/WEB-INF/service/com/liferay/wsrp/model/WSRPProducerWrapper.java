@@ -14,6 +14,8 @@
 
 package com.liferay.wsrp.model;
 
+import com.liferay.portal.kernel.lar.StagedModelType;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +27,8 @@ import java.util.Map;
  * This class is a wrapper for {@link WSRPProducer}.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       WSRPProducer
+ * @author Brian Wing Shun Chan
+ * @see WSRPProducer
  * @generated
  */
 public class WSRPProducerWrapper implements WSRPProducer,
@@ -426,6 +428,30 @@ public class WSRPProducerWrapper implements WSRPProducer,
 	@Override
 	public java.lang.String getURL(java.lang.String portalURL) {
 		return _wsrpProducer.getURL(portalURL);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof WSRPProducerWrapper)) {
+			return false;
+		}
+
+		WSRPProducerWrapper wsrpProducerWrapper = (WSRPProducerWrapper)obj;
+
+		if (Validator.equals(_wsrpProducer, wsrpProducerWrapper._wsrpProducer)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return _wsrpProducer.getStagedModelType();
 	}
 
 	/**

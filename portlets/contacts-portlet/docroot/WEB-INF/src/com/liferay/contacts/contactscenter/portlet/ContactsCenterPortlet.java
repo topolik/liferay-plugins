@@ -45,6 +45,7 @@ import com.liferay.portal.UserScreenNameException;
 import com.liferay.portal.UserSmsException;
 import com.liferay.portal.WebsiteURLException;
 import com.liferay.portal.kernel.bean.BeanParamUtil;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -55,9 +56,12 @@ import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletResponseUtil;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
+import com.liferay.portal.kernel.util.ListUtil;
+import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.UniqueList;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.Address;
@@ -67,10 +71,13 @@ import com.liferay.portal.model.EmailAddress;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.Phone;
+import com.liferay.portal.model.Role;
+import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.model.UserGroupRole;
 import com.liferay.portal.model.Website;
 import com.liferay.portal.service.EmailAddressServiceUtil;
+import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserGroupRoleLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
@@ -226,7 +233,7 @@ public class ContactsCenterPortlet extends MVCPortlet {
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
-		jsonObject.put("success", true);
+		jsonObject.put("success", Boolean.TRUE);
 
 		JSONObject userJSONObject = getUserJSONObject(
 			resourceResponse, themeDisplay, userId);
@@ -264,7 +271,7 @@ public class ContactsCenterPortlet extends MVCPortlet {
 			try {
 				JSONObject userJSONObject = JSONFactoryUtil.createJSONObject();
 
-				userJSONObject.put("success", true);
+				userJSONObject.put("success", Boolean.TRUE);
 				userJSONObject.put(
 					"user",
 					getUserJSONObject(resourceResponse, themeDisplay, userId));
@@ -451,7 +458,7 @@ public class ContactsCenterPortlet extends MVCPortlet {
 
 			jsonObject.put("contactList", contactsJSONObject);
 
-			jsonObject.put("success", true);
+			jsonObject.put("success", Boolean.TRUE);
 		}
 		catch (Exception e) {
 			if (e instanceof ContactFullNameException) {
@@ -468,7 +475,7 @@ public class ContactsCenterPortlet extends MVCPortlet {
 					"an-error-occurred-while-processing-the-requested-resource";
 			}
 
-			jsonObject.put("success", false);
+			jsonObject.put("success", Boolean.FALSE);
 		}
 
 		jsonObject.put("message", translate(actionRequest, message));
@@ -514,7 +521,7 @@ public class ContactsCenterPortlet extends MVCPortlet {
 
 			jsonObject.put("redirect", redirect);
 
-			jsonObject.put("success", true);
+			jsonObject.put("success", Boolean.TRUE);
 		}
 		catch (Exception e) {
 			ThemeDisplay themeDisplay =
@@ -579,7 +586,7 @@ public class ContactsCenterPortlet extends MVCPortlet {
 
 			jsonObject.put("message", translate(actionRequest, message));
 
-			jsonObject.put("success", false);
+			jsonObject.put("success", Boolean.FALSE);
 		}
 
 		writeJSON(actionRequest, actionResponse, jsonObject);
@@ -661,7 +668,7 @@ public class ContactsCenterPortlet extends MVCPortlet {
 		for (long userId : userIds) {
 			JSONObject userJSONObject = JSONFactoryUtil.createJSONObject();
 
-			userJSONObject.put("success", true);
+			userJSONObject.put("success", Boolean.TRUE);
 			userJSONObject.put(
 				"user",
 				getUserJSONObject(actionResponse, themeDisplay, userId));
@@ -787,16 +794,57 @@ public class ContactsCenterPortlet extends MVCPortlet {
 				params.put("usersGroups", ContactsUtil.getGroupId(filterBy));
 			}
 
-			int usersCount = UserLocalServiceUtil.searchCount(
-				themeDisplay.getCompanyId(), keywords,
-				WorkflowConstants.STATUS_APPROVED, params);
+			List<User> users = new UniqueList<User>();
 
-			jsonObject.put("count", usersCount);
+			if (filterBy.equals(ContactsConstants.FILTER_BY_ADMINS)) {
+				Role siteAdministratorRole = RoleLocalServiceUtil.getRole(
+					group.getCompanyId(), RoleConstants.SITE_ADMINISTRATOR);
 
-			List<User> users = UserLocalServiceUtil.search(
-				themeDisplay.getCompanyId(), keywords,
-				WorkflowConstants.STATUS_APPROVED, params, start, end,
-				new UserLastNameComparator(true));
+				params.put(
+					"userGroupRole",
+					new Long[] {
+						new Long(group.getGroupId()),
+						new Long(siteAdministratorRole.getRoleId())
+					});
+
+				users.addAll(
+					UserLocalServiceUtil.search(
+						themeDisplay.getCompanyId(), keywords,
+						WorkflowConstants.STATUS_APPROVED, params,
+						QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+						(OrderByComparator)null));
+
+				Role siteOwnerRole = RoleLocalServiceUtil.getRole(
+					group.getCompanyId(), RoleConstants.SITE_OWNER);
+
+				params.put(
+					"userGroupRole",
+					new Long[] {
+						new Long(group.getGroupId()),
+						new Long(siteOwnerRole.getRoleId())
+					});
+
+				users.addAll(
+					UserLocalServiceUtil.search(
+						themeDisplay.getCompanyId(), keywords,
+						WorkflowConstants.STATUS_APPROVED, params,
+						QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+						(OrderByComparator)null));
+
+				ListUtil.sort(users, new UserLastNameComparator(true));
+			}
+			else {
+				int usersCount = UserLocalServiceUtil.searchCount(
+					themeDisplay.getCompanyId(), keywords,
+					WorkflowConstants.STATUS_APPROVED, params);
+
+				jsonObject.put("count", usersCount);
+
+				users = UserLocalServiceUtil.search(
+					themeDisplay.getCompanyId(), keywords,
+					WorkflowConstants.STATUS_APPROVED, params, start, end,
+					new UserLastNameComparator(true));
+			}
 
 			for (User user : users) {
 				JSONObject userJSONObject = getUserJSONObject(

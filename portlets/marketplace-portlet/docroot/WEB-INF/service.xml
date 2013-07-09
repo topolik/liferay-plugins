@@ -21,6 +21,10 @@
 		<!-- Other fields -->
 
 		<column name="remoteAppId" type="long" />
+		<column name="title" type="String" />
+		<column name="description" type="String" />
+		<column name="category" type="String" />
+		<column name="iconURL" type="String" />
 		<column name="version" type="String" />
 
 		<!-- Finder methods -->
@@ -30,6 +34,9 @@
 		</finder>
 		<finder name="RemoteAppId" return-type="App">
 			<finder-column name="remoteAppId" />
+		</finder>
+		<finder name="Category" return-type="Collection">
+			<finder-column name="category" />
 		</finder>
 	</entity>
 	<entity name="Module" uuid="true" local-service="true" remote-service="false">
@@ -57,6 +64,8 @@
 		</finder>
 	</entity>
 	<exceptions>
+		<exception>AppProperties</exception>
+		<exception>AppTitle</exception>
 		<exception>AppVersion</exception>
 		<exception>DuplicateApp</exception>
 	</exceptions>

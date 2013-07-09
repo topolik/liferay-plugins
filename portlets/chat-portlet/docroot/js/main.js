@@ -2,7 +2,7 @@ AUI().use(
 	'anim-color',
 	'anim-easing',
 	'aui-base',
-	'aui-live-search',
+	'aui-live-search-deprecated',
 	'liferay-poller',
 	'stylesheet',
 	'swfobject',
@@ -17,6 +17,8 @@ AUI().use(
 
 		var NOTIFICATIONS_ALLOWED = 0;
 		var NOTIFICATIONS_NOT_ALLOWED = 1;
+
+		var NOTIFICATIONS_LIST = [];
 
 		var STR_NEW_MESSAGE = Liferay.Language.get('new-message-from-x');
 
@@ -36,7 +38,7 @@ AUI().use(
 					if (bgColorNode) {
 						defaultColor = bgColorNode.getStyle('backgroundColor');
 
-						while (defaultColor == 'transparent') {
+						while (defaultColor.toLowerCase() == 'transparent') {
 							defaultColor = bgColorNode.getStyle('backgroundColor');
 
 							bgColorNode = bgColorNode.ancestor();
@@ -55,7 +57,7 @@ AUI().use(
 				var waitingColor = instance._waitingColor;
 
 				if (!waitingColor) {
-					var waitingColorNode = A.Node.create('<span class="aui-helper-hidden message-waiting" />').appendTo(DOC.body);
+					var waitingColorNode = A.Node.create('<span class="hide message-waiting" />').appendTo(DOC.body);
 
 					waitingColor = waitingColorNode.getStyle('backgroundColor');
 
@@ -274,7 +276,7 @@ AUI().use(
 							'<div class="panel-window">' +
 								'<div class="panel-button minimize"></div>' +
 								'<div class="panel-title"></div>' +
-								'<div class="search-buddies"><input class="search-buddies-field" type="text" /></div>' +
+								'<div class="search-buddies"><input class="search-buddies" type="text" /></div>' +
 								'<div class="panel-content"></div>' +
 							'</div>' +
 						'</div>' +
@@ -595,7 +597,7 @@ AUI().use(
 											'<div class="panel-profile">...</div>' +
 											'<div class="panel-output"></div>' +
 											'<div class="panel-input">' +
-												'<textarea></textarea>' +
+												'<textarea class="message-input"></textarea>' +
 											'</div>' +
 										'</div>' +
 									'</div>' +
@@ -694,11 +696,36 @@ AUI().use(
 				if (NOTIFICATIONS && NOTIFICATIONS.checkPermission() === NOTIFICATIONS_ALLOWED) {
 					var notification = NOTIFICATIONS.createNotification(iconUrl, title, body);
 
+					if (!NOTIFICATIONS_LIST.length) {
+						instance._notificationHandle = A.getWin().on(
+							'beforeunload',
+							function(event) {
+								A.Array.invoke(NOTIFICATIONS_LIST, 'cancel');
+
+								NOTIFICATIONS_LIST.length = 0;
+
+								instance._notificationHandle.detach();
+
+								instance._notificationHandle = null;
+							}
+						);
+					}
+
+					NOTIFICATIONS_LIST.push(notification);
+
 					notification.show();
 
 					setTimeout(
 						function() {
 							notification.cancel();
+
+							NOTIFICATIONS_LIST.shift();
+
+							if (!NOTIFICATIONS_LIST.length && instance._notificationHandle) {
+								instance._notificationHandle.detach();
+
+								instance._notificationHandle = null;
+							}
 						},
 						instance._notificationTimeout
 					);
@@ -802,7 +829,7 @@ AUI().use(
 
 				var buddyList = buddyListNode.one('.online-users');
 
-				var searchBuddiesField = buddyListNode.one('.search-buddies-field');
+				var searchBuddiesField = buddyListNode.one('.search-buddies');
 
 				var liveSearch = new A.LiveSearch(
 					{

@@ -14,14 +14,13 @@
 
 package com.liferay.wsrp.service.base;
 
-import com.liferay.counter.service.CounterLocalService;
-
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.bean.IdentifiableBean;
 import com.liferay.portal.kernel.dao.jdbc.SqlUpdate;
 import com.liferay.portal.kernel.dao.jdbc.SqlUpdateFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Indexable;
@@ -29,21 +28,12 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.model.PersistedModel;
 import com.liferay.portal.service.BaseLocalServiceImpl;
-import com.liferay.portal.service.GroupLocalService;
-import com.liferay.portal.service.GroupService;
-import com.liferay.portal.service.LayoutLocalService;
-import com.liferay.portal.service.LayoutService;
 import com.liferay.portal.service.PersistedModelLocalServiceRegistryUtil;
-import com.liferay.portal.service.ResourceLocalService;
-import com.liferay.portal.service.UserLocalService;
-import com.liferay.portal.service.UserService;
 import com.liferay.portal.service.persistence.GroupPersistence;
 import com.liferay.portal.service.persistence.LayoutPersistence;
 import com.liferay.portal.service.persistence.UserPersistence;
 
 import com.liferay.wsrp.model.WSRPProducer;
-import com.liferay.wsrp.service.WSRPConsumerLocalService;
-import com.liferay.wsrp.service.WSRPConsumerPortletLocalService;
 import com.liferay.wsrp.service.WSRPProducerLocalService;
 import com.liferay.wsrp.service.persistence.WSRPConsumerPersistence;
 import com.liferay.wsrp.service.persistence.WSRPConsumerPortletPersistence;
@@ -211,10 +201,53 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 		return wsrpProducerPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	/**
+	 * Returns the number of rows that match the dynamic query.
+	 *
+	 * @param dynamicQuery the dynamic query
+	 * @param projection the projection to apply to the query
+	 * @return the number of rows that match the dynamic query
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public long dynamicQueryCount(DynamicQuery dynamicQuery,
+		Projection projection) throws SystemException {
+		return wsrpProducerPersistence.countWithDynamicQuery(dynamicQuery,
+			projection);
+	}
+
 	@Override
 	public WSRPProducer fetchWSRPProducer(long wsrpProducerId)
 		throws SystemException {
 		return wsrpProducerPersistence.fetchByPrimaryKey(wsrpProducerId);
+	}
+
+	/**
+	 * Returns the w s r p producer with the matching UUID and company.
+	 *
+	 * @param uuid the w s r p producer's UUID
+	 * @param  companyId the primary key of the company
+	 * @return the matching w s r p producer, or <code>null</code> if a matching w s r p producer could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public WSRPProducer fetchWSRPProducerByUuidAndCompanyId(String uuid,
+		long companyId) throws SystemException {
+		return wsrpProducerPersistence.fetchByUuid_C_First(uuid, companyId, null);
+	}
+
+	/**
+	 * Returns the w s r p producer matching the UUID and group.
+	 *
+	 * @param uuid the w s r p producer's UUID
+	 * @param groupId the primary key of the group
+	 * @return the matching w s r p producer, or <code>null</code> if a matching w s r p producer could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public WSRPProducer fetchWSRPProducerByUuidAndGroupId(String uuid,
+		long groupId) throws SystemException {
+		return wsrpProducerPersistence.fetchByUUID_G(uuid, groupId);
 	}
 
 	/**
@@ -235,6 +268,21 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return wsrpProducerPersistence.findByPrimaryKey(primaryKeyObj);
+	}
+
+	/**
+	 * Returns the w s r p producer with the matching UUID and company.
+	 *
+	 * @param uuid the w s r p producer's UUID
+	 * @param  companyId the primary key of the company
+	 * @return the matching w s r p producer
+	 * @throws PortalException if a matching w s r p producer could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public WSRPProducer getWSRPProducerByUuidAndCompanyId(String uuid,
+		long companyId) throws PortalException, SystemException {
+		return wsrpProducerPersistence.findByUuid_C_First(uuid, companyId, null);
 	}
 
 	/**
@@ -300,7 +348,7 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	 *
 	 * @return the w s r p consumer local service
 	 */
-	public WSRPConsumerLocalService getWSRPConsumerLocalService() {
+	public com.liferay.wsrp.service.WSRPConsumerLocalService getWSRPConsumerLocalService() {
 		return wsrpConsumerLocalService;
 	}
 
@@ -310,7 +358,7 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	 * @param wsrpConsumerLocalService the w s r p consumer local service
 	 */
 	public void setWSRPConsumerLocalService(
-		WSRPConsumerLocalService wsrpConsumerLocalService) {
+		com.liferay.wsrp.service.WSRPConsumerLocalService wsrpConsumerLocalService) {
 		this.wsrpConsumerLocalService = wsrpConsumerLocalService;
 	}
 
@@ -338,7 +386,7 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	 *
 	 * @return the w s r p consumer portlet local service
 	 */
-	public WSRPConsumerPortletLocalService getWSRPConsumerPortletLocalService() {
+	public com.liferay.wsrp.service.WSRPConsumerPortletLocalService getWSRPConsumerPortletLocalService() {
 		return wsrpConsumerPortletLocalService;
 	}
 
@@ -348,7 +396,7 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	 * @param wsrpConsumerPortletLocalService the w s r p consumer portlet local service
 	 */
 	public void setWSRPConsumerPortletLocalService(
-		WSRPConsumerPortletLocalService wsrpConsumerPortletLocalService) {
+		com.liferay.wsrp.service.WSRPConsumerPortletLocalService wsrpConsumerPortletLocalService) {
 		this.wsrpConsumerPortletLocalService = wsrpConsumerPortletLocalService;
 	}
 
@@ -376,7 +424,7 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	 *
 	 * @return the w s r p producer local service
 	 */
-	public WSRPProducerLocalService getWSRPProducerLocalService() {
+	public com.liferay.wsrp.service.WSRPProducerLocalService getWSRPProducerLocalService() {
 		return wsrpProducerLocalService;
 	}
 
@@ -386,7 +434,7 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	 * @param wsrpProducerLocalService the w s r p producer local service
 	 */
 	public void setWSRPProducerLocalService(
-		WSRPProducerLocalService wsrpProducerLocalService) {
+		com.liferay.wsrp.service.WSRPProducerLocalService wsrpProducerLocalService) {
 		this.wsrpProducerLocalService = wsrpProducerLocalService;
 	}
 
@@ -414,7 +462,7 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	 *
 	 * @return the counter local service
 	 */
-	public CounterLocalService getCounterLocalService() {
+	public com.liferay.counter.service.CounterLocalService getCounterLocalService() {
 		return counterLocalService;
 	}
 
@@ -423,7 +471,8 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	 *
 	 * @param counterLocalService the counter local service
 	 */
-	public void setCounterLocalService(CounterLocalService counterLocalService) {
+	public void setCounterLocalService(
+		com.liferay.counter.service.CounterLocalService counterLocalService) {
 		this.counterLocalService = counterLocalService;
 	}
 
@@ -432,7 +481,7 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	 *
 	 * @return the group local service
 	 */
-	public GroupLocalService getGroupLocalService() {
+	public com.liferay.portal.service.GroupLocalService getGroupLocalService() {
 		return groupLocalService;
 	}
 
@@ -441,7 +490,8 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	 *
 	 * @param groupLocalService the group local service
 	 */
-	public void setGroupLocalService(GroupLocalService groupLocalService) {
+	public void setGroupLocalService(
+		com.liferay.portal.service.GroupLocalService groupLocalService) {
 		this.groupLocalService = groupLocalService;
 	}
 
@@ -450,7 +500,7 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	 *
 	 * @return the group remote service
 	 */
-	public GroupService getGroupService() {
+	public com.liferay.portal.service.GroupService getGroupService() {
 		return groupService;
 	}
 
@@ -459,7 +509,8 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	 *
 	 * @param groupService the group remote service
 	 */
-	public void setGroupService(GroupService groupService) {
+	public void setGroupService(
+		com.liferay.portal.service.GroupService groupService) {
 		this.groupService = groupService;
 	}
 
@@ -486,7 +537,7 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	 *
 	 * @return the layout local service
 	 */
-	public LayoutLocalService getLayoutLocalService() {
+	public com.liferay.portal.service.LayoutLocalService getLayoutLocalService() {
 		return layoutLocalService;
 	}
 
@@ -495,7 +546,8 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	 *
 	 * @param layoutLocalService the layout local service
 	 */
-	public void setLayoutLocalService(LayoutLocalService layoutLocalService) {
+	public void setLayoutLocalService(
+		com.liferay.portal.service.LayoutLocalService layoutLocalService) {
 		this.layoutLocalService = layoutLocalService;
 	}
 
@@ -504,7 +556,7 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	 *
 	 * @return the layout remote service
 	 */
-	public LayoutService getLayoutService() {
+	public com.liferay.portal.service.LayoutService getLayoutService() {
 		return layoutService;
 	}
 
@@ -513,7 +565,8 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	 *
 	 * @param layoutService the layout remote service
 	 */
-	public void setLayoutService(LayoutService layoutService) {
+	public void setLayoutService(
+		com.liferay.portal.service.LayoutService layoutService) {
 		this.layoutService = layoutService;
 	}
 
@@ -540,7 +593,7 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	 *
 	 * @return the resource local service
 	 */
-	public ResourceLocalService getResourceLocalService() {
+	public com.liferay.portal.service.ResourceLocalService getResourceLocalService() {
 		return resourceLocalService;
 	}
 
@@ -550,7 +603,7 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	 * @param resourceLocalService the resource local service
 	 */
 	public void setResourceLocalService(
-		ResourceLocalService resourceLocalService) {
+		com.liferay.portal.service.ResourceLocalService resourceLocalService) {
 		this.resourceLocalService = resourceLocalService;
 	}
 
@@ -559,7 +612,7 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	 *
 	 * @return the user local service
 	 */
-	public UserLocalService getUserLocalService() {
+	public com.liferay.portal.service.UserLocalService getUserLocalService() {
 		return userLocalService;
 	}
 
@@ -568,7 +621,8 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	 *
 	 * @param userLocalService the user local service
 	 */
-	public void setUserLocalService(UserLocalService userLocalService) {
+	public void setUserLocalService(
+		com.liferay.portal.service.UserLocalService userLocalService) {
 		this.userLocalService = userLocalService;
 	}
 
@@ -577,7 +631,7 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	 *
 	 * @return the user remote service
 	 */
-	public UserService getUserService() {
+	public com.liferay.portal.service.UserService getUserService() {
 		return userService;
 	}
 
@@ -586,7 +640,8 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 	 *
 	 * @param userService the user remote service
 	 */
-	public void setUserService(UserService userService) {
+	public void setUserService(
+		com.liferay.portal.service.UserService userService) {
 		this.userService = userService;
 	}
 
@@ -690,38 +745,38 @@ public abstract class WSRPProducerLocalServiceBaseImpl
 		}
 	}
 
-	@BeanReference(type = WSRPConsumerLocalService.class)
-	protected WSRPConsumerLocalService wsrpConsumerLocalService;
+	@BeanReference(type = com.liferay.wsrp.service.WSRPConsumerLocalService.class)
+	protected com.liferay.wsrp.service.WSRPConsumerLocalService wsrpConsumerLocalService;
 	@BeanReference(type = WSRPConsumerPersistence.class)
 	protected WSRPConsumerPersistence wsrpConsumerPersistence;
-	@BeanReference(type = WSRPConsumerPortletLocalService.class)
-	protected WSRPConsumerPortletLocalService wsrpConsumerPortletLocalService;
+	@BeanReference(type = com.liferay.wsrp.service.WSRPConsumerPortletLocalService.class)
+	protected com.liferay.wsrp.service.WSRPConsumerPortletLocalService wsrpConsumerPortletLocalService;
 	@BeanReference(type = WSRPConsumerPortletPersistence.class)
 	protected WSRPConsumerPortletPersistence wsrpConsumerPortletPersistence;
-	@BeanReference(type = WSRPProducerLocalService.class)
-	protected WSRPProducerLocalService wsrpProducerLocalService;
+	@BeanReference(type = com.liferay.wsrp.service.WSRPProducerLocalService.class)
+	protected com.liferay.wsrp.service.WSRPProducerLocalService wsrpProducerLocalService;
 	@BeanReference(type = WSRPProducerPersistence.class)
 	protected WSRPProducerPersistence wsrpProducerPersistence;
-	@BeanReference(type = CounterLocalService.class)
-	protected CounterLocalService counterLocalService;
-	@BeanReference(type = GroupLocalService.class)
-	protected GroupLocalService groupLocalService;
-	@BeanReference(type = GroupService.class)
-	protected GroupService groupService;
+	@BeanReference(type = com.liferay.counter.service.CounterLocalService.class)
+	protected com.liferay.counter.service.CounterLocalService counterLocalService;
+	@BeanReference(type = com.liferay.portal.service.GroupLocalService.class)
+	protected com.liferay.portal.service.GroupLocalService groupLocalService;
+	@BeanReference(type = com.liferay.portal.service.GroupService.class)
+	protected com.liferay.portal.service.GroupService groupService;
 	@BeanReference(type = GroupPersistence.class)
 	protected GroupPersistence groupPersistence;
-	@BeanReference(type = LayoutLocalService.class)
-	protected LayoutLocalService layoutLocalService;
-	@BeanReference(type = LayoutService.class)
-	protected LayoutService layoutService;
+	@BeanReference(type = com.liferay.portal.service.LayoutLocalService.class)
+	protected com.liferay.portal.service.LayoutLocalService layoutLocalService;
+	@BeanReference(type = com.liferay.portal.service.LayoutService.class)
+	protected com.liferay.portal.service.LayoutService layoutService;
 	@BeanReference(type = LayoutPersistence.class)
 	protected LayoutPersistence layoutPersistence;
-	@BeanReference(type = ResourceLocalService.class)
-	protected ResourceLocalService resourceLocalService;
-	@BeanReference(type = UserLocalService.class)
-	protected UserLocalService userLocalService;
-	@BeanReference(type = UserService.class)
-	protected UserService userService;
+	@BeanReference(type = com.liferay.portal.service.ResourceLocalService.class)
+	protected com.liferay.portal.service.ResourceLocalService resourceLocalService;
+	@BeanReference(type = com.liferay.portal.service.UserLocalService.class)
+	protected com.liferay.portal.service.UserLocalService userLocalService;
+	@BeanReference(type = com.liferay.portal.service.UserService.class)
+	protected com.liferay.portal.service.UserService userService;
 	@BeanReference(type = UserPersistence.class)
 	protected UserPersistence userPersistence;
 	private String _beanIdentifier;

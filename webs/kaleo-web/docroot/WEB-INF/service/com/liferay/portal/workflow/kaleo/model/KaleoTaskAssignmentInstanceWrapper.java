@@ -14,6 +14,7 @@
 
 package com.liferay.portal.workflow.kaleo.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +26,8 @@ import java.util.Map;
  * This class is a wrapper for {@link KaleoTaskAssignmentInstance}.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       KaleoTaskAssignmentInstance
+ * @author Brian Wing Shun Chan
+ * @see KaleoTaskAssignmentInstance
  * @generated
  */
 public class KaleoTaskAssignmentInstanceWrapper
@@ -676,6 +677,26 @@ public class KaleoTaskAssignmentInstanceWrapper
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_kaleoTaskAssignmentInstance.persist();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof KaleoTaskAssignmentInstanceWrapper)) {
+			return false;
+		}
+
+		KaleoTaskAssignmentInstanceWrapper kaleoTaskAssignmentInstanceWrapper = (KaleoTaskAssignmentInstanceWrapper)obj;
+
+		if (Validator.equals(_kaleoTaskAssignmentInstance,
+					kaleoTaskAssignmentInstanceWrapper._kaleoTaskAssignmentInstance)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

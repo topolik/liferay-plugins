@@ -14,6 +14,8 @@
 
 package com.liferay.calendar.model;
 
+import com.liferay.portal.kernel.lar.StagedModelType;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +27,8 @@ import java.util.Map;
  * This class is a wrapper for {@link CalendarNotificationTemplate}.
  * </p>
  *
- * @author    Eduardo Lundgren
- * @see       CalendarNotificationTemplate
+ * @author Eduardo Lundgren
+ * @see CalendarNotificationTemplate
  * @generated
  */
 public class CalendarNotificationTemplateWrapper
@@ -599,6 +601,31 @@ public class CalendarNotificationTemplateWrapper
 	public void setTypeSettingsProperties(
 		com.liferay.portal.kernel.util.UnicodeProperties notificationTypeSettingsProperties) {
 		_calendarNotificationTemplate.setTypeSettingsProperties(notificationTypeSettingsProperties);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof CalendarNotificationTemplateWrapper)) {
+			return false;
+		}
+
+		CalendarNotificationTemplateWrapper calendarNotificationTemplateWrapper = (CalendarNotificationTemplateWrapper)obj;
+
+		if (Validator.equals(_calendarNotificationTemplate,
+					calendarNotificationTemplateWrapper._calendarNotificationTemplate)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return _calendarNotificationTemplate.getStagedModelType();
 	}
 
 	/**

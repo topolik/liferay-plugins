@@ -14,13 +14,8 @@
 
 package com.liferay.mail.service.base;
 
-import com.liferay.counter.service.CounterLocalService;
-
 import com.liferay.mail.model.Attachment;
-import com.liferay.mail.service.AccountLocalService;
 import com.liferay.mail.service.AttachmentLocalService;
-import com.liferay.mail.service.FolderLocalService;
-import com.liferay.mail.service.MessageLocalService;
 import com.liferay.mail.service.persistence.AccountPersistence;
 import com.liferay.mail.service.persistence.AttachmentPersistence;
 import com.liferay.mail.service.persistence.FolderPersistence;
@@ -32,6 +27,7 @@ import com.liferay.portal.kernel.dao.jdbc.SqlUpdate;
 import com.liferay.portal.kernel.dao.jdbc.SqlUpdateFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Indexable;
@@ -40,9 +36,6 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.model.PersistedModel;
 import com.liferay.portal.service.BaseLocalServiceImpl;
 import com.liferay.portal.service.PersistedModelLocalServiceRegistryUtil;
-import com.liferay.portal.service.ResourceLocalService;
-import com.liferay.portal.service.UserLocalService;
-import com.liferay.portal.service.UserService;
 import com.liferay.portal.service.persistence.UserPersistence;
 
 import java.io.Serializable;
@@ -206,6 +199,21 @@ public abstract class AttachmentLocalServiceBaseImpl
 		return attachmentPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	/**
+	 * Returns the number of rows that match the dynamic query.
+	 *
+	 * @param dynamicQuery the dynamic query
+	 * @param projection the projection to apply to the query
+	 * @return the number of rows that match the dynamic query
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public long dynamicQueryCount(DynamicQuery dynamicQuery,
+		Projection projection) throws SystemException {
+		return attachmentPersistence.countWithDynamicQuery(dynamicQuery,
+			projection);
+	}
+
 	@Override
 	public Attachment fetchAttachment(long attachmentId)
 		throws SystemException {
@@ -280,7 +288,7 @@ public abstract class AttachmentLocalServiceBaseImpl
 	 *
 	 * @return the account local service
 	 */
-	public AccountLocalService getAccountLocalService() {
+	public com.liferay.mail.service.AccountLocalService getAccountLocalService() {
 		return accountLocalService;
 	}
 
@@ -289,7 +297,8 @@ public abstract class AttachmentLocalServiceBaseImpl
 	 *
 	 * @param accountLocalService the account local service
 	 */
-	public void setAccountLocalService(AccountLocalService accountLocalService) {
+	public void setAccountLocalService(
+		com.liferay.mail.service.AccountLocalService accountLocalService) {
 		this.accountLocalService = accountLocalService;
 	}
 
@@ -316,7 +325,7 @@ public abstract class AttachmentLocalServiceBaseImpl
 	 *
 	 * @return the attachment local service
 	 */
-	public AttachmentLocalService getAttachmentLocalService() {
+	public com.liferay.mail.service.AttachmentLocalService getAttachmentLocalService() {
 		return attachmentLocalService;
 	}
 
@@ -326,7 +335,7 @@ public abstract class AttachmentLocalServiceBaseImpl
 	 * @param attachmentLocalService the attachment local service
 	 */
 	public void setAttachmentLocalService(
-		AttachmentLocalService attachmentLocalService) {
+		com.liferay.mail.service.AttachmentLocalService attachmentLocalService) {
 		this.attachmentLocalService = attachmentLocalService;
 	}
 
@@ -354,7 +363,7 @@ public abstract class AttachmentLocalServiceBaseImpl
 	 *
 	 * @return the folder local service
 	 */
-	public FolderLocalService getFolderLocalService() {
+	public com.liferay.mail.service.FolderLocalService getFolderLocalService() {
 		return folderLocalService;
 	}
 
@@ -363,7 +372,8 @@ public abstract class AttachmentLocalServiceBaseImpl
 	 *
 	 * @param folderLocalService the folder local service
 	 */
-	public void setFolderLocalService(FolderLocalService folderLocalService) {
+	public void setFolderLocalService(
+		com.liferay.mail.service.FolderLocalService folderLocalService) {
 		this.folderLocalService = folderLocalService;
 	}
 
@@ -390,7 +400,7 @@ public abstract class AttachmentLocalServiceBaseImpl
 	 *
 	 * @return the message local service
 	 */
-	public MessageLocalService getMessageLocalService() {
+	public com.liferay.mail.service.MessageLocalService getMessageLocalService() {
 		return messageLocalService;
 	}
 
@@ -399,7 +409,8 @@ public abstract class AttachmentLocalServiceBaseImpl
 	 *
 	 * @param messageLocalService the message local service
 	 */
-	public void setMessageLocalService(MessageLocalService messageLocalService) {
+	public void setMessageLocalService(
+		com.liferay.mail.service.MessageLocalService messageLocalService) {
 		this.messageLocalService = messageLocalService;
 	}
 
@@ -426,7 +437,7 @@ public abstract class AttachmentLocalServiceBaseImpl
 	 *
 	 * @return the counter local service
 	 */
-	public CounterLocalService getCounterLocalService() {
+	public com.liferay.counter.service.CounterLocalService getCounterLocalService() {
 		return counterLocalService;
 	}
 
@@ -435,7 +446,8 @@ public abstract class AttachmentLocalServiceBaseImpl
 	 *
 	 * @param counterLocalService the counter local service
 	 */
-	public void setCounterLocalService(CounterLocalService counterLocalService) {
+	public void setCounterLocalService(
+		com.liferay.counter.service.CounterLocalService counterLocalService) {
 		this.counterLocalService = counterLocalService;
 	}
 
@@ -444,7 +456,7 @@ public abstract class AttachmentLocalServiceBaseImpl
 	 *
 	 * @return the resource local service
 	 */
-	public ResourceLocalService getResourceLocalService() {
+	public com.liferay.portal.service.ResourceLocalService getResourceLocalService() {
 		return resourceLocalService;
 	}
 
@@ -454,7 +466,7 @@ public abstract class AttachmentLocalServiceBaseImpl
 	 * @param resourceLocalService the resource local service
 	 */
 	public void setResourceLocalService(
-		ResourceLocalService resourceLocalService) {
+		com.liferay.portal.service.ResourceLocalService resourceLocalService) {
 		this.resourceLocalService = resourceLocalService;
 	}
 
@@ -463,7 +475,7 @@ public abstract class AttachmentLocalServiceBaseImpl
 	 *
 	 * @return the user local service
 	 */
-	public UserLocalService getUserLocalService() {
+	public com.liferay.portal.service.UserLocalService getUserLocalService() {
 		return userLocalService;
 	}
 
@@ -472,7 +484,8 @@ public abstract class AttachmentLocalServiceBaseImpl
 	 *
 	 * @param userLocalService the user local service
 	 */
-	public void setUserLocalService(UserLocalService userLocalService) {
+	public void setUserLocalService(
+		com.liferay.portal.service.UserLocalService userLocalService) {
 		this.userLocalService = userLocalService;
 	}
 
@@ -481,7 +494,7 @@ public abstract class AttachmentLocalServiceBaseImpl
 	 *
 	 * @return the user remote service
 	 */
-	public UserService getUserService() {
+	public com.liferay.portal.service.UserService getUserService() {
 		return userService;
 	}
 
@@ -490,7 +503,8 @@ public abstract class AttachmentLocalServiceBaseImpl
 	 *
 	 * @param userService the user remote service
 	 */
-	public void setUserService(UserService userService) {
+	public void setUserService(
+		com.liferay.portal.service.UserService userService) {
 		this.userService = userService;
 	}
 
@@ -594,30 +608,30 @@ public abstract class AttachmentLocalServiceBaseImpl
 		}
 	}
 
-	@BeanReference(type = AccountLocalService.class)
-	protected AccountLocalService accountLocalService;
+	@BeanReference(type = com.liferay.mail.service.AccountLocalService.class)
+	protected com.liferay.mail.service.AccountLocalService accountLocalService;
 	@BeanReference(type = AccountPersistence.class)
 	protected AccountPersistence accountPersistence;
-	@BeanReference(type = AttachmentLocalService.class)
-	protected AttachmentLocalService attachmentLocalService;
+	@BeanReference(type = com.liferay.mail.service.AttachmentLocalService.class)
+	protected com.liferay.mail.service.AttachmentLocalService attachmentLocalService;
 	@BeanReference(type = AttachmentPersistence.class)
 	protected AttachmentPersistence attachmentPersistence;
-	@BeanReference(type = FolderLocalService.class)
-	protected FolderLocalService folderLocalService;
+	@BeanReference(type = com.liferay.mail.service.FolderLocalService.class)
+	protected com.liferay.mail.service.FolderLocalService folderLocalService;
 	@BeanReference(type = FolderPersistence.class)
 	protected FolderPersistence folderPersistence;
-	@BeanReference(type = MessageLocalService.class)
-	protected MessageLocalService messageLocalService;
+	@BeanReference(type = com.liferay.mail.service.MessageLocalService.class)
+	protected com.liferay.mail.service.MessageLocalService messageLocalService;
 	@BeanReference(type = MessagePersistence.class)
 	protected MessagePersistence messagePersistence;
-	@BeanReference(type = CounterLocalService.class)
-	protected CounterLocalService counterLocalService;
-	@BeanReference(type = ResourceLocalService.class)
-	protected ResourceLocalService resourceLocalService;
-	@BeanReference(type = UserLocalService.class)
-	protected UserLocalService userLocalService;
-	@BeanReference(type = UserService.class)
-	protected UserService userService;
+	@BeanReference(type = com.liferay.counter.service.CounterLocalService.class)
+	protected com.liferay.counter.service.CounterLocalService counterLocalService;
+	@BeanReference(type = com.liferay.portal.service.ResourceLocalService.class)
+	protected com.liferay.portal.service.ResourceLocalService resourceLocalService;
+	@BeanReference(type = com.liferay.portal.service.UserLocalService.class)
+	protected com.liferay.portal.service.UserLocalService userLocalService;
+	@BeanReference(type = com.liferay.portal.service.UserService.class)
+	protected com.liferay.portal.service.UserService userService;
 	@BeanReference(type = UserPersistence.class)
 	protected UserPersistence userPersistence;
 	private String _beanIdentifier;

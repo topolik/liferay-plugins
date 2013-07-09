@@ -19,8 +19,8 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link FooLocalService}.
  *
- * @author    Brian Wing Shun Chan
- * @see       FooLocalService
+ * @author Brian Wing Shun Chan
+ * @see FooLocalService
  * @generated
  */
 public class FooLocalServiceWrapper implements FooLocalService,
@@ -163,10 +163,56 @@ public class FooLocalServiceWrapper implements FooLocalService,
 		return _fooLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	/**
+	* Returns the number of rows that match the dynamic query.
+	*
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows that match the dynamic query
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _fooLocalService.dynamicQueryCount(dynamicQuery, projection);
+	}
+
 	@Override
 	public com.liferay.sampleservicebuilder.model.Foo fetchFoo(long fooId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _fooLocalService.fetchFoo(fooId);
+	}
+
+	/**
+	* Returns the foo with the matching UUID and company.
+	*
+	* @param uuid the foo's UUID
+	* @param companyId the primary key of the company
+	* @return the matching foo, or <code>null</code> if a matching foo could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public com.liferay.sampleservicebuilder.model.Foo fetchFooByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _fooLocalService.fetchFooByUuidAndCompanyId(uuid, companyId);
+	}
+
+	/**
+	* Returns the foo matching the UUID and group.
+	*
+	* @param uuid the foo's UUID
+	* @param groupId the primary key of the group
+	* @return the matching foo, or <code>null</code> if a matching foo could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public com.liferay.sampleservicebuilder.model.Foo fetchFooByUuidAndGroupId(
+		java.lang.String uuid, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _fooLocalService.fetchFooByUuidAndGroupId(uuid, groupId);
 	}
 
 	/**
@@ -190,6 +236,23 @@ public class FooLocalServiceWrapper implements FooLocalService,
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _fooLocalService.getPersistedModel(primaryKeyObj);
+	}
+
+	/**
+	* Returns the foo with the matching UUID and company.
+	*
+	* @param uuid the foo's UUID
+	* @param companyId the primary key of the company
+	* @return the matching foo
+	* @throws PortalException if a matching foo could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public com.liferay.sampleservicebuilder.model.Foo getFooByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _fooLocalService.getFooByUuidAndCompanyId(uuid, companyId);
 	}
 
 	/**

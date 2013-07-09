@@ -14,6 +14,7 @@
 
 package com.liferay.socialcoding.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +26,8 @@ import java.util.Map;
  * This class is a wrapper for {@link JIRAAction}.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       JIRAAction
+ * @author Brian Wing Shun Chan
+ * @see JIRAAction
  * @generated
  */
 public class JIRAActionWrapper implements JIRAAction, ModelWrapper<JIRAAction> {
@@ -393,6 +394,25 @@ public class JIRAActionWrapper implements JIRAAction, ModelWrapper<JIRAAction> {
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_jiraAction.persist();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof JIRAActionWrapper)) {
+			return false;
+		}
+
+		JIRAActionWrapper jiraActionWrapper = (JIRAActionWrapper)obj;
+
+		if (Validator.equals(_jiraAction, jiraActionWrapper._jiraAction)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

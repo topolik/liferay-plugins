@@ -14,6 +14,7 @@
 
 package com.liferay.twitter.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +26,8 @@ import java.util.Map;
  * This class is a wrapper for {@link Feed}.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       Feed
+ * @author Brian Wing Shun Chan
+ * @see Feed
  * @generated
  */
 public class FeedWrapper implements Feed, ModelWrapper<Feed> {
@@ -464,6 +465,25 @@ public class FeedWrapper implements Feed, ModelWrapper<Feed> {
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_feed.persist();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof FeedWrapper)) {
+			return false;
+		}
+
+		FeedWrapper feedWrapper = (FeedWrapper)obj;
+
+		if (Validator.equals(_feed, feedWrapper._feed)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

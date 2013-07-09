@@ -14,6 +14,7 @@
 
 package com.liferay.mail.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +26,8 @@ import java.util.Map;
  * This class is a wrapper for {@link Folder}.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       Folder
+ * @author Brian Wing Shun Chan
+ * @see Folder
  * @generated
  */
 public class FolderWrapper implements Folder, ModelWrapper<Folder> {
@@ -470,6 +471,25 @@ public class FolderWrapper implements Folder, ModelWrapper<Folder> {
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_folder.persist();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof FolderWrapper)) {
+			return false;
+		}
+
+		FolderWrapper folderWrapper = (FolderWrapper)obj;
+
+		if (Validator.equals(_folder, folderWrapper._folder)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

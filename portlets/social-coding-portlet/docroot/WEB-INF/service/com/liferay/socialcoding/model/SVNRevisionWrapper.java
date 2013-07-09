@@ -14,6 +14,7 @@
 
 package com.liferay.socialcoding.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +26,8 @@ import java.util.Map;
  * This class is a wrapper for {@link SVNRevision}.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       SVNRevision
+ * @author Brian Wing Shun Chan
+ * @see SVNRevision
  * @generated
  */
 public class SVNRevisionWrapper implements SVNRevision,
@@ -355,6 +356,25 @@ public class SVNRevisionWrapper implements SVNRevision,
 	@Override
 	public java.lang.String getWebRevisionNumberURL() {
 		return _svnRevision.getWebRevisionNumberURL();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof SVNRevisionWrapper)) {
+			return false;
+		}
+
+		SVNRevisionWrapper svnRevisionWrapper = (SVNRevisionWrapper)obj;
+
+		if (Validator.equals(_svnRevision, svnRevisionWrapper._svnRevision)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

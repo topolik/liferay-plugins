@@ -1,0 +1,216 @@
+@import "compass";
+
+.dockbar-user-notifications {
+	margin: 0 -10px;
+}
+
+.dockbar-user-notifications, .notifications-portlet {
+	.user-notifications-count {
+		background-color: #F03D25;
+		border: 1px solid #F83722;
+		border-bottom-color: #C0311E;
+		border-top-color: #E23923;
+		font-size: 9px;
+		font-weight: bold;
+		left: 55%;
+		line-height: 12px;
+		overflow: hidden;
+		padding: 0 2px;
+		position: absolute;
+		top: 55%;
+	}
+
+	.dropdown-menu {
+		width: 400px;
+	}
+
+	.user-notifications-list {
+		list-style: none;
+		margin: 0;
+
+		.message {
+			padding: 5px;
+			text-align: center;
+
+			&.top {
+				border-bottom: 1px solid #D5D5D5;
+			}
+
+			&.bottom {
+				border-top: 1px solid #D5D5D5;
+			}
+
+			.left-nav {
+				float: left;
+				padding: 0 10px;
+			}
+
+			.right-nav {
+				float: right;
+				padding: 0 10px;
+			}
+
+			a:hover {
+				text-decoration: none;
+			}
+
+			.disabled a {
+				color: #999;
+				cursor: default;
+			}
+		}
+
+		.user-notification {
+			a {
+				clear: both;
+				color: #333333;
+				display: block;
+				font-weight: normal;
+				padding: 5px;
+				white-space: normal;
+			}
+
+			a:hover {
+				background-color: #0DB5E7;
+				color: #FFF;
+				text-decoration: none;
+			}
+
+			.icon-remove-circle {
+				left: 330px;
+				position: relative;
+				top: 20px;
+			}
+
+			.sender {
+				float: left;
+				position: relative;
+
+				.user-thumbnail {
+					border: 0;
+					height: 45px;
+					overflow: hidden;
+					width: 45px;
+
+					img {
+						width: 45px;
+					}
+				}
+
+				.portlet-icon {
+					bottom: 0;
+					left: 0;
+					position: absolute;
+				}
+			}
+
+			.read {
+				color: #999;
+				float: right;
+				font-size: 11px;
+			}
+
+			&.unread {
+				background: #EFF1F7
+			}
+
+			.timestamp {
+				color: #999;
+				display: inline;
+				font-size: 11px;
+			}
+
+			a:hover .read {
+				color: #FFF;
+			}
+
+			a:hover .timestamp {
+				color: #FFF;
+			}
+
+			.content {
+				margin-left: 65px;
+			}
+		}
+	}
+}
+
+.notifications-portlet {
+	.user-notifications-sidebar {
+		float: left;
+		padding: 0 10px 0 0;
+		width: 18%;
+	}
+
+	.nav {
+		margin-bottom: 10px;
+
+		a {
+			color: #333333;
+			display: block;
+			padding: 5px 10px;
+
+			.title {
+				float: left;
+			}
+
+			.count {
+				float: right;
+			}
+		}
+
+		a:hover {
+			background-color: #0DB5E7;
+			color: #FFF;
+			text-decoration: none;
+		}
+
+		a.selected {
+			background-color: #0DB5E7;
+			color: #FFF;
+		}
+	}
+
+	.user-notifications-list-container {
+		border: 1px solid #D5D5D5;
+		float: left;
+		width: 80%;
+
+		.loading-mask {
+			min-height: 30px;
+		}
+	}
+
+	.user-notifications-list {
+		.user-notification {
+			a {
+				border-bottom: 1px solid #D5D5D5;
+				padding: 15px;
+			}
+		}
+	}
+}
+
+/* ---------- Extras ---------- */
+
+.dockbar-user-notifications {
+	.user-notifications-count {
+		@include border-radius(2px);
+	}
+}
+
+.notifications-portlet {
+	.nav {
+		a:hover {
+			@include border-radius(4px);
+		}
+
+		a.selected {
+			@include border-radius(4px);
+		}
+	}
+
+	.user-notifications-list-container {
+		@include border-radius(4px);
+	}
+}

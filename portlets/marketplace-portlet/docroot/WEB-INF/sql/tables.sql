@@ -7,6 +7,10 @@ create table Marketplace_App (
 	createDate DATE null,
 	modifiedDate DATE null,
 	remoteAppId LONG,
+	title VARCHAR(75) null,
+	description STRING null,
+	category VARCHAR(75) null,
+	iconURL STRING null,
 	version VARCHAR(75) null
 );
 

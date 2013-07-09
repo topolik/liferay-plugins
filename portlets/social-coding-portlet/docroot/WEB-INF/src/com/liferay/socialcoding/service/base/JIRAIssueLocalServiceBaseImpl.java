@@ -14,14 +14,13 @@
 
 package com.liferay.socialcoding.service.base;
 
-import com.liferay.counter.service.CounterLocalService;
-
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.bean.IdentifiableBean;
 import com.liferay.portal.kernel.dao.jdbc.SqlUpdate;
 import com.liferay.portal.kernel.dao.jdbc.SqlUpdateFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Indexable;
@@ -30,18 +29,10 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.model.PersistedModel;
 import com.liferay.portal.service.BaseLocalServiceImpl;
 import com.liferay.portal.service.PersistedModelLocalServiceRegistryUtil;
-import com.liferay.portal.service.ResourceLocalService;
-import com.liferay.portal.service.UserLocalService;
-import com.liferay.portal.service.UserService;
 import com.liferay.portal.service.persistence.UserPersistence;
 
 import com.liferay.socialcoding.model.JIRAIssue;
-import com.liferay.socialcoding.service.JIRAActionLocalService;
-import com.liferay.socialcoding.service.JIRAChangeGroupLocalService;
-import com.liferay.socialcoding.service.JIRAChangeItemLocalService;
 import com.liferay.socialcoding.service.JIRAIssueLocalService;
-import com.liferay.socialcoding.service.SVNRepositoryLocalService;
-import com.liferay.socialcoding.service.SVNRevisionLocalService;
 import com.liferay.socialcoding.service.persistence.JIRAActionFinder;
 import com.liferay.socialcoding.service.persistence.JIRAActionPersistence;
 import com.liferay.socialcoding.service.persistence.JIRAChangeGroupFinder;
@@ -212,6 +203,21 @@ public abstract class JIRAIssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 		return jiraIssuePersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	/**
+	 * Returns the number of rows that match the dynamic query.
+	 *
+	 * @param dynamicQuery the dynamic query
+	 * @param projection the projection to apply to the query
+	 * @return the number of rows that match the dynamic query
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public long dynamicQueryCount(DynamicQuery dynamicQuery,
+		Projection projection) throws SystemException {
+		return jiraIssuePersistence.countWithDynamicQuery(dynamicQuery,
+			projection);
+	}
+
 	@Override
 	public JIRAIssue fetchJIRAIssue(long jiraIssueId) throws SystemException {
 		return jiraIssuePersistence.fetchByPrimaryKey(jiraIssueId);
@@ -285,7 +291,7 @@ public abstract class JIRAIssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the j i r a action local service
 	 */
-	public JIRAActionLocalService getJIRAActionLocalService() {
+	public com.liferay.socialcoding.service.JIRAActionLocalService getJIRAActionLocalService() {
 		return jiraActionLocalService;
 	}
 
@@ -295,7 +301,7 @@ public abstract class JIRAIssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param jiraActionLocalService the j i r a action local service
 	 */
 	public void setJIRAActionLocalService(
-		JIRAActionLocalService jiraActionLocalService) {
+		com.liferay.socialcoding.service.JIRAActionLocalService jiraActionLocalService) {
 		this.jiraActionLocalService = jiraActionLocalService;
 	}
 
@@ -341,7 +347,7 @@ public abstract class JIRAIssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the j i r a change group local service
 	 */
-	public JIRAChangeGroupLocalService getJIRAChangeGroupLocalService() {
+	public com.liferay.socialcoding.service.JIRAChangeGroupLocalService getJIRAChangeGroupLocalService() {
 		return jiraChangeGroupLocalService;
 	}
 
@@ -351,7 +357,7 @@ public abstract class JIRAIssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param jiraChangeGroupLocalService the j i r a change group local service
 	 */
 	public void setJIRAChangeGroupLocalService(
-		JIRAChangeGroupLocalService jiraChangeGroupLocalService) {
+		com.liferay.socialcoding.service.JIRAChangeGroupLocalService jiraChangeGroupLocalService) {
 		this.jiraChangeGroupLocalService = jiraChangeGroupLocalService;
 	}
 
@@ -398,7 +404,7 @@ public abstract class JIRAIssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the j i r a change item local service
 	 */
-	public JIRAChangeItemLocalService getJIRAChangeItemLocalService() {
+	public com.liferay.socialcoding.service.JIRAChangeItemLocalService getJIRAChangeItemLocalService() {
 		return jiraChangeItemLocalService;
 	}
 
@@ -408,7 +414,7 @@ public abstract class JIRAIssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param jiraChangeItemLocalService the j i r a change item local service
 	 */
 	public void setJIRAChangeItemLocalService(
-		JIRAChangeItemLocalService jiraChangeItemLocalService) {
+		com.liferay.socialcoding.service.JIRAChangeItemLocalService jiraChangeItemLocalService) {
 		this.jiraChangeItemLocalService = jiraChangeItemLocalService;
 	}
 
@@ -436,7 +442,7 @@ public abstract class JIRAIssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the j i r a issue local service
 	 */
-	public JIRAIssueLocalService getJIRAIssueLocalService() {
+	public com.liferay.socialcoding.service.JIRAIssueLocalService getJIRAIssueLocalService() {
 		return jiraIssueLocalService;
 	}
 
@@ -446,7 +452,7 @@ public abstract class JIRAIssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param jiraIssueLocalService the j i r a issue local service
 	 */
 	public void setJIRAIssueLocalService(
-		JIRAIssueLocalService jiraIssueLocalService) {
+		com.liferay.socialcoding.service.JIRAIssueLocalService jiraIssueLocalService) {
 		this.jiraIssueLocalService = jiraIssueLocalService;
 	}
 
@@ -492,7 +498,7 @@ public abstract class JIRAIssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the s v n repository local service
 	 */
-	public SVNRepositoryLocalService getSVNRepositoryLocalService() {
+	public com.liferay.socialcoding.service.SVNRepositoryLocalService getSVNRepositoryLocalService() {
 		return svnRepositoryLocalService;
 	}
 
@@ -502,7 +508,7 @@ public abstract class JIRAIssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param svnRepositoryLocalService the s v n repository local service
 	 */
 	public void setSVNRepositoryLocalService(
-		SVNRepositoryLocalService svnRepositoryLocalService) {
+		com.liferay.socialcoding.service.SVNRepositoryLocalService svnRepositoryLocalService) {
 		this.svnRepositoryLocalService = svnRepositoryLocalService;
 	}
 
@@ -530,7 +536,7 @@ public abstract class JIRAIssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the s v n revision local service
 	 */
-	public SVNRevisionLocalService getSVNRevisionLocalService() {
+	public com.liferay.socialcoding.service.SVNRevisionLocalService getSVNRevisionLocalService() {
 		return svnRevisionLocalService;
 	}
 
@@ -540,7 +546,7 @@ public abstract class JIRAIssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param svnRevisionLocalService the s v n revision local service
 	 */
 	public void setSVNRevisionLocalService(
-		SVNRevisionLocalService svnRevisionLocalService) {
+		com.liferay.socialcoding.service.SVNRevisionLocalService svnRevisionLocalService) {
 		this.svnRevisionLocalService = svnRevisionLocalService;
 	}
 
@@ -568,7 +574,7 @@ public abstract class JIRAIssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the counter local service
 	 */
-	public CounterLocalService getCounterLocalService() {
+	public com.liferay.counter.service.CounterLocalService getCounterLocalService() {
 		return counterLocalService;
 	}
 
@@ -577,7 +583,8 @@ public abstract class JIRAIssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param counterLocalService the counter local service
 	 */
-	public void setCounterLocalService(CounterLocalService counterLocalService) {
+	public void setCounterLocalService(
+		com.liferay.counter.service.CounterLocalService counterLocalService) {
 		this.counterLocalService = counterLocalService;
 	}
 
@@ -586,7 +593,7 @@ public abstract class JIRAIssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the resource local service
 	 */
-	public ResourceLocalService getResourceLocalService() {
+	public com.liferay.portal.service.ResourceLocalService getResourceLocalService() {
 		return resourceLocalService;
 	}
 
@@ -596,7 +603,7 @@ public abstract class JIRAIssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param resourceLocalService the resource local service
 	 */
 	public void setResourceLocalService(
-		ResourceLocalService resourceLocalService) {
+		com.liferay.portal.service.ResourceLocalService resourceLocalService) {
 		this.resourceLocalService = resourceLocalService;
 	}
 
@@ -605,7 +612,7 @@ public abstract class JIRAIssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the user local service
 	 */
-	public UserLocalService getUserLocalService() {
+	public com.liferay.portal.service.UserLocalService getUserLocalService() {
 		return userLocalService;
 	}
 
@@ -614,7 +621,8 @@ public abstract class JIRAIssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param userLocalService the user local service
 	 */
-	public void setUserLocalService(UserLocalService userLocalService) {
+	public void setUserLocalService(
+		com.liferay.portal.service.UserLocalService userLocalService) {
 		this.userLocalService = userLocalService;
 	}
 
@@ -623,7 +631,7 @@ public abstract class JIRAIssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the user remote service
 	 */
-	public UserService getUserService() {
+	public com.liferay.portal.service.UserService getUserService() {
 		return userService;
 	}
 
@@ -632,7 +640,8 @@ public abstract class JIRAIssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param userService the user remote service
 	 */
-	public void setUserService(UserService userService) {
+	public void setUserService(
+		com.liferay.portal.service.UserService userService) {
 		this.userService = userService;
 	}
 
@@ -736,44 +745,44 @@ public abstract class JIRAIssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 		}
 	}
 
-	@BeanReference(type = JIRAActionLocalService.class)
-	protected JIRAActionLocalService jiraActionLocalService;
+	@BeanReference(type = com.liferay.socialcoding.service.JIRAActionLocalService.class)
+	protected com.liferay.socialcoding.service.JIRAActionLocalService jiraActionLocalService;
 	@BeanReference(type = JIRAActionPersistence.class)
 	protected JIRAActionPersistence jiraActionPersistence;
 	@BeanReference(type = JIRAActionFinder.class)
 	protected JIRAActionFinder jiraActionFinder;
-	@BeanReference(type = JIRAChangeGroupLocalService.class)
-	protected JIRAChangeGroupLocalService jiraChangeGroupLocalService;
+	@BeanReference(type = com.liferay.socialcoding.service.JIRAChangeGroupLocalService.class)
+	protected com.liferay.socialcoding.service.JIRAChangeGroupLocalService jiraChangeGroupLocalService;
 	@BeanReference(type = JIRAChangeGroupPersistence.class)
 	protected JIRAChangeGroupPersistence jiraChangeGroupPersistence;
 	@BeanReference(type = JIRAChangeGroupFinder.class)
 	protected JIRAChangeGroupFinder jiraChangeGroupFinder;
-	@BeanReference(type = JIRAChangeItemLocalService.class)
-	protected JIRAChangeItemLocalService jiraChangeItemLocalService;
+	@BeanReference(type = com.liferay.socialcoding.service.JIRAChangeItemLocalService.class)
+	protected com.liferay.socialcoding.service.JIRAChangeItemLocalService jiraChangeItemLocalService;
 	@BeanReference(type = JIRAChangeItemPersistence.class)
 	protected JIRAChangeItemPersistence jiraChangeItemPersistence;
-	@BeanReference(type = JIRAIssueLocalService.class)
-	protected JIRAIssueLocalService jiraIssueLocalService;
+	@BeanReference(type = com.liferay.socialcoding.service.JIRAIssueLocalService.class)
+	protected com.liferay.socialcoding.service.JIRAIssueLocalService jiraIssueLocalService;
 	@BeanReference(type = JIRAIssuePersistence.class)
 	protected JIRAIssuePersistence jiraIssuePersistence;
 	@BeanReference(type = JIRAIssueFinder.class)
 	protected JIRAIssueFinder jiraIssueFinder;
-	@BeanReference(type = SVNRepositoryLocalService.class)
-	protected SVNRepositoryLocalService svnRepositoryLocalService;
+	@BeanReference(type = com.liferay.socialcoding.service.SVNRepositoryLocalService.class)
+	protected com.liferay.socialcoding.service.SVNRepositoryLocalService svnRepositoryLocalService;
 	@BeanReference(type = SVNRepositoryPersistence.class)
 	protected SVNRepositoryPersistence svnRepositoryPersistence;
-	@BeanReference(type = SVNRevisionLocalService.class)
-	protected SVNRevisionLocalService svnRevisionLocalService;
+	@BeanReference(type = com.liferay.socialcoding.service.SVNRevisionLocalService.class)
+	protected com.liferay.socialcoding.service.SVNRevisionLocalService svnRevisionLocalService;
 	@BeanReference(type = SVNRevisionPersistence.class)
 	protected SVNRevisionPersistence svnRevisionPersistence;
-	@BeanReference(type = CounterLocalService.class)
-	protected CounterLocalService counterLocalService;
-	@BeanReference(type = ResourceLocalService.class)
-	protected ResourceLocalService resourceLocalService;
-	@BeanReference(type = UserLocalService.class)
-	protected UserLocalService userLocalService;
-	@BeanReference(type = UserService.class)
-	protected UserService userService;
+	@BeanReference(type = com.liferay.counter.service.CounterLocalService.class)
+	protected com.liferay.counter.service.CounterLocalService counterLocalService;
+	@BeanReference(type = com.liferay.portal.service.ResourceLocalService.class)
+	protected com.liferay.portal.service.ResourceLocalService resourceLocalService;
+	@BeanReference(type = com.liferay.portal.service.UserLocalService.class)
+	protected com.liferay.portal.service.UserLocalService userLocalService;
+	@BeanReference(type = com.liferay.portal.service.UserService.class)
+	protected com.liferay.portal.service.UserService userService;
 	@BeanReference(type = UserPersistence.class)
 	protected UserPersistence userPersistence;
 	private String _beanIdentifier;

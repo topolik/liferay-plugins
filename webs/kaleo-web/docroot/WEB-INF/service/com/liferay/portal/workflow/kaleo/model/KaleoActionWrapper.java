@@ -14,6 +14,7 @@
 
 package com.liferay.portal.workflow.kaleo.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +26,8 @@ import java.util.Map;
  * This class is a wrapper for {@link KaleoAction}.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       KaleoAction
+ * @author Brian Wing Shun Chan
+ * @see KaleoAction
  * @generated
  */
 public class KaleoActionWrapper implements KaleoAction,
@@ -689,6 +690,25 @@ public class KaleoActionWrapper implements KaleoAction,
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_kaleoAction.persist();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof KaleoActionWrapper)) {
+			return false;
+		}
+
+		KaleoActionWrapper kaleoActionWrapper = (KaleoActionWrapper)obj;
+
+		if (Validator.equals(_kaleoAction, kaleoActionWrapper._kaleoAction)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

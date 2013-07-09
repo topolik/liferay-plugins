@@ -19,8 +19,8 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link CalendarBookingService}.
  *
- * @author    Eduardo Lundgren
- * @see       CalendarBookingService
+ * @author Eduardo Lundgren
+ * @see CalendarBookingService
  * @generated
  */
 public class CalendarBookingServiceWrapper implements CalendarBookingService,
@@ -173,6 +173,20 @@ public class CalendarBookingServiceWrapper implements CalendarBookingService,
 			com.liferay.portal.kernel.exception.SystemException {
 		_calendarBookingService.invokeTransition(calendarBookingId,
 			transitionName, serviceContext);
+	}
+
+	@Override
+	public void moveCalendarBookingToTrash(long calendarBookingId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_calendarBookingService.moveCalendarBookingToTrash(calendarBookingId);
+	}
+
+	@Override
+	public void restoreCalendarBookingFromTrash(long calendarBookingId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_calendarBookingService.restoreCalendarBookingFromTrash(calendarBookingId);
 	}
 
 	@Override

@@ -14,6 +14,7 @@
 
 package com.liferay.chat.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.HashMap;
@@ -24,8 +25,8 @@ import java.util.Map;
  * This class is a wrapper for {@link Status}.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       Status
+ * @author Brian Wing Shun Chan
+ * @see Status
  * @generated
  */
 public class StatusWrapper implements Status, ModelWrapper<Status> {
@@ -444,6 +445,25 @@ public class StatusWrapper implements Status, ModelWrapper<Status> {
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_status.persist();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof StatusWrapper)) {
+			return false;
+		}
+
+		StatusWrapper statusWrapper = (StatusWrapper)obj;
+
+		if (Validator.equals(_status, statusWrapper._status)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

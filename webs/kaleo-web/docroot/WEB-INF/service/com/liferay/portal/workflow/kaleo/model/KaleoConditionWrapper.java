@@ -14,6 +14,7 @@
 
 package com.liferay.portal.workflow.kaleo.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +26,8 @@ import java.util.Map;
  * This class is a wrapper for {@link KaleoCondition}.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       KaleoCondition
+ * @author Brian Wing Shun Chan
+ * @see KaleoCondition
  * @generated
  */
 public class KaleoConditionWrapper implements KaleoCondition,
@@ -527,6 +528,26 @@ public class KaleoConditionWrapper implements KaleoCondition,
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_kaleoCondition.persist();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof KaleoConditionWrapper)) {
+			return false;
+		}
+
+		KaleoConditionWrapper kaleoConditionWrapper = (KaleoConditionWrapper)obj;
+
+		if (Validator.equals(_kaleoCondition,
+					kaleoConditionWrapper._kaleoCondition)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

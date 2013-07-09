@@ -19,6 +19,7 @@ import com.liferay.marketplace.service.ClpSerializer;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
@@ -82,6 +83,10 @@ public class AppClp extends BaseModelImpl<App> implements App {
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("remoteAppId", getRemoteAppId());
+		attributes.put("title", getTitle());
+		attributes.put("description", getDescription());
+		attributes.put("category", getCategory());
+		attributes.put("iconURL", getIconURL());
 		attributes.put("version", getVersion());
 
 		return attributes;
@@ -135,6 +140,30 @@ public class AppClp extends BaseModelImpl<App> implements App {
 
 		if (remoteAppId != null) {
 			setRemoteAppId(remoteAppId);
+		}
+
+		String title = (String)attributes.get("title");
+
+		if (title != null) {
+			setTitle(title);
+		}
+
+		String description = (String)attributes.get("description");
+
+		if (description != null) {
+			setDescription(description);
+		}
+
+		String category = (String)attributes.get("category");
+
+		if (category != null) {
+			setCategory(category);
+		}
+
+		String iconURL = (String)attributes.get("iconURL");
+
+		if (iconURL != null) {
+			setIconURL(iconURL);
 		}
 
 		String version = (String)attributes.get("version");
@@ -339,6 +368,98 @@ public class AppClp extends BaseModelImpl<App> implements App {
 	}
 
 	@Override
+	public String getTitle() {
+		return _title;
+	}
+
+	@Override
+	public void setTitle(String title) {
+		_title = title;
+
+		if (_appRemoteModel != null) {
+			try {
+				Class<?> clazz = _appRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setTitle", String.class);
+
+				method.invoke(_appRemoteModel, title);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getDescription() {
+		return _description;
+	}
+
+	@Override
+	public void setDescription(String description) {
+		_description = description;
+
+		if (_appRemoteModel != null) {
+			try {
+				Class<?> clazz = _appRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setDescription", String.class);
+
+				method.invoke(_appRemoteModel, description);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getCategory() {
+		return _category;
+	}
+
+	@Override
+	public void setCategory(String category) {
+		_category = category;
+
+		if (_appRemoteModel != null) {
+			try {
+				Class<?> clazz = _appRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCategory", String.class);
+
+				method.invoke(_appRemoteModel, category);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getIconURL() {
+		return _iconURL;
+	}
+
+	@Override
+	public void setIconURL(String iconURL) {
+		_iconURL = iconURL;
+
+		if (_appRemoteModel != null) {
+			try {
+				Class<?> clazz = _appRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setIconURL", String.class);
+
+				method.invoke(_appRemoteModel, iconURL);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
 	public String getVersion() {
 		return _version;
 	}
@@ -438,6 +559,44 @@ public class AppClp extends BaseModelImpl<App> implements App {
 	}
 
 	@Override
+	public java.lang.String[] addContextName(java.lang.String contextName) {
+		try {
+			String methodName = "addContextName";
+
+			Class<?>[] parameterTypes = new Class<?>[] { java.lang.String.class };
+
+			Object[] parameterValues = new Object[] { contextName };
+
+			java.lang.String[] returnObj = (java.lang.String[])invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public java.lang.String[] getContextNames() {
+		try {
+			String methodName = "getContextNames";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			java.lang.String[] returnObj = (java.lang.String[])invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
 	public java.lang.String getFilePath() {
 		try {
 			String methodName = "getFilePath";
@@ -454,6 +613,12 @@ public class AppClp extends BaseModelImpl<App> implements App {
 		catch (Exception e) {
 			throw new UnsupportedOperationException(e);
 		}
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return new StagedModelType(PortalUtil.getClassNameId(
+				App.class.getName()));
 	}
 
 	public BaseModel<?> getAppRemoteModel() {
@@ -533,6 +698,10 @@ public class AppClp extends BaseModelImpl<App> implements App {
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
 		clone.setRemoteAppId(getRemoteAppId());
+		clone.setTitle(getTitle());
+		clone.setDescription(getDescription());
+		clone.setCategory(getCategory());
+		clone.setIconURL(getIconURL());
 		clone.setVersion(getVersion());
 
 		return clone;
@@ -582,7 +751,7 @@ public class AppClp extends BaseModelImpl<App> implements App {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(27);
 
 		sb.append("{uuid=");
 		sb.append(getUuid());
@@ -600,6 +769,14 @@ public class AppClp extends BaseModelImpl<App> implements App {
 		sb.append(getModifiedDate());
 		sb.append(", remoteAppId=");
 		sb.append(getRemoteAppId());
+		sb.append(", title=");
+		sb.append(getTitle());
+		sb.append(", description=");
+		sb.append(getDescription());
+		sb.append(", category=");
+		sb.append(getCategory());
+		sb.append(", iconURL=");
+		sb.append(getIconURL());
 		sb.append(", version=");
 		sb.append(getVersion());
 		sb.append("}");
@@ -609,7 +786,7 @@ public class AppClp extends BaseModelImpl<App> implements App {
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.marketplace.model.App");
@@ -648,6 +825,22 @@ public class AppClp extends BaseModelImpl<App> implements App {
 		sb.append(getRemoteAppId());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>title</column-name><column-value><![CDATA[");
+		sb.append(getTitle());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>description</column-name><column-value><![CDATA[");
+		sb.append(getDescription());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>category</column-name><column-value><![CDATA[");
+		sb.append(getCategory());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>iconURL</column-name><column-value><![CDATA[");
+		sb.append(getIconURL());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>version</column-name><column-value><![CDATA[");
 		sb.append(getVersion());
 		sb.append("]]></column-value></column>");
@@ -666,6 +859,10 @@ public class AppClp extends BaseModelImpl<App> implements App {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _remoteAppId;
+	private String _title;
+	private String _description;
+	private String _category;
+	private String _iconURL;
 	private String _version;
 	private BaseModel<?> _appRemoteModel;
 }

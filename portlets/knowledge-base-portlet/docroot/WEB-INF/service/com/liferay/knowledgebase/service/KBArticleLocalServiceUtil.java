@@ -168,10 +168,53 @@ public class KBArticleLocalServiceUtil {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
+	/**
+	* Returns the number of rows that match the dynamic query.
+	*
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows that match the dynamic query
+	* @throws SystemException if a system exception occurred
+	*/
+	public static long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().dynamicQueryCount(dynamicQuery, projection);
+	}
+
 	public static com.liferay.knowledgebase.model.KBArticle fetchKBArticle(
 		long kbArticleId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService().fetchKBArticle(kbArticleId);
+	}
+
+	/**
+	* Returns the k b article with the matching UUID and company.
+	*
+	* @param uuid the k b article's UUID
+	* @param companyId the primary key of the company
+	* @return the matching k b article, or <code>null</code> if a matching k b article could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.knowledgebase.model.KBArticle fetchKBArticleByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().fetchKBArticleByUuidAndCompanyId(uuid, companyId);
+	}
+
+	/**
+	* Returns the k b article matching the UUID and group.
+	*
+	* @param uuid the k b article's UUID
+	* @param groupId the primary key of the group
+	* @return the matching k b article, or <code>null</code> if a matching k b article could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.knowledgebase.model.KBArticle fetchKBArticleByUuidAndGroupId(
+		java.lang.String uuid, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().fetchKBArticleByUuidAndGroupId(uuid, groupId);
 	}
 
 	/**
@@ -194,6 +237,22 @@ public class KBArticleLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService().getPersistedModel(primaryKeyObj);
+	}
+
+	/**
+	* Returns the k b article with the matching UUID and company.
+	*
+	* @param uuid the k b article's UUID
+	* @param companyId the primary key of the company
+	* @return the matching k b article
+	* @throws PortalException if a matching k b article could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.knowledgebase.model.KBArticle getKBArticleByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getKBArticleByUuidAndCompanyId(uuid, companyId);
 	}
 
 	/**
@@ -559,6 +618,12 @@ public class KBArticleLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		getService().updateKBArticlesPriorities(resourcePrimKeyToPriorityMap);
+	}
+
+	public static void updatePriority(long resourcePrimKey, double priority)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().updatePriority(resourcePrimKey, priority);
 	}
 
 	public static com.liferay.knowledgebase.model.KBArticle updateStatus(

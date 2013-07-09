@@ -14,6 +14,8 @@
 
 package com.liferay.wsrp.model;
 
+import com.liferay.portal.kernel.lar.StagedModelType;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +27,8 @@ import java.util.Map;
  * This class is a wrapper for {@link WSRPConsumerPortlet}.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       WSRPConsumerPortlet
+ * @author Brian Wing Shun Chan
+ * @see WSRPConsumerPortlet
  * @generated
  */
 public class WSRPConsumerPortletWrapper implements WSRPConsumerPortlet,
@@ -396,6 +398,31 @@ public class WSRPConsumerPortletWrapper implements WSRPConsumerPortlet,
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_wsrpConsumerPortlet.persist();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof WSRPConsumerPortletWrapper)) {
+			return false;
+		}
+
+		WSRPConsumerPortletWrapper wsrpConsumerPortletWrapper = (WSRPConsumerPortletWrapper)obj;
+
+		if (Validator.equals(_wsrpConsumerPortlet,
+					wsrpConsumerPortletWrapper._wsrpConsumerPortlet)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return _wsrpConsumerPortlet.getStagedModelType();
 	}
 
 	/**

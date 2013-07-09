@@ -19,8 +19,8 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link FooService}.
  *
- * @author    Brian Wing Shun Chan
- * @see       FooService
+ * @author Brian Wing Shun Chan
+ * @see FooService
  * @generated
  */
 public class FooServiceWrapper implements FooService,
@@ -64,10 +64,10 @@ public class FooServiceWrapper implements FooService,
 	}
 
 	@Override
-	public java.util.List<com.liferay.portal.model.Group> getUserSites()
+	public java.util.List<com.liferay.portal.model.Group> getUserPlacesGroups()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _fooService.getUserSites();
+		return _fooService.getUserPlacesGroups();
 	}
 
 	/**

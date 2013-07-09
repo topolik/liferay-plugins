@@ -14,6 +14,7 @@
 
 package com.liferay.ams.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +26,8 @@ import java.util.Map;
  * This class is a wrapper for {@link Asset}.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       Asset
+ * @author Brian Wing Shun Chan
+ * @see Asset
  * @generated
  */
 public class AssetWrapper implements Asset, ModelWrapper<Asset> {
@@ -479,6 +480,25 @@ public class AssetWrapper implements Asset, ModelWrapper<Asset> {
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_asset.persist();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof AssetWrapper)) {
+			return false;
+		}
+
+		AssetWrapper assetWrapper = (AssetWrapper)obj;
+
+		if (Validator.equals(_asset, assetWrapper._asset)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

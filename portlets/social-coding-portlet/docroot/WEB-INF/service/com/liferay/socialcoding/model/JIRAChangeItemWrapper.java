@@ -14,6 +14,7 @@
 
 package com.liferay.socialcoding.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.HashMap;
@@ -24,8 +25,8 @@ import java.util.Map;
  * This class is a wrapper for {@link JIRAChangeItem}.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       JIRAChangeItem
+ * @author Brian Wing Shun Chan
+ * @see JIRAChangeItem
  * @generated
  */
 public class JIRAChangeItemWrapper implements JIRAChangeItem,
@@ -367,6 +368,26 @@ public class JIRAChangeItemWrapper implements JIRAChangeItem,
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_jiraChangeItem.persist();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof JIRAChangeItemWrapper)) {
+			return false;
+		}
+
+		JIRAChangeItemWrapper jiraChangeItemWrapper = (JIRAChangeItemWrapper)obj;
+
+		if (Validator.equals(_jiraChangeItem,
+					jiraChangeItemWrapper._jiraChangeItem)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

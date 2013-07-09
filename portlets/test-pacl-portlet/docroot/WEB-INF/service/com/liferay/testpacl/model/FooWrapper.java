@@ -14,6 +14,7 @@
 
 package com.liferay.testpacl.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +26,8 @@ import java.util.Map;
  * This class is a wrapper for {@link Foo}.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       Foo
+ * @author Brian Wing Shun Chan
+ * @see Foo
  * @generated
  */
 public class FooWrapper implements Foo, ModelWrapper<Foo> {
@@ -533,6 +534,25 @@ public class FooWrapper implements Foo, ModelWrapper<Foo> {
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_foo.persist();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof FooWrapper)) {
+			return false;
+		}
+
+		FooWrapper fooWrapper = (FooWrapper)obj;
+
+		if (Validator.equals(_foo, fooWrapper._foo)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

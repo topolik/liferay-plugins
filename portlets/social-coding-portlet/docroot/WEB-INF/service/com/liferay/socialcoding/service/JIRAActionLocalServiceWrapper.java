@@ -19,8 +19,8 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link JIRAActionLocalService}.
  *
- * @author    Brian Wing Shun Chan
- * @see       JIRAActionLocalService
+ * @author Brian Wing Shun Chan
+ * @see JIRAActionLocalService
  * @generated
  */
 public class JIRAActionLocalServiceWrapper implements JIRAActionLocalService,
@@ -164,6 +164,23 @@ public class JIRAActionLocalServiceWrapper implements JIRAActionLocalService,
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _jiraActionLocalService.dynamicQueryCount(dynamicQuery);
+	}
+
+	/**
+	* Returns the number of rows that match the dynamic query.
+	*
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows that match the dynamic query
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _jiraActionLocalService.dynamicQueryCount(dynamicQuery,
+			projection);
 	}
 
 	@Override

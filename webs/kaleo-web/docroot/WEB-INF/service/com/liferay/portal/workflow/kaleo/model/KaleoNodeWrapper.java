@@ -14,6 +14,7 @@
 
 package com.liferay.portal.workflow.kaleo.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +26,8 @@ import java.util.Map;
  * This class is a wrapper for {@link KaleoNode}.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       KaleoNode
+ * @author Brian Wing Shun Chan
+ * @see KaleoNode
  * @generated
  */
 public class KaleoNodeWrapper implements KaleoNode, ModelWrapper<KaleoNode> {
@@ -625,6 +626,25 @@ public class KaleoNodeWrapper implements KaleoNode, ModelWrapper<KaleoNode> {
 	public boolean hasKaleoTransition()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _kaleoNode.hasKaleoTransition();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof KaleoNodeWrapper)) {
+			return false;
+		}
+
+		KaleoNodeWrapper kaleoNodeWrapper = (KaleoNodeWrapper)obj;
+
+		if (Validator.equals(_kaleoNode, kaleoNodeWrapper._kaleoNode)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

@@ -19,8 +19,8 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link WSRPConsumerLocalService}.
  *
- * @author    Brian Wing Shun Chan
- * @see       WSRPConsumerLocalService
+ * @author Brian Wing Shun Chan
+ * @see WSRPConsumerLocalService
  * @generated
  */
 public class WSRPConsumerLocalServiceWrapper implements WSRPConsumerLocalService,
@@ -168,11 +168,44 @@ public class WSRPConsumerLocalServiceWrapper implements WSRPConsumerLocalService
 		return _wsrpConsumerLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	/**
+	* Returns the number of rows that match the dynamic query.
+	*
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows that match the dynamic query
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _wsrpConsumerLocalService.dynamicQueryCount(dynamicQuery,
+			projection);
+	}
+
 	@Override
 	public com.liferay.wsrp.model.WSRPConsumer fetchWSRPConsumer(
 		long wsrpConsumerId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _wsrpConsumerLocalService.fetchWSRPConsumer(wsrpConsumerId);
+	}
+
+	/**
+	* Returns the w s r p consumer with the matching UUID and company.
+	*
+	* @param uuid the w s r p consumer's UUID
+	* @param companyId the primary key of the company
+	* @return the matching w s r p consumer, or <code>null</code> if a matching w s r p consumer could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public com.liferay.wsrp.model.WSRPConsumer fetchWSRPConsumerByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _wsrpConsumerLocalService.fetchWSRPConsumerByUuidAndCompanyId(uuid,
+			companyId);
 	}
 
 	/**
@@ -197,6 +230,24 @@ public class WSRPConsumerLocalServiceWrapper implements WSRPConsumerLocalService
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _wsrpConsumerLocalService.getPersistedModel(primaryKeyObj);
+	}
+
+	/**
+	* Returns the w s r p consumer with the matching UUID and company.
+	*
+	* @param uuid the w s r p consumer's UUID
+	* @param companyId the primary key of the company
+	* @return the matching w s r p consumer
+	* @throws PortalException if a matching w s r p consumer could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public com.liferay.wsrp.model.WSRPConsumer getWSRPConsumerByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _wsrpConsumerLocalService.getWSRPConsumerByUuidAndCompanyId(uuid,
+			companyId);
 	}
 
 	/**

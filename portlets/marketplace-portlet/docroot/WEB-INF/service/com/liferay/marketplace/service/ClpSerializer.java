@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Ryan Park
  */
 public class ClpSerializer {
 	public static String getServletContextName() {
@@ -251,6 +251,14 @@ public class ClpSerializer {
 
 		if (className.equals(SystemException.class.getName())) {
 			return new SystemException();
+		}
+
+		if (className.equals("com.liferay.marketplace.AppPropertiesException")) {
+			return new com.liferay.marketplace.AppPropertiesException();
+		}
+
+		if (className.equals("com.liferay.marketplace.AppTitleException")) {
+			return new com.liferay.marketplace.AppTitleException();
 		}
 
 		if (className.equals("com.liferay.marketplace.AppVersionException")) {

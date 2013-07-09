@@ -14,6 +14,8 @@
 
 package com.liferay.marketplace.model;
 
+import com.liferay.portal.kernel.lar.StagedModelType;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +27,8 @@ import java.util.Map;
  * This class is a wrapper for {@link App}.
  * </p>
  *
- * @author    Ryan Park
- * @see       App
+ * @author Ryan Park
+ * @see App
  * @generated
  */
 public class AppWrapper implements App, ModelWrapper<App> {
@@ -56,6 +58,10 @@ public class AppWrapper implements App, ModelWrapper<App> {
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("remoteAppId", getRemoteAppId());
+		attributes.put("title", getTitle());
+		attributes.put("description", getDescription());
+		attributes.put("category", getCategory());
+		attributes.put("iconURL", getIconURL());
 		attributes.put("version", getVersion());
 
 		return attributes;
@@ -109,6 +115,30 @@ public class AppWrapper implements App, ModelWrapper<App> {
 
 		if (remoteAppId != null) {
 			setRemoteAppId(remoteAppId);
+		}
+
+		String title = (String)attributes.get("title");
+
+		if (title != null) {
+			setTitle(title);
+		}
+
+		String description = (String)attributes.get("description");
+
+		if (description != null) {
+			setDescription(description);
+		}
+
+		String category = (String)attributes.get("category");
+
+		if (category != null) {
+			setCategory(category);
+		}
+
+		String iconURL = (String)attributes.get("iconURL");
+
+		if (iconURL != null) {
+			setIconURL(iconURL);
 		}
 
 		String version = (String)attributes.get("version");
@@ -321,6 +351,86 @@ public class AppWrapper implements App, ModelWrapper<App> {
 	}
 
 	/**
+	* Returns the title of this app.
+	*
+	* @return the title of this app
+	*/
+	@Override
+	public java.lang.String getTitle() {
+		return _app.getTitle();
+	}
+
+	/**
+	* Sets the title of this app.
+	*
+	* @param title the title of this app
+	*/
+	@Override
+	public void setTitle(java.lang.String title) {
+		_app.setTitle(title);
+	}
+
+	/**
+	* Returns the description of this app.
+	*
+	* @return the description of this app
+	*/
+	@Override
+	public java.lang.String getDescription() {
+		return _app.getDescription();
+	}
+
+	/**
+	* Sets the description of this app.
+	*
+	* @param description the description of this app
+	*/
+	@Override
+	public void setDescription(java.lang.String description) {
+		_app.setDescription(description);
+	}
+
+	/**
+	* Returns the category of this app.
+	*
+	* @return the category of this app
+	*/
+	@Override
+	public java.lang.String getCategory() {
+		return _app.getCategory();
+	}
+
+	/**
+	* Sets the category of this app.
+	*
+	* @param category the category of this app
+	*/
+	@Override
+	public void setCategory(java.lang.String category) {
+		_app.setCategory(category);
+	}
+
+	/**
+	* Returns the icon u r l of this app.
+	*
+	* @return the icon u r l of this app
+	*/
+	@Override
+	public java.lang.String getIconURL() {
+		return _app.getIconURL();
+	}
+
+	/**
+	* Sets the icon u r l of this app.
+	*
+	* @param iconURL the icon u r l of this app
+	*/
+	@Override
+	public void setIconURL(java.lang.String iconURL) {
+		_app.setIconURL(iconURL);
+	}
+
+	/**
 	* Returns the version of this app.
 	*
 	* @return the version of this app
@@ -445,6 +555,17 @@ public class AppWrapper implements App, ModelWrapper<App> {
 	}
 
 	@Override
+	public java.lang.String[] addContextName(java.lang.String contextName) {
+		return _app.addContextName(contextName);
+	}
+
+	@Override
+	public java.lang.String[] getContextNames()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _app.getContextNames();
+	}
+
+	@Override
 	public java.lang.String getFileDir() {
 		return _app.getFileDir();
 	}
@@ -470,6 +591,30 @@ public class AppWrapper implements App, ModelWrapper<App> {
 	public boolean isInstalled()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _app.isInstalled();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof AppWrapper)) {
+			return false;
+		}
+
+		AppWrapper appWrapper = (AppWrapper)obj;
+
+		if (Validator.equals(_app, appWrapper._app)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return _app.getStagedModelType();
 	}
 
 	/**

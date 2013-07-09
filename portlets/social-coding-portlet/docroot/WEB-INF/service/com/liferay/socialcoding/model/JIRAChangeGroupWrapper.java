@@ -14,6 +14,7 @@
 
 package com.liferay.socialcoding.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +26,8 @@ import java.util.Map;
  * This class is a wrapper for {@link JIRAChangeGroup}.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       JIRAChangeGroup
+ * @author Brian Wing Shun Chan
+ * @see JIRAChangeGroup
  * @generated
  */
 public class JIRAChangeGroupWrapper implements JIRAChangeGroup,
@@ -287,6 +288,26 @@ public class JIRAChangeGroupWrapper implements JIRAChangeGroup,
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_jiraChangeGroup.persist();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof JIRAChangeGroupWrapper)) {
+			return false;
+		}
+
+		JIRAChangeGroupWrapper jiraChangeGroupWrapper = (JIRAChangeGroupWrapper)obj;
+
+		if (Validator.equals(_jiraChangeGroup,
+					jiraChangeGroupWrapper._jiraChangeGroup)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

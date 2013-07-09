@@ -168,10 +168,53 @@ public class KBTemplateLocalServiceUtil {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
+	/**
+	* Returns the number of rows that match the dynamic query.
+	*
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows that match the dynamic query
+	* @throws SystemException if a system exception occurred
+	*/
+	public static long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().dynamicQueryCount(dynamicQuery, projection);
+	}
+
 	public static com.liferay.knowledgebase.model.KBTemplate fetchKBTemplate(
 		long kbTemplateId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService().fetchKBTemplate(kbTemplateId);
+	}
+
+	/**
+	* Returns the k b template with the matching UUID and company.
+	*
+	* @param uuid the k b template's UUID
+	* @param companyId the primary key of the company
+	* @return the matching k b template, or <code>null</code> if a matching k b template could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.knowledgebase.model.KBTemplate fetchKBTemplateByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().fetchKBTemplateByUuidAndCompanyId(uuid, companyId);
+	}
+
+	/**
+	* Returns the k b template matching the UUID and group.
+	*
+	* @param uuid the k b template's UUID
+	* @param groupId the primary key of the group
+	* @return the matching k b template, or <code>null</code> if a matching k b template could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.knowledgebase.model.KBTemplate fetchKBTemplateByUuidAndGroupId(
+		java.lang.String uuid, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().fetchKBTemplateByUuidAndGroupId(uuid, groupId);
 	}
 
 	/**
@@ -194,6 +237,22 @@ public class KBTemplateLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService().getPersistedModel(primaryKeyObj);
+	}
+
+	/**
+	* Returns the k b template with the matching UUID and company.
+	*
+	* @param uuid the k b template's UUID
+	* @param companyId the primary key of the company
+	* @return the matching k b template
+	* @throws PortalException if a matching k b template could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.knowledgebase.model.KBTemplate getKBTemplateByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getKBTemplateByUuidAndCompanyId(uuid, companyId);
 	}
 
 	/**

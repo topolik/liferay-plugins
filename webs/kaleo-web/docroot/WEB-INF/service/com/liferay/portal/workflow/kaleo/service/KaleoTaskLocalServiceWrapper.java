@@ -19,8 +19,8 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link KaleoTaskLocalService}.
  *
- * @author    Brian Wing Shun Chan
- * @see       KaleoTaskLocalService
+ * @author Brian Wing Shun Chan
+ * @see KaleoTaskLocalService
  * @generated
  */
 public class KaleoTaskLocalServiceWrapper implements KaleoTaskLocalService,
@@ -164,6 +164,22 @@ public class KaleoTaskLocalServiceWrapper implements KaleoTaskLocalService,
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _kaleoTaskLocalService.dynamicQueryCount(dynamicQuery);
+	}
+
+	/**
+	* Returns the number of rows that match the dynamic query.
+	*
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows that match the dynamic query
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _kaleoTaskLocalService.dynamicQueryCount(dynamicQuery, projection);
 	}
 
 	@Override
