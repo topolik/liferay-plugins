@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<project xmlns:antelope="antlib:ise.antelope.tasks">
+    <import file="../../build-common-plugins.xml" />
+
+    <property name="app.services" value="token-auth-api" />
+
+    <path id="app.services.path">
+        <dirset dir="." includes="${app.services}" />
+    </path>
+
+    <pathconvert pathsep="," property="app.services.path" refid="app.services.path" targetos="unix" />
+
+    <property name="plugins.includes" value="token-auth-web" />
+
+    <path id="plugins.includes.path">
+        <dirset dir="." includes="${plugins.includes}" />
+    </path>
+
+    <pathconvert pathsep="," property="plugins.includes.path" refid="plugins.includes.path" targetos="unix" />
+
+    <target name="build-app">
+        <antcall target="clean" />
+
+        <antcall target="build-app-services" />
+
+        <loop-macrodef-or-target
+                module.dirs="${plugins.includes.path}"
+                target.name="compile-import-shared"
+                />
+
+        <antcall target="deploy" />
+    </target>
+
+    <target name="build-lang">
+        <loop-macrodef-or-target
+                module.dirs="${plugins.includes.path}"
+                target.name="build-lang"
+                />
+    </target>
+
+    <target name="build-app-services">
+        <loop-macrodef-or-target
+                module.dirs="${app.services.path}"
+                target.name="build-app-service"
+                />
+    </target>
+
+    <target name="clean-osgi-data">
+        <delete dir="${app.server.parent.dir}/data/osgi" />
+        <delete dir="${app.server.dir}/work" />
+        <delete dir="${app.server.dir}/temp" />
+    </target>
+
+    <macrodef name="build-app-service">
+        <attribute name="module.dir" />
+
+        <sequential>
+            <process-ivy module.dir="@{module.dir}" />
+
+            <compile-import-shared module.dir="@{module.dir}" />
+
+            <ant dir="@{module.dir}" target="build-service" inheritAll="false" />
+        </sequential>
+    </macrodef>
+
+    <macrodef name="build-lang">
+        <attribute name="module.dir" />
+
+        <sequential>
+            <ant dir="@{module.dir}" target="build-lang" inheritAll="false" />
+        </sequential>
+    </macrodef>
+</project>
