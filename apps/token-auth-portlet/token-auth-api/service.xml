@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.0.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_0_0.dtd">
+
+<service-builder package-path="com.liferay.token.auth">
+    <namespace>TokenAuth</namespace>
+    <entity name="TokenACLProfile" local-service="true" remote-service="true">
+        <!-- PK fields -->
+
+        <column name="aclProfileId" type="long" primary="true" accessor="true" />
+
+        <!-- Audit fields -->
+
+        <column name="companyId" type="long" />
+        <column name="userId" type="long" />
+        <column name="userName" type="String" />
+        <column name="createDate" type="Date" />
+        <column name="modifiedDate" type="Date" />
+
+        <!-- Other fields -->
+
+        <column name="name" type="String" />
+        <column name="description" type="String" />
+        <column name="acl" type="String" />
+        <column name="parentProfileId" type="long" />
+        <column name="effectiveACL" type="String" />
+        <column name="system" type="boolean" />
+
+        <!-- Order -->
+
+        <order by="desc">
+            <order-column name="createDate" />
+        </order>
+
+        <!-- Finder methods -->
+
+        <finder name="CompanyId" return-type="Collection">
+            <finder-column name="companyId" />
+        </finder>
+
+        <finder name="C_N" return-type="Collection">
+            <finder-column name="companyId" />
+            <finder-column name="name" arrayable-operator="OR" />
+        </finder>
+    </entity>
+    <entity name="TokenClient" local-service="true" remote-service="true">
+
+        <!-- PK fields -->
+
+        <column name="clientId" type="long" primary="true" accessor="true" />
+
+        <!-- Audit fields -->
+
+        <column name="companyId" type="long" />
+        <column name="userId" type="long" />
+        <column name="userName" type="String" />
+        <column name="createDate" type="Date" />
+        <column name="modifiedDate" type="Date" />
+
+        <!-- Other fields -->
+
+        <column name="name" type="String" />
+        <column name="description" type="String" />
+        <column name="clientKey" type="String" />
+        <column name="clientSecrets" type="String" />
+        <column name="revoked" type="boolean" />
+        <column name="aclProfiles" type="String" />
+        <column name="tokenVerifierId" type="String" />
+        <column name="callbackURI" type="String" />
+        <column name="websiteURL" type="String" />
+        <column name="additionalInfo" type="String" />
+
+        <!-- Order -->
+
+        <order by="desc">
+            <order-column name="createDate" />
+        </order>
+
+        <!-- Finder methods -->
+
+        <finder name="CompanyId" return-type="Collection">
+            <finder-column name="companyId" />
+        </finder>
+
+        <finder name="ClientKey" return-type="TokenClient">
+            <finder-column name="clientKey" />
+        </finder>
+
+        <finder name="Name" return-type="Collection">
+            <finder-column name="name" case-sensitive="false"/>
+        </finder>
+
+    </entity>
+    <entity name="TokenSession" local-service="true" remote-service="true">
+
+        <!-- PK fields -->
+
+        <column name="sessionId" type="long" primary="true" accessor="true" />
+
+        <!-- Audit fields -->
+
+        <column name="companyId" type="long" />
+        <column name="userId" type="long" />
+        <column name="userName" type="String" />
+        <column name="createDate" type="Date" />
+
+        <!-- Other fields -->
+
+        <column name="clientId" type="long" />
+        <column name="token" type="String" />
+        <column name="remoteInfo" type="String" />
+        <column name="lastUsedDate" type="Date" />
+        <column name="additionalInfo" type="String" />
+        <column name="expiryDate" type="Date" />
+
+        <!-- Order -->
+
+        <order by="desc">
+            <order-column name="createDate" />
+        </order>
+
+        <!-- Finder methods -->
+
+        <finder name="CompanyId" return-type="Collection">
+            <finder-column name="companyId" />
+        </finder>
+
+        <finder name="ClientId" return-type="Collection">
+            <finder-column name="clientId" />
+        </finder>
+
+    </entity>
+</service-builder>

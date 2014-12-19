@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:osgi="http://www.springframework.org/schema/osgi" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd">
+	<bean id="com.liferay.token.auth.service.TokenACLProfileLocalService" class="com.liferay.token.auth.service.impl.TokenACLProfileLocalServiceImpl" />
+	<osgi:service interface="com.liferay.token.auth.service.TokenACLProfileLocalService" ref="com.liferay.token.auth.service.TokenACLProfileLocalService">
+		<osgi:service-properties>
+			<entry key="json.web.service.context.name" value="tokenauth" />
+			<entry key="json.web.service.context.path" value="TokenACLProfile" />
+		</osgi:service-properties>
+	</osgi:service>
+	<bean id="com.liferay.token.auth.service.TokenACLProfileService" class="com.liferay.token.auth.service.impl.TokenACLProfileServiceImpl" />
+	<osgi:service interface="com.liferay.token.auth.service.TokenACLProfileService" ref="com.liferay.token.auth.service.TokenACLProfileService">
+		<osgi:service-properties>
+			<entry key="json.web.service.context.name" value="tokenauth" />
+			<entry key="json.web.service.context.path" value="TokenACLProfile" />
+		</osgi:service-properties>
+	</osgi:service>
+	<bean id="com.liferay.token.auth.service.persistence.TokenACLProfilePersistence" class="com.liferay.token.auth.service.persistence.impl.TokenACLProfilePersistenceImpl" parent="basePersistence" />
+	<osgi:service ref="com.liferay.token.auth.service.persistence.TokenACLProfilePersistence" interface="com.liferay.token.auth.service.persistence.TokenACLProfilePersistence" />
+	<bean id="com.liferay.token.auth.service.TokenClientLocalService" class="com.liferay.token.auth.service.impl.TokenClientLocalServiceImpl" />
+	<osgi:service interface="com.liferay.token.auth.service.TokenClientLocalService" ref="com.liferay.token.auth.service.TokenClientLocalService">
+		<osgi:service-properties>
+			<entry key="json.web.service.context.name" value="tokenauth" />
+			<entry key="json.web.service.context.path" value="TokenClient" />
+		</osgi:service-properties>
+	</osgi:service>
+	<bean id="com.liferay.token.auth.service.TokenClientService" class="com.liferay.token.auth.service.impl.TokenClientServiceImpl" />
+	<osgi:service interface="com.liferay.token.auth.service.TokenClientService" ref="com.liferay.token.auth.service.TokenClientService">
+		<osgi:service-properties>
+			<entry key="json.web.service.context.name" value="tokenauth" />
+			<entry key="json.web.service.context.path" value="TokenClient" />
+		</osgi:service-properties>
+	</osgi:service>
+	<bean id="com.liferay.token.auth.service.persistence.TokenClientPersistence" class="com.liferay.token.auth.service.persistence.impl.TokenClientPersistenceImpl" parent="basePersistence" />
+	<osgi:service ref="com.liferay.token.auth.service.persistence.TokenClientPersistence" interface="com.liferay.token.auth.service.persistence.TokenClientPersistence" />
+	<bean id="com.liferay.token.auth.service.TokenSessionLocalService" class="com.liferay.token.auth.service.impl.TokenSessionLocalServiceImpl" />
+	<osgi:service interface="com.liferay.token.auth.service.TokenSessionLocalService" ref="com.liferay.token.auth.service.TokenSessionLocalService">
+		<osgi:service-properties>
+			<entry key="json.web.service.context.name" value="tokenauth" />
+			<entry key="json.web.service.context.path" value="TokenSession" />
+		</osgi:service-properties>
+	</osgi:service>
+	<bean id="com.liferay.token.auth.service.TokenSessionService" class="com.liferay.token.auth.service.impl.TokenSessionServiceImpl" />
+	<osgi:service interface="com.liferay.token.auth.service.TokenSessionService" ref="com.liferay.token.auth.service.TokenSessionService">
+		<osgi:service-properties>
+			<entry key="json.web.service.context.name" value="tokenauth" />
+			<entry key="json.web.service.context.path" value="TokenSession" />
+		</osgi:service-properties>
+	</osgi:service>
+	<bean id="com.liferay.token.auth.service.persistence.TokenSessionPersistence" class="com.liferay.token.auth.service.persistence.impl.TokenSessionPersistenceImpl" parent="basePersistence" />
+	<osgi:service ref="com.liferay.token.auth.service.persistence.TokenSessionPersistence" interface="com.liferay.token.auth.service.persistence.TokenSessionPersistence" />
+</beans>

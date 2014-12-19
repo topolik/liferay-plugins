@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-lazy="false" auto-import="false">
+	<import class="com.liferay.token.auth.model.TokenACLProfile" />
+	<import class="com.liferay.token.auth.model.TokenClient" />
+	<import class="com.liferay.token.auth.model.TokenSession" />
+	<class name="com.liferay.token.auth.model.impl.TokenACLProfileImpl" table="TokenAuth_TokenACLProfile">
+		<cache usage="read-write" />
+		<id name="aclProfileId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="acl" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="parentProfileId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="effectiveACL" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="system" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+	</class>
+	<class name="com.liferay.token.auth.model.impl.TokenClientImpl" table="TokenAuth_TokenClient">
+		<cache usage="read-write" />
+		<id name="clientId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="clientKey" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="clientSecrets" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="revoked" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="aclProfiles" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="tokenVerifierId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="callbackURI" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="websiteURL" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="additionalInfo" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.liferay.token.auth.model.impl.TokenSessionImpl" table="TokenAuth_TokenSession">
+		<cache usage="read-write" />
+		<id name="sessionId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="clientId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="token" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="remoteInfo" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="lastUsedDate" type="org.hibernate.type.TimestampType" />
+		<property name="additionalInfo" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="expiryDate" type="org.hibernate.type.TimestampType" />
+	</class>
+</hibernate-mapping>

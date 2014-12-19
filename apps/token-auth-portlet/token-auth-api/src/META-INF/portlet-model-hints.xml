@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.liferay.token.auth.model.TokenACLProfile">
+		<field name="aclProfileId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="name" type="String" />
+		<field name="description" type="String" />
+		<field name="acl" type="String" />
+		<field name="parentProfileId" type="long" />
+		<field name="effectiveACL" type="String" />
+		<field name="system" type="boolean" />
+	</model>
+	<model name="com.liferay.token.auth.model.TokenClient">
+		<field name="clientId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="name" type="String" />
+		<field name="description" type="String" />
+		<field name="clientKey" type="String" />
+		<field name="clientSecrets" type="String" />
+		<field name="revoked" type="boolean" />
+		<field name="aclProfiles" type="String" />
+		<field name="tokenVerifierId" type="String" />
+		<field name="callbackURI" type="String" />
+		<field name="websiteURL" type="String" />
+		<field name="additionalInfo" type="String" />
+	</model>
+	<model name="com.liferay.token.auth.model.TokenSession">
+		<field name="sessionId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="clientId" type="long" />
+		<field name="token" type="String" />
+		<field name="remoteInfo" type="String" />
+		<field name="lastUsedDate" type="Date" />
+		<field name="additionalInfo" type="String" />
+		<field name="expiryDate" type="Date" />
+	</model>
+</model-hints>

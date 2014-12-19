@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<project name="token-auth-api" basedir="." default="compile" xmlns:antelope="antlib:ise.antelope.tasks">
+    <!--property name="osgi.auto.update.xml" value="false" /-->
+
+    <property name="plugin.version" value="1" />
+
+    <property name="plugin.name" value="com.liferay.token.auth.api" />
+
+    <import file="../../../build-common-osgi-plugin.xml" />
+
+    <target name="build-service">
+        <if>
+            <available file="docroot" />
+            <then>
+                <var name="service.base.dir" value="docroot/WEB-INF" />
+            </then>
+            <else>
+                <var name="service.base.dir" value="." />
+            </else>
+        </if>
+
+        <build-service
+                service.api.dir="${basedir}/${service.base.dir}/service"
+                service.sql.dir="${basedir}/${service.base.dir}/sql"
+                service.test.dir=""
+                />
+
+        <path id="service.classpath">
+            <path refid="lib.classpath" />
+            <fileset dir="${app.server.lib.global.dir}" includes="*.jar" />
+            <fileset dir="${sdk.dir}/dependencies/aQute.bnd/lib" includes="*.jar" />
+            <fileset dir="${service.base.dir}/lib" excludes="${plugin.name}-service.jar" includes="*.jar" />
+        </path>
+
+        <compile-java
+                javac.classpathref="service.classpath"
+                javac.destdir="${service.base.dir}/classes"
+                javac.srcdir="${service.base.dir}/service"
+                />
+    </target>
+</project>
