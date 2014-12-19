@@ -1,0 +1,42 @@
+Bundle-Localization: WEB-INF/classes/content/Language
+Bundle-Name: Auth Token Portlet
+Bundle-SymbolicName: com.liferay.token.auth.portlet
+Bundle-Version: 1.0.0
+DynamicImport-Package:\
+	org.apache.jasper.servlet,\
+	org.eclipse.jetty.servlet.listener
+Export-Package:\
+	content,\
+	com.liferay.token.auth.portlet
+Import-Package:\
+	com.liferay.portal.kernel.cache,\
+	com.liferay.portal.kernel.exception,\
+	com.liferay.portal.kernel.log,\
+	com.liferay.portal.kernel.util,\
+	com.liferay.portal.security.ac,\
+	com.liferay.portal.security.auth,\
+	com.liferay.registry,\
+	com.liferay.token.auth.model,\
+	com.liferay.token.auth.service,\
+	com.liferay.token.auth.verifier,\
+	javax.servlet.http,\
+	javax.portlet,\
+	*;resolution:="optional"
+Web-ContextPath: /token-auth-web
+-wab: \
+	css=docroot/css,\
+	icons=docroot/icons,\
+	images=docroot/images,\
+	js=docroot/js,\
+	WEB-INF/classes=docroot/WEB-INF/classes,\
+	WEB-INF/jsp=docroot/html,\
+	WEB-INF/tld=docroot/WEB-INF/tld,\
+	WEB-INF/liferay-display.xml=docroot/WEB-INF/liferay-display.xml,\
+	WEB-INF/liferay-plugin-package.properties=docroot/WEB-INF/liferay-plugin-package.properties,\
+	WEB-INF/liferay-portlet.xml=docroot/WEB-INF/liferay-portlet.xml,\
+	WEB-INF/portlet.xml=docroot/WEB-INF/portlet.xml
+-wablib: \
+	${app.server.portal.dir}/WEB-INF/lib/util-bridges.jar,\
+	${app.server.portal.dir}/WEB-INF/lib/util-java.jar,\
+	${app.server.portal.dir}/WEB-INF/lib/util-taglib.jar
+-baseline: *;version="1.0.0"
