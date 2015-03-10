@@ -1,14 +1,32 @@
-apply from: "$gradle.lfrSdkDir/versions.gradle"
+apply from: "${gradle.lfrSdkDir}/versions.gradle"
 
 allprojects {
 	apply plugin: "war"
 
-	ant.loadproperties(srcFile: "$gradle.lfrSdkDir/build.properties")
+	dependencies {
+		Map projectCompileDependencies = gradle.compileDependencies.find {
+			project.path == it.projectPath
+		}
 
-	File pluginSrcDir = file("$projectDir/docroot")
+		if (projectCompileDependencies) {
+			projectCompileDependencies["compile"].each {
+				compile project(it)
+			}
+		}
+	}
+
+	repositories {
+		maven {
+			url "http://cdn.repository.liferay.com/nexus/content/groups/public"
+		}
+	}
+
+	ant.loadproperties(srcFile: "${gradle.lfrSdkDir}/build.properties")
+
+	File pluginSrcDir = file("${projectDir}/docroot")
 
 	if (!pluginSrcDir.exists()) {
-		pluginSrcDir = file("$projectDir/src")
+		pluginSrcDir = file("${projectDir}/src")
 
 		if (!pluginSrcDir.exists()) {
 			pluginSrcDir = null
@@ -19,58 +37,81 @@ allprojects {
 		return
 	}
 
-	task initGradle {
-		def getBuildGradleDependencies
-		def getBuildGradleDependenciesCompile
-		def getBuildGradleDependenciesProvidedCompile
-		def getBuildGradleExt
-		def getBuildGradleExtPluginFullVersion
-		def getBuildXmlProperty
-		def writeBuildGradleFile
+	task initGradle << {
+		Boolean osgiPlugin
+
+		Closure getBuildGradleDependencies
+		Closure getBuildGradleDependenciesCompile
+		Closure getBuildGradleDependenciesProvidedCompile
+		Closure getBuildGradleDependenciesTestCompile
+		Closure getBuildGradleExt
+		Closure getBuildGradleExtPluginFullVersion
+		Closure getBuildXmlProperty
+		Closure getIndent
+		Closure wrapContents
+		Closure wrapDependency
+		Closure wrapProperty
+		Closure wrapServiceJar
+		Closure writeBuildGradleFile
+		Closure writeDependencySettingsFile
+
+		File bndPropertiesFile
+		File buildXmlFile
+		File ivyXmlFile
+		File pluginPackagePropertiesFile
+
+		Node buildXmlNode
+		Node ivyXmlNode
+
+		Properties bndProperties
+		Properties pluginPackageProperties
 
 		getBuildGradleDependencies = {
-			Node ivyXmlNode, Properties pluginPackageProperties ->
-
 			List contents = []
 
-			contents << "dependencies {"
+			contents.addAll(getBuildGradleDependenciesCompile())
+			contents.addAll(getBuildGradleDependenciesProvidedCompile())
+			contents.addAll(getBuildGradleDependenciesTestCompile())
 
-			contents.addAll(getBuildGradleDependenciesCompile(ivyXmlNode))
-			contents.addAll(getBuildGradleDependenciesProvidedCompile(pluginPackageProperties))
-
-			contents << "}"
-
-			return contents
+			return wrapContents(contents, 0, " {", "dependencies", "}")
 		}
 
 		getBuildGradleDependenciesCompile = {
-			Node ivyXmlNode ->
-
 			List contents = []
-
-			contents << "\tcompile("
 
 			if (ivyXmlNode) {
 				ivyXmlNode.dependencies.dependency.each {
-					contents << "\t\t[group: \"${it.@org}\", name:\"${it.@name}\", version: \"${it.@rev}\"],"
+					if ((it.@conf == null) || (it.@conf == "default")) {
+						contents.addAll(wrapDependency(2, it.@org, it.@name, it.@rev))
+					}
 				}
 			}
 
-			contents << "\t)"
+			String requiredDeploymentContexts = pluginPackageProperties["required-deployment-contexts"]
 
-			return contents
+			if (requiredDeploymentContexts) {
+				String[] requiredDeploymentContextsArray = requiredDeploymentContexts.split(",")
+
+				requiredDeploymentContextsArray.each {
+					String serviceJarFileName = "../../" + it.replaceFirst(".+-", "") + "s/${it}/docroot/WEB-INF/lib/${it}-service.jar"
+
+					File serviceJarFile = new File("${projectDir}", serviceJarFileName)
+
+					if (serviceJarFile.exists()) {
+						contents.addAll(wrapServiceJar(2, serviceJarFileName))
+					}
+				}
+			}
+
+			return wrapContents(contents, 1, "(", "compile", ")")
 		}
 
 		getBuildGradleDependenciesProvidedCompile = {
-			Properties pluginPackageProperties ->
-
 			List contents = []
-
-			contents << "\tprovidedCompile("
 
 			String portalDependencyJars = pluginPackageProperties["portal-dependency-jars"]
 
-			if (portalDependencyJars != null) {
+			if (portalDependencyJars) {
 				portalDependencyJars = portalDependencyJars.replaceAll("\\.jar", "")
 				portalDependencyJars = portalDependencyJars.replaceAll("-\\w") {
 					it[1].toUpperCase()
@@ -79,39 +120,59 @@ allprojects {
 				String[] portalDependencyJarsArray = portalDependencyJars.split(",");
 
 				portalDependencyJarsArray.each {
-					portalDependencyJar ->
+					String portalDependencyJar ->
 
-					Map portalDependencyJarsMap = portalDependencies.get(portalDependencyJar)
+					Map portalDependencyJarMap = portalDependencies.get(portalDependencyJar)
 
-					if (portalDependencyJarsMap == null) {
+					if (portalDependencyJarMap == null) {
 						println("Portal dependency " + portalDependencyJar + " is not defined in versions.gradle")
 					}
 					else {
-						contents << "\t\t[group: \"${portalDependencyJarsMap."group"}\", name: \"${portalDependencyJarsMap."name"}\", version: \"${portalDependencyJarsMap."version"}\"],"
+						contents.addAll(wrapDependency(2, portalDependencyJarMap["group"], portalDependencyJarMap["name"], portalDependencyJarMap["version"]))
+					}
+				}
+
+			}
+
+			return wrapContents(contents, 1, "(", "providedCompile", ")")
+		}
+
+		getBuildGradleDependenciesTestCompile = {
+			List contents = []
+
+			if (ivyXmlNode) {
+				ivyXmlNode.dependencies.dependency.each {
+					if (it.@conf =~ "test") {
+						contents.addAll(wrapDependency(2, it.@org, it.@name, it.@rev))
 					}
 				}
 			}
 
-			contents << "\t)"
-
-			return contents
+			return wrapContents(contents, 1, "(", "testCompile", ")")
 		}
 
 		getBuildGradleExt = {
-			Properties bndProperties, Node buildXmlNode, Properties pluginPackageProperties ->
-
 			List contents = []
 
-			contents << "ext {"
-			contents.addAll(getBuildGradleExtPluginFullVersion(bndProperties, buildXmlNode, pluginPackageProperties))
-			contents << "}"
+			contents.addAll(wrapProperty(1, "osgiIdeDependencies", getBuildXmlProperty("osgi.ide.dependencies")))
+			contents.addAll(wrapProperty(1, "osgiRuntimeDependencies", getBuildXmlProperty("osgi.runtime.dependencies")))
+			contents.addAll(wrapProperty(1, "pluginFullVersion", getBuildGradleExtPluginFullVersion()))
 
-			return contents
+			String pluginPackaging = "war"
+
+			if ((project.parent.name == "shared") || osgiPlugin) {
+				pluginPackaging = "jar"
+			}
+
+			contents.addAll(wrapProperty(1, "pluginPackaging", pluginPackaging))
+
+			contents.addAll(wrapProperty(1, "portalDependencyTlds", pluginPackageProperties["portal-dependency-tlds"]))
+			contents.addAll(wrapProperty(1, "themeParent", getBuildXmlProperty("theme.parent")))
+
+			return wrapContents(contents, 0, " {", "ext", "}")
 		}
 
 		getBuildGradleExtPluginFullVersion = {
-			Properties bndProperties, Node buildXmlNode, Properties pluginPackageProperties ->
-
 			String pluginFullVersion = null;
 
 			String moduleFullVersion = pluginPackageProperties["module-full-version"]
@@ -129,55 +190,135 @@ allprojects {
 					String moduleIncrementalVersion = pluginPackageProperties["module-incremental-version"]
 
 					if (moduleIncrementalVersion == null) {
-						moduleIncrementalVersion = getBuildXmlProperty(buildXmlNode, "plugin.version", "1")
+						moduleIncrementalVersion = getBuildXmlProperty("plugin.version")
 					}
 
-					pluginFullVersion = getBuildXmlProperty(buildXmlNode, "plugin.full.version", ant.properties["lp.version"] + "." + moduleIncrementalVersion)
+					pluginFullVersion = getBuildXmlProperty("plugin.full.version", ant.properties["lp.version"] + "." + moduleIncrementalVersion)
 				}
 			}
 
-			return "\tpluginFullVersion = \"${pluginFullVersion}\""
+			return pluginFullVersion
 		}
 
 		getBuildXmlProperty = {
-			Node buildXmlNode, String key, String defaultValue ->
+			String key, String defaultValue = "" ->
 
 			String value = defaultValue
 
-			buildXmlNode.property.each {
-				println it.@name + " " + key + " " + (it.@name == key)
+			Node buildXmlPropertyNode = buildXmlNode.property.find {
+				it.@name == key
+			}
 
-				if (it.@name == key) {
-					value = it.@value
-				}
+			if (buildXmlPropertyNode) {
+				value = buildXmlPropertyNode.@value
 			}
 
 			return value
 		}
 
-		writeBuildGradleFile = {
-			Properties bndProperties, Node buildXmlNode, Node ivyXmlNode, Properties pluginPackageProperties ->
+		getIndent = {
+			String indent = ""
 
+			it.times(
+			{
+				indent = indent + "\t"
+			})
+
+			return indent
+		}
+
+		wrapContents = {
+			List contents, int indentCount, String leftClose, String name, String rightClose ->
+
+			if (contents.isEmpty()) {
+				return contents;
+			}
+
+			String indent = getIndent(indentCount)
+
+			contents.add(0, indent + name + leftClose)
+
+			String content = contents.last()
+
+			if (content.endsWith(",")) {
+				contents.pop()
+
+				contents << content.substring(0, content.length() - 1)
+			}
+
+			contents << indent + rightClose
+
+			return contents
+		}
+
+		wrapDependency = {
+			int indentCount, String group, String name, String version ->
+
+			return "${getIndent(indentCount)}[group: \"${group}\", name: \"${name}\", version: \"${version}\"],"
+		}
+
+		wrapProperty = {
+			int indentCount, String name, String value = "" ->
+
+			if (value) {
+				return "${getIndent(indentCount)}${name} = \"${value}\""
+			}
+
+			return []
+		}
+
+		wrapServiceJar = {
+			int indentCount, String serviceJarFileName ->
+
+			return "${getIndent(indentCount)}files(\"${serviceJarFileName}\"),"
+		}
+
+		writeBuildGradleFile = {
 			List contents = []
 
-			contents.addAll(getBuildGradleDependencies(ivyXmlNode, pluginPackageProperties))
-			contents.addAll(getBuildGradleExt(bndProperties, buildXmlNode, pluginPackageProperties))
+			contents.addAll(getBuildGradleDependencies())
+			contents.addAll(getBuildGradleExt())
 
-			File buildGradleFile = new File("$projectDir/build.gradle")
+			File buildGradleFile = new File("${projectDir}/build.gradle")
 
 			contents.each {
 				buildGradleFile << it + "\n"
 			}
 		}
 
+		writeDependencySettingsFile = {
+			File dependencySettingsFile = new File("${projectDir}/dependency-settings.gradle")
+
+			String importShared = getBuildXmlProperty("import.shared")
+
+			if (importShared) {
+				List contents = []
+
+				String[] importSharedArray = importShared.split(",")
+
+				importSharedArray.each {
+					contents << "includeTransitive \":shared:${it}\""
+				}
+
+				contents.each {
+					dependencySettingsFile << it + "\n"
+				}
+			}
+			else {
+				dependencySettingsFile.delete()
+			}
+		}
+
 		// bnd.bnd
 
-		Properties bndProperties = new Properties()
+		bndProperties = new Properties()
 
-		File bndPropertiesFile = new File("$projectDir/bnd.bnd")
+		bndPropertiesFile = new File("${projectDir}/bnd.bnd")
 
 		if (bndPropertiesFile.exists()) {
 			bndProperties.load(new FileInputStream(bndPropertiesFile))
+
+			osgiPlugin = true
 		}
 
 		// build.xml
@@ -186,15 +327,15 @@ allprojects {
 
 		xmlParser.setFeature("http://apache.org/xml/features/disallow-doctype-decl", false)
 
-		File buildXmlFile = new File("$projectDir/build.xml")
+		buildXmlFile = new File("${projectDir}/build.xml")
 
-		Node buildXmlNode = xmlParser.parse(buildXmlFile)
+		buildXmlNode = xmlParser.parse(buildXmlFile)
 
 		// ivy.xml
 
-		Node ivyXmlNode = null
+		ivyXmlNode = null
 
-		File ivyXmlFile = new File("$projectDir/ivy.xml")
+		ivyXmlFile = new File("${projectDir}/ivy.xml")
 
 		if (ivyXmlFile.exists()) {
 			ivyXmlNode = xmlParser.parse(ivyXmlFile)
@@ -202,9 +343,9 @@ allprojects {
 
 		// liferay-plugin-package.properties
 
-		Properties pluginPackageProperties = new Properties()
+		pluginPackageProperties = new Properties()
 
-		File pluginPackagePropertiesFile = new File("$projectDir/docroot/WEB-INF/liferay-plugin-package.properties")
+		pluginPackagePropertiesFile = new File("${projectDir}/docroot/WEB-INF/liferay-plugin-package.properties")
 
 		if (pluginPackagePropertiesFile.exists()) {
 			pluginPackageProperties.load(new FileInputStream(pluginPackagePropertiesFile))
@@ -212,6 +353,10 @@ allprojects {
 
 		// build.gradle
 
-		writeBuildGradleFile(bndProperties, buildXmlNode, ivyXmlNode, pluginPackageProperties)
+		writeBuildGradleFile()
+
+		// dependency-settings.gradle
+
+		writeDependencySettingsFile()
 	}
 }
