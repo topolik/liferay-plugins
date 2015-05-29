@@ -131,7 +131,9 @@ public class WebFormPortlet extends MVCPortlet {
 				CaptchaUtil.check(actionRequest);
 			}
 			catch (CaptchaException ce) {
-				SessionErrors.add(actionRequest, ce.getClass().getName());
+				Class<?> clazz = ce.getClass();
+
+				SessionErrors.add(actionRequest, clazz.getName());
 
 				return;
 			}
