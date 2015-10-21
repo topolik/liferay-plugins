@@ -17,6 +17,7 @@ package com.liferay.sync.security.auth.verifier;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+
 import com.liferay.portal.kernel.security.auth.http.HttpAuthManagerUtil;
 import com.liferay.portal.kernel.security.auth.http.HttpAuthorizationHeader;
 import com.liferay.portal.kernel.security.auth.verifier.AuthVerifier;
@@ -30,6 +31,14 @@ import com.liferay.portal.security.auth.AccessControlContext;
 import com.liferay.portal.security.auth.AuthException;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.sync.security.service.access.policy.SyncTokenPolicy;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Properties;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import net.oauth.jsontoken.Checker;
 import net.oauth.jsontoken.JsonToken;
 import net.oauth.jsontoken.JsonTokenParser;
@@ -40,13 +49,8 @@ import net.oauth.jsontoken.crypto.Signer;
 import net.oauth.jsontoken.crypto.Verifier;
 import net.oauth.jsontoken.discovery.VerifierProvider;
 import net.oauth.jsontoken.discovery.VerifierProviders;
-import org.joda.time.Instant;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
-import java.util.List;
-import java.util.Properties;
+import org.joda.time.Instant;
 
 import org.osgi.service.component.annotations.Component;
 
