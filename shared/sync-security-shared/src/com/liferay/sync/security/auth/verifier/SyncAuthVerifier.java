@@ -46,10 +46,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
+import org.osgi.service.component.annotations.Component;
+
 /**
  * @author Michael Young
  * @author Dennis Ju
  */
+@Component(
+	immediate = true,
+	property = {
+		"auth.verifier.SyncAuthVerifier.urls.includes=/api/jsonws/sync-web.syncdlobject/*"
+	}
+)
 public class SyncAuthVerifier implements AuthVerifier {
 
 	@Override
