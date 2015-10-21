@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.security.auth.http.HttpAuthManagerUtil;
 import com.liferay.portal.kernel.security.auth.http.HttpAuthorizationHeader;
 import com.liferay.portal.kernel.security.auth.verifier.AuthVerifier;
 import com.liferay.portal.kernel.security.auth.verifier.AuthVerifierResult;
+import com.liferay.portal.kernel.security.service.access.policy.ServiceAccessPolicyThreadLocal;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PwdGenerator;
 import com.liferay.portal.kernel.util.Validator;
@@ -28,6 +29,7 @@ import com.liferay.portal.model.User;
 import com.liferay.portal.security.auth.AccessControlContext;
 import com.liferay.portal.security.auth.AuthException;
 import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.sync.security.service.access.policy.SyncTokenPolicy;
 import net.oauth.jsontoken.Checker;
 import net.oauth.jsontoken.JsonToken;
 import net.oauth.jsontoken.JsonTokenParser;
@@ -114,10 +116,12 @@ public class SyncAuthVerifier implements AuthVerifier {
 
 			if (credentials != null) {
 				authVerifierResult.setPassword(credentials[1]);
-				authVerifierResult.setPasswordBasedAuthentication(true);
 				authVerifierResult.setState(AuthVerifierResult.State.SUCCESS);
 				authVerifierResult.setUserId(
 					GetterUtil.getLong(credentials[0]));
+
+				ServiceAccessPolicyThreadLocal.addActiveServiceAccessPolicyName(
+					SyncTokenPolicy.POLICY_NAME);
 			}
 
 			return authVerifierResult;
