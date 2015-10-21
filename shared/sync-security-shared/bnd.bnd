@@ -1,0 +1,5 @@
+Bundle-Name: Sync Security Shared
+Import-Package:\
+	*
+Include-Resource: classes
+Service-Component: *
