@@ -14,6 +14,7 @@
 		<dependency conf="test->default" name="arquillian-junit-container" org="org.jboss.arquillian.junit" rev="1.1.6.Final" />
 		<dependency conf="test->default" name="arquillian-tomcat-remote-7" org="org.jboss.arquillian.container" rev="1.0.0.CR6" />
 		<dependency conf="test->default" name="com.liferay.ant.arquillian" org="com.liferay" rev="1.0.0-SNAPSHOT" />
+		<dependency name="com.liferay.service.access.policy.api" org="com.liferay" rev="1.0.0-SNAPSHOT" />
 		<dependency name="org.osgi.compendium" org="org.osgi" rev="5.0.0" />
 		<dependency name="jsontoken" org="com.googlecode.jsontoken" rev="1.1">
 			<exclude name="servlet-api" />
